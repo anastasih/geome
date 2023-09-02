@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".HomePage">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="0dp"
+            app:srcCompat="@drawable/logo" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonMap"
+            android:layout_width="43dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="140dp"
+            android:background="#00000000"
+            android:contentDescription="Кнопка Мапа"
+            android:src="@drawable/map_icon" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonProfile"
+            android:layout_width="43dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:background="#00000000"
+            android:contentDescription="Кнопка профіль"
+            android:src="@drawable/user_icon" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="586dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="340dp"
+                android:layout_height="41dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="93px"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_3" />
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:background="@drawable/search"
+                    android:layout_gravity="center|start"
+                    android:layout_marginLeft="43px"
+                    />
+
+                <EditText
+                    style="@style/input"
+                    android:layout_width="314dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:background="@null"
+                    android:contentDescription="Пошук послуг"
+                    android:hint="Пошук послуг..."
+                    android:paddingStart="20dp"
+                    android:textColor="#D8D8D8"
+                    android:textColorHint="#D8D8D8" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="340dp"
+                android:layout_height="51dp"
+                android:layout_marginLeft="35dp"
+                android:gravity="center_vertical"
+                android:text="Категорії"
+                android:textColor="#323232"
+                android:textSize="24dp" />
+            <LinearLayout
+                android:id="@+id/categoryContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <FrameLayout
+                    android:layout_width="340dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="25px"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/categories1" />
+
+                    <TextView
+                        android:id="@+id/Categories1"
+                        android:layout_width="340dp"
+                        android:layout_height="120dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:textAppearance="@style/button" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="340dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10px"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/categories2" />
+
+                    <ImageView
+                        android:layout_width="310dp"
+                        android:layout_height="46dp"
+                        android:layout_marginStart="25px"
+                        android:layout_marginTop="240px"
+                        android:background="@drawable/text1" />
+
+                    <TextView
+                        android:id="@+id/Categories2"
+                        android:layout_width="340dp"
+                        android:layout_height="120dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:textAppearance="@style/button" />
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:layout_width="340dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10px"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/categories3" />
+
+                    <ImageView
+                        android:layout_width="310dp"
+                        android:layout_height="46dp"
+                        android:layout_marginStart="25px"
+                        android:layout_marginTop="230px"
+                        android:background="@drawable/text2" />
+
+                    <TextView
+                        android:id="@+id/Categories3"
+                        android:layout_width="340dp"
+                        android:layout_height="120dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:textAppearance="@style/button" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="340dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10px"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/categories4" />
+
+                    <ImageView
+                        android:layout_width="310dp"
+                        android:layout_height="46dp"
+                        android:layout_marginStart="25px"
+                        android:layout_marginTop="240px"
+                        android:background="@drawable/text3" />
+
+                    <TextView
+                        android:id="@+id/Categories4"
+                        android:layout_width="340dp"
+                        android:layout_height="120dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:textAppearance="@style/button" />
+                </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="0px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <ImageButton
+            android:id="@+id/ImageButtonMain"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="35dp"
+            android:background="#00000000"
+            android:contentDescription="Кнопка головна"
+            android:src="@drawable/main"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            />
+
+        <ImageButton
+            android:id="@+id/ImageButtonRibbon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="35dp"
+            android:background="#00000000"
+            android:contentDescription="Кнопка стрічка"
+            android:src="@drawable/strichka"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            />
+
+        <ImageButton
+            android:id="@+id/ImageButtonCity"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="25dp"
+            android:background="#00000000"
+            android:contentDescription="Кнопка місто"
+            android:src="@drawable/city"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            />
+
+        <ImageButton
+            android:id="@+id/ImageButtonChat"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:background="#00000000"
+            android:contentDescription="Кнопка чат"
+            android:src="@drawable/chat"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+
