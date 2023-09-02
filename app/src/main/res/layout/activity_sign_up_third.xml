@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SignUpActivityThird">
+
+    <ImageView
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/next"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="start"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="25dp"
+        />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/logo"
+        android:layout_marginBottom="22dp"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="340dp"
+        android:layout_height="51dp"
+        android:text="Категорії послуг"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="#323232"
+        android:textSize="24dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="25dp"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="340dp"
+        android:layout_height="46dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="Пропонуємо обрати кілька категорій послуг, які могли б бути корисними для вас"
+        style="@style/textView2"
+        android:layout_marginLeft="25dp"
+        />
+
+    <FrameLayout
+        android:layout_width="340dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="18dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_1" />
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="23dp"
+                android:layout_height="19dp"
+                android:background="@drawable/home_icon"
+                android:layout_marginLeft="28dp"
+                android:layout_gravity="start|center_vertical"/>
+
+            <CheckBox
+                android:id="@+id/checkboxResidence"
+                android:layout_width="237dp"
+                android:layout_height="wrap_content"
+                android:text="Проживання"
+                style="@style/checkBoxCategorySignIn"
+                android:checked="false"
+                android:buttonTint="#0054D2"
+                android:layout_marginLeft="25dp"
+                android:layoutDirection="rtl"/>
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="340dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="18dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_1" />
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="23dp"
+                android:layout_height="19dp"
+                android:background="@drawable/bike_icon"
+                android:layout_marginLeft="28dp"
+                android:layout_gravity="start|center_vertical"/>
+
+            <CheckBox
+                android:id="@+id/checkboxRest"
+                android:layout_width="237dp"
+                android:layout_height="wrap_content"
+                android:text="Відпочинок та розваги"
+                style="@style/checkBoxCategorySignIn"
+                android:checked="false"
+                android:buttonTint="#0054D2"
+                android:layout_marginLeft="25dp"
+                android:layoutDirection="rtl"/>
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="340dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="18dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_1" />
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="23dp"
+                android:layout_height="19dp"
+                android:background="@drawable/hair_icon"
+                android:layout_marginLeft="28dp"
+                android:layout_gravity="start|center_vertical"/>
+
+            <CheckBox
+                android:id="@+id/checkboxBeauty"
+                android:layout_width="237dp"
+                android:layout_height="wrap_content"
+                android:text="Послуги краси"
+                style="@style/checkBoxCategorySignIn"
+                android:checked="false"
+                android:buttonTint="#0054D2"
+                android:layout_marginLeft="25dp"
+                android:layoutDirection="rtl"/>
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="340dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="18dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_1" />
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="23dp"
+                android:layout_height="19dp"
+                android:background="@drawable/food_icon"
+                android:layout_marginLeft="28dp"
+                android:layout_gravity="start|center_vertical"/>
+
+            <CheckBox
+                android:id="@+id/checkboxFood"
+                android:layout_width="237dp"
+                android:layout_height="wrap_content"
+                android:text="Заклади харчування"
+                style="@style/checkBoxCategorySignIn"
+                android:checked="false"
+                android:buttonTint="#0054D2"
+                android:layout_marginLeft="25dp"
+                android:layoutDirection="rtl"/>
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="340dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="18dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_1" />
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="23dp"
+                android:layout_height="19dp"
+                android:background="@drawable/delivery_icon"
+                android:layout_marginLeft="28dp"
+                android:layout_gravity="start|center_vertical"/>
+
+            <CheckBox
+                android:id="@+id/checkboxDelivery"
+                android:layout_width="237dp"
+                android:layout_height="wrap_content"
+                android:text="Доставка продуктів"
+                style="@style/checkBoxCategorySignIn"
+                android:checked="false"
+                android:buttonTint="#0054D2"
+                android:layout_marginLeft="25dp"
+                android:layoutDirection="rtl"/>
+        </LinearLayout>
+    </FrameLayout>
+
+    <CheckBox
+        android:id="@+id/checkboxAgreement"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:text="Я хочу отримувати сповіщення на телефон про акції та події в обраних категоріях"
+        style="@style/textViewCheckbox"
+        android:checked="true"
+        android:buttonTint="#0054D2"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="25dp"/>
+
+    <FrameLayout
+        android:layout_width="340dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:id="@+id/buttonFinishRegistration"
+            android:layout_width="340dp"
+            android:layout_height="55dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:text="Завершити реєстрацію"
+            android:textAppearance="@style/button"
+            android:gravity="center_horizontal|center_vertical"
+            />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="29dp"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Вже є акаунт?"
+            style="@style/textView8"
+            />
+
+        <TextView
+            android:id="@+id/buttonLogIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Увійти"
+            style="@style/textViewLogIn"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

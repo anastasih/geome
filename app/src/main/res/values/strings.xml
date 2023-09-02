@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">geome</string>
+    <string-array name="spinner_values">
+        <item>Варіант 1</item>
+        <item>Варіант 2</item>
+        <item>Варіант 3</item>
+    </string-array>
+</resources>
