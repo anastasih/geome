@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Geome"
         tools:targetApi="31">
         <activity
-            android:name=".FirstPage"
+            android:name=".HomePage"
             android:exported="false" />
         <activity
             android:name=".LogInActivity"

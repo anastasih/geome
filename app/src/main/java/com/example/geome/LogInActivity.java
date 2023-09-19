@@ -79,7 +79,7 @@ public class LogInActivity extends AppCompatActivity {
             // Перевірка правильності паролю
             String enteredPassword = userLog.getUserPassword();
             if (enteredPassword.equals(userPassword)) {
-                // Пароль вірний, створення об'єкта User і перехід на наступну активність
+                // Пароль вірний, створення об'єкта User і перехід на сторінку HomePage
                 User loggedInUser = new User();
                 loggedInUser.setUserName(userName);
                 loggedInUser.setUserPhone(userPhone);
@@ -89,10 +89,10 @@ public class LogInActivity extends AppCompatActivity {
                 cursor.close();
                 db.close();
 
-                // Передача даних залогіненого користувача на наступну активність
-                Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra(KEY_USER, loggedInUser);
+                // Перехід на сторінку HomePage
+                Intent intent = new Intent(this, HomePage.class);
                 startActivity(intent);
+                finish(); // Закрити поточну активність, щоб не можна було повернутися на сторінку входу
             } else {
                 cursor.close();
                 db.close();
@@ -103,6 +103,7 @@ public class LogInActivity extends AppCompatActivity {
             db.close();
         }
     }
+
     private void setEditTexes(){
         phoneEditText.addTextChangedListener(new TextWatcher() {
             @Override
