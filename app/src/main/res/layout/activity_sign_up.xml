@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,360 +7,353 @@
     android:orientation="vertical"
     tools:context=".SignUpActivity">
 
-    <ImageView
-        android:id="@+id/buttonBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/next"
-        android:layout_marginBottom="15dp"
-        android:layout_gravity="start"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="25dp"
-        />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/logo"
-        android:layout_marginBottom="22dp"
-        android:layout_gravity="center"
-        />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="340dp"
-        android:layout_height="51dp"
-        android:text="Реєстрація"
-        android:fontFamily="@font/montserrat_bold"
-        android:textColor="#323232"
-        android:textSize="24dp"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="25dp"/>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="340dp"
-        android:layout_height="46dp"
-        android:fontFamily="@font/montserrat_regular"
-        android:text="Заповніть усі поля для створення акаунту"
-        style="@style/textView2"
-        android:layout_marginLeft="25dp"
-        />
-
-    <!-- Layout для елементу EditText імя та прізвище -->
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="340.01dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="25dp"
-        android:layout_alignParentTop="true"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_marginBottom="22dp">
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="340dp"
-            android:layout_height="16.7dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:text="Як вас звати?"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="1dp"
-            style="@style/textViewTitle"
-            />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
-
-            <!-- ImageView з фоновим зображенням -->
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/rectangle_1" />
-
-            <!-- EditText для введення імені та прізвища -->
-            <EditText
-                android:id="@+id/nameEditText"
-                android:layout_width="310dp"
-                android:layout_height="48dp"
-                android:hint="Ім'я та Прізвище"
-                android:textColorHint="#D8D8D8"
-                android:textColor="#D8D8D8"
-                android:layout_gravity="center"
-                android:background="@null"
-                android:layout_marginStart="20dp"
-                style="@style/input"/>
-
-        </FrameLayout>
-    </LinearLayout>
-
-    <!-- Layout для елементу EditText мобільного телефону -->
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="25dp"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical"
-        android:layout_marginBottom="22dp">
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="340dp"
-            android:layout_height="16.7dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:text="Номер телефону"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="1dp"
-            style="@style/textViewTitle"
-            />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <!-- ImageView з фоновим зображенням -->
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/rectangle_1" />
-
-            <!-- LinearLayout для групування ImageView з відступами -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|center_vertical"
-                android:orientation="horizontal"
-                android:layout_marginStart="18dp">
-
-                <ImageView
-                    android:id="@+id/group_36691"
-                    android:layout_width="17dp"
-                    android:layout_height="14.32dp"
-                    android:background="@drawable/flag" />
-
-            </LinearLayout>
-
-            <!-- EditText для введення мобільного телефону -->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="UA + 380"
-                android:layout_marginStart="44dp"
-                android:layout_gravity="center_vertical"
-                style="@style/input"
-                android:textColor="#000000"
-                />
-
-            <EditText
-                android:id="@+id/phoneEditText"
-                android:layout_width="220dp"
-                android:layout_height="48dp"
-                android:hint=" -- --- -- --"
-                android:maxLength="9"
-                android:inputType="number"
-                android:textColorHint="#D8D8D8"
-                android:textColor="#D8D8D8"
-                android:background="@null"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="120dp"
-                style="@style/input"/>
-
-        </FrameLayout>
-    </LinearLayout>
-
-    <!-- Layout для елементу EditText паролю -->
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="25dp"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical"
-        android:layout_marginBottom="22dp">
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="340dp"
-            android:layout_height="16.7dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:text="Пароль"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="1dp"
-            style="@style/textViewTitle"
-            />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <!-- ImageView з фоновим зображенням -->
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/rectangle_1" />
-
-            <!-- EditText для введення паролю -->
-            <EditText
-                android:id="@+id/passwordEditText"
-                android:layout_width="310dp"
-                android:layout_height="48dp"
-                android:hint="Введіть пароль"
-                android:textColorHint="#D8D8D8"
-                android:textColor="#D8D8D8"
-                android:background="@null"
-                android:layout_gravity="center_vertical"
-                android:inputType="textPassword"
-                android:password="true"
-                android:layout_marginStart="20dp"
-                style="@style/input"/>
-
-            <!-- LinearLayout для групування ImageView з відступами -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center_vertical"
-                android:orientation="horizontal"
-                android:layout_marginEnd="20dp">
-
-                <ImageView
-                    android:id="@+id/password_see"
-                    android:layout_width="17dp"
-                    android:layout_height="14.32dp"
-                    android:background="@drawable/eye" />
-
-            </LinearLayout>
-        </FrameLayout>
-    </LinearLayout>
-
-    <!-- Layout для елементу EditText міста -->
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="25dp"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical"
-        android:layout_marginBottom="38.5dp">
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="340dp"
-            android:layout_height="16.7dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:text="Місто, в якому перебуваєте"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="1dp"
-            style="@style/textViewTitle"
-            />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <!-- ImageView з фоновим зображенням -->
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/rectangle_1" />
-
-            <!-- Spinner для введення міста  -->
-            <Spinner
-                android:id="@+id/spinnerCity"
-                android:layout_width="310dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="20dp"
-                style="@style/SpinnerStyle"/>
-
-        </FrameLayout>
-    </LinearLayout>
-
-    <CheckBox
-        android:id="@+id/checkboxLocation"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:text="Дозволити додатку доступ до моєї геолокації у режимі реального часу"
-        style="@style/textViewCheckbox"
-        android:checked="true"
-        android:buttonTint="#0054D2"
-        android:layout_marginLeft="25dp"/>
-
-    <CheckBox
-        android:id="@+id/checkboxPrivatePolicy"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:text="Я ознайомився з політикою конфіденційності та приймаю визначені умови про приватність"
-        style="@style/textViewCheckbox"
-        android:checked="true"
-        android:buttonTint="#0054D2"
-        android:layout_marginLeft="25dp"
-        android:layout_marginBottom="25dp"/>
-
-    <FrameLayout
-        android:layout_width="340dp"
-        android:layout_height="55dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/rectangle_2" />
+            android:id="@+id/buttonBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            app:srcCompat="@drawable/next" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="22dp"
+            app:srcCompat="@drawable/logo" />
 
         <TextView
-            android:id="@+id/buttonNext"
+            android:id="@+id/textView"
+            android:layout_width="340dp"
+            android:layout_height="51dp"
+            android:layout_marginLeft="25dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center_vertical"
+            android:text="Реєстрація"
+            android:textColor="#323232"
+            android:textSize="24dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/textView2"
+            android:layout_width="340dp"
+            android:layout_height="46dp"
+            android:layout_marginLeft="25dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="Заповніть усі поля для створення акаунту" />
+
+        <!-- Layout для елементу EditText імя та прізвище -->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="340.01dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/textViewTitle"
+                android:layout_width="340dp"
+                android:layout_height="16.7dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="1dp"
+                android:gravity="center_vertical"
+                android:text="Як вас звати?" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <!-- ImageView з фоновим зображенням -->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_1" />
+
+                <!-- EditText для введення імені та прізвища -->
+                <EditText
+                    android:id="@+id/nameEditText"
+                    style="@style/input"
+                    android:layout_width="310dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:background="@null"
+                    android:hint="Ім'я та Прізвище"
+                    android:textColor="#D8D8D8"
+                    android:textColorHint="#D8D8D8" />
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Layout для елементу EditText мобільного телефону -->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/textViewTitle"
+                android:layout_width="340dp"
+                android:layout_height="16.7dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="1dp"
+                android:gravity="center_vertical"
+                android:text="Номер телефону" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- ImageView з фоновим зображенням -->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_1" />
+
+                <!-- LinearLayout для групування ImageView з відступами -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginStart="18dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/group_36691"
+                        android:layout_width="17dp"
+                        android:layout_height="14.32dp"
+                        android:background="@drawable/flag" />
+
+                </LinearLayout>
+
+                <!-- EditText для введення мобільного телефону -->
+
+                <TextView
+                    style="@style/input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="44dp"
+                    android:text="UA + 380"
+                    android:textColor="#000000" />
+
+                <EditText
+                    android:id="@+id/phoneEditText"
+                    style="@style/input"
+                    android:layout_width="220dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="120dp"
+                    android:background="@null"
+                    android:hint=" -- --- -- --"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:textColor="#D8D8D8"
+                    android:textColorHint="#D8D8D8" />
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Layout для елементу EditText паролю -->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/textViewTitle"
+                android:layout_width="340dp"
+                android:layout_height="16.7dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="1dp"
+                android:gravity="center_vertical"
+                android:text="Пароль" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- ImageView з фоновим зображенням -->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_1" />
+
+                <!-- EditText для введення паролю -->
+                <EditText
+                    android:id="@+id/passwordEditText"
+                    style="@style/input"
+                    android:layout_width="310dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:background="@null"
+                    android:hint="Введіть пароль"
+                    android:inputType="textPassword"
+                    android:password="true"
+                    android:textColor="#D8D8D8"
+                    android:textColorHint="#D8D8D8" />
+
+                <!-- LinearLayout для групування ImageView з відступами -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/password_see"
+                        android:layout_width="17dp"
+                        android:layout_height="14.32dp"
+                        android:background="@drawable/eye" />
+
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Layout для елементу EditText міста -->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView6"
+                style="@style/textViewTitle"
+                android:layout_width="340dp"
+                android:layout_height="16.7dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="1dp"
+                android:gravity="center_vertical"
+                android:text="Місто, в якому перебуваєте" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- ImageView з фоновим зображенням -->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_1" />
+
+                <!-- Spinner для введення міста  -->
+                <Spinner
+                    android:id="@+id/spinnerCity"
+                    style="@style/SpinnerStyle"
+                    android:layout_width="310dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp" />
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkboxLocation"
+            style="@style/textViewCheckbox"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:buttonTint="#0054D2"
+            android:checked="true"
+            android:text="Дозволити додатку доступ до моєї геолокації у режимі реального часу" />
+
+        <CheckBox
+            android:id="@+id/checkboxPrivatePolicy"
+            style="@style/textViewCheckbox"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="22dp"
+            android:buttonTint="#0054D2"
+            android:checked="true"
+            android:text="Я ознайомився з політикою конфіденційності та приймаю визначені умови про приватність" />
+
+        <FrameLayout
             android:layout_width="340dp"
             android:layout_height="55dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:text="Далі"
-            android:textAppearance="@style/button"
-            android:gravity="center_horizontal|center_vertical"
-            />
-    </FrameLayout>
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="29dp"
-        android:layout_gravity="center">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rectangle_2" />
 
-        <TextView
-            android:id="@+id/textView8"
+            <TextView
+                android:id="@+id/buttonNext"
+                android:layout_width="340dp"
+                android:layout_height="55dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Далі"
+                android:textAppearance="@style/button" />
+        </FrameLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Вже є акаунт?"
-            style="@style/textView8"
-            />
+            android:layout_height="29dp"
+            android:layout_gravity="center">
 
-        <TextView
-            android:id="@+id/buttonLogIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" Увійти"
-            style="@style/textViewLogIn"
-            />
+            <TextView
+                android:id="@+id/textView8"
+                style="@style/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Вже є акаунт?" />
+
+            <TextView
+                android:id="@+id/buttonLogIn"
+                style="@style/textViewLogIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Увійти" />
+        </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

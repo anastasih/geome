@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,179 +7,188 @@
     android:orientation="vertical"
     tools:context=".FirstPage">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="360dp">
-    
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="360dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/bg_pagefirst"/>
-        
-        <ImageView
-            android:layout_width="274dp"
-            android:layout_height="68dp"
-            android:background="@drawable/bg_firstpagelogo"
-            android:layout_marginTop="50dp"
-            android:layout_gravity="center_horizontal|center_vertical"/>
-    </FrameLayout>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="51dp"
-        android:text="Вітаємо у geome,"
-        android:fontFamily="@font/montserrat_bold"
-        android:textColor="#323232"
-        android:textSize="24dp"
-        android:lineHeight="29sp"
-        android:gravity="center_vertical"
-        android:layout_marginTop="25dp"
-        android:layout_gravity="center_horizontal|center_vertical"/>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="46dp"
-        android:fontFamily="@font/montserrat_regular"
-        android:text="саме час відкрити для себе сервіс поблизу!"
-        style="@style/textView2"
-        android:layout_gravity="center_horizontal|center_vertical"
-        />
-
-    <FrameLayout
-        android:layout_width="340dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="14dp"
-        >
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/rectangle_2" />
-
-        <TextView
-            android:id="@+id/buttonSignUp"
-            android:layout_width="340dp"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:text="Зареєструватися"
-            android:textAppearance="@style/button"
-            android:gravity="center_horizontal|center_vertical"
-            />
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="340dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="14dp">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/rectangle_3" />
-
-        <LinearLayout
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:layout_marginLeft="30dp">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="25dp"
-                android:background="@drawable/google_icon"
-                android:layout_gravity="start|center_vertical"/>
-
-            <TextView
-                android:id="@+id/buttonGoogle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentBottom="true"
-                android:text="Увійти за допомогою Google"
-                android:textAppearance="@style/buttonSocialNetwork"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_marginLeft="40dp"
-                />
-        </LinearLayout>
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="340dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="23dp">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/rectangle_3" />
-
-        <LinearLayout
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:layout_marginLeft="30dp">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="25dp"
-                android:background="@drawable/facebook_icon"
-                android:layout_gravity="start|center_vertical"/>
-
-            <TextView
-                android:id="@+id/buttonFacebook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentBottom="true"
-                android:text="Увійти через Facebook"
-                android:textAppearance="@style/buttonSocialNetwork"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_marginLeft="40dp"
-                />
-        </LinearLayout>
-    </FrameLayout>
-
-    <TextView
-        android:layout_width="340dp"
-        android:layout_height="1.8dp"
-        android:background="@drawable/gradient_background"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_marginBottom="15dp"
-        />
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="29dp"
-        android:layout_gravity="center">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Вже є акаунт?"
-            style="@style/textView8"
-            />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/buttonLogIn"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="@drawable/bg_pagefirst" />
+
+            <ImageView
+                android:layout_width="274dp"
+                android:layout_height="68dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/bg_firstpagelogo" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=" Увійти"
-            style="@style/textViewLogIn"
-            />
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="51dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center_vertical"
+                android:lineHeight="29sp"
+                android:text="Вітаємо у geome,"
+                android:textColor="#323232"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="саме час відкрити для себе сервіс поблизу!" />
+
+            <FrameLayout
+                android:layout_width="340dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="14dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_2" />
+
+                <TextView
+                    android:id="@+id/buttonSignUp"
+                    android:layout_width="340dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="Зареєструватися"
+                    android:textAppearance="@style/button" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="340dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="14dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_3" />
+
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="30dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="start|center_vertical"
+                        android:background="@drawable/google_icon" />
+
+                    <TextView
+                        android:id="@+id/buttonGoogle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_marginLeft="40dp"
+                        android:text="Увійти за допомогою Google"
+                        android:textAppearance="@style/buttonSocialNetwork" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="340dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="23dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_3" />
+
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="30dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="start|center_vertical"
+                        android:background="@drawable/facebook_icon" />
+
+                    <TextView
+                        android:id="@+id/buttonFacebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_marginLeft="40dp"
+                        android:text="Увійти через Facebook"
+                        android:textAppearance="@style/buttonSocialNetwork" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="1.8dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/gradient_background" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="29dp"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/textView10"
+                    style="@style/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Вже є акаунт?" />
+
+                <TextView
+                    android:id="@+id/buttonLogIn"
+                    style="@style/textViewLogIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Увійти" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

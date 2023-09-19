@@ -47,4 +47,8 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">#565656</item>
     </style>
+    <style name="buttonIntroduction">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#0054D2</item>
+    </style>
 </resources>

@@ -5,4 +5,22 @@
         <item>Варіант 2</item>
         <item>Варіант 3</item>
     </string-array>
+
+    //headings slider
+    <string name="heading_one">Знаходьте <font color='#0054D2'>таксі</font>,
+        <font color='#0054D2'>доставку</font>, <font color='#0054D2'>послуги</font>
+        та <font color='#0054D2'>житло</font> поблизу!</string>
+    <string name="heading_two">Залишайте <font color='#0054D2'>відгуки</font>, щоб покращити надання послуг</string>
+    <string name="heading_three">Дізнавайтеся більше про <font color='#0054D2'>місто</font>, в якому перебуваєте</string>
+    <string name="heading_four">Обмінюйтеся досвідом з іншими <font color='#0054D2'>користувачами</font></string>
+    <string name="heading_five">Переглядайте <font color='#0054D2'>пропозиції</font> компаній нашого сервісу</string>
+    <string name="heading_six">Відкрийте власний <font color='#0054D2'>бізнес</font> та збільшіть свій прибуток</string>
+
+    //descriptions slider
+    <string name="description_one">Після визначення вашої геолокації ми зможемо краще підбирати послуги для вас</string>
+    <string name="description_two">Справедливий відгук допомагає прозоро визначити оцінку компанії</string>
+    <string name="description_three">Ви можете переглянути популярні місця та найближчі події на сторінці міста</string>
+    <string name="description_four">Ви можете переглянути чат міста та задати питання тим, хто теж тут перебуває</string>
+    <string name="description_five">В розділі “стрічка” з’являтимуться нові пропозиції (акції, знижки або цікаві події) від представлених на сервісі компаній</string>
+    <string name="description_six">Ви можете залишити заяву на створення сторінки для вашої компанії на geome</string>
 </resources>

@@ -25,8 +25,9 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FirstPage.class);
-
+                Intent intent = new Intent(MainActivity.this, DownloadPage.class);
+                //Intent intent = new Intent(MainActivity.this, IntroductionActivity.class);
+                //Intent intent = new Intent(MainActivity.this, FirstPage.class);
                 //Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
                 //Intent intent = new Intent(MainActivity.this, LogInActivity.class);
                 //Intent intent = new Intent(MainActivity.this, SignUpActivityFinish.class);

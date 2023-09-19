@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textSlider"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textSize="21sp"
+        android:layout_alignParentLeft="true"
+        android:lineHeight="26sp"
+        android:textColor="#323232"
+        android:layout_marginBottom="20dp"
+        android:text="Знаходьте таксі, доставку, послуги та житло поблизу!"
+        />
+
+    <ImageView
+        android:id="@+id/slider"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:src="@drawable/slider1"
+        />
+
+    <ImageView
+        android:id="@+id/buttonNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/next"
+        android:rotation="180"/>
+
+    <TextView
+        android:id="@+id/descriptionSlider"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:fontFamily="@font/montserrat_regular"
+        android:textSize="14sp"
+        android:textColor="#323232"
+        android:text="Після визначення вашої геолокації ми зможемо краще підбирати послуги для вас"
+        android:layout_marginBottom="15dp"
+        />
+
+    <TextView
+        android:id="@+id/knewMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="Дізнатися більше"
+        android:textSize="14sp"
+        android:textColor="#0054D2"/>
+</LinearLayout>
