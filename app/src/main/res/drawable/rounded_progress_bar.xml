@@ -1,0 +1,16 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <solid android:color="#FBFDFF" />
+            <corners android:radius="10dp" /> <!-- Задайте радіус заокруглення, який вам потрібен -->
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <solid android:color="#0054D2" /> <!-- Колір прогресу -->
+                <corners android:radius="10dp" /> <!-- Задайте такий же радіус заокруглення, як для фону -->
+            </shape>
+        </clip>
+    </item>
+</layer-list>

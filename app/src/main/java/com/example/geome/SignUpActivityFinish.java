@@ -46,7 +46,6 @@ public class SignUpActivityFinish extends AppCompatActivity {
         String fullText = "Вітаємо, <br>реєстрацію <font color='#0054D2'>завершено!</font>";
         textViewCongratulations.setText(Html.fromHtml(fullText));
 
-
         SpannableString spannableString = new SpannableString("Тепер ви можете повноцінно користуватися нашим сервісом.\n\nЯк все працює?");
         StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
         spannableString.setSpan(boldSpan, 56, 70, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -11,12 +11,11 @@
         android:id="@+id/buttonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/next"
-        android:layout_marginBottom="15dp"
         android:layout_gravity="start"
-        android:layout_marginTop="15dp"
         android:layout_marginLeft="25dp"
-        />
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@drawable/next" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -66,7 +65,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="34.4dp"
-        android:layout_marginBottom="31dp">
+        android:layout_marginBottom="20dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -187,7 +186,7 @@
         android:layout_marginLeft="25dp"
         android:layout_alignParentTop="true"
         android:orientation="vertical"
-        android:layout_marginBottom="35dp">
+        android:layout_marginBottom="15dp">
 
         <TextView
             android:id="@+id/textView3"
@@ -238,7 +237,7 @@
         android:checked="true"
         android:buttonTint="#0054D2"
         android:layout_marginLeft="25dp"
-        android:layout_marginBottom="25dp"/>
+        android:layout_marginBottom="15dp"/>
 
     <FrameLayout
         android:layout_width="340dp"

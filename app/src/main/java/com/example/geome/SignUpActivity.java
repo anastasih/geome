@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -29,16 +32,16 @@ import com.example.geome.Models.User;
 public class SignUpActivity extends AppCompatActivity {
     public static final String KEY_USER = "androidx.appcompat.app.AppCompatActivity.SignUpActivity.user";
     private User user;
-    TextView buttonNext;
-    EditText nameEditText;
-    EditText phoneEditText;
-    EditText passwordEditText;
-    Spinner spinnerCity;
-    CheckBox checkboxLocation;
-    CheckBox checkboxPrivatePolicy;
-    ImageView seePassword;
-    ImageView buttonBack;
-    TextView buttonLogIn;
+    private TextView buttonNext;
+    private EditText nameEditText;
+    private EditText phoneEditText;
+    private EditText passwordEditText;
+    private Spinner spinnerCity;
+    private CheckBox checkboxLocation;
+    private CheckBox checkboxPrivatePolicy;
+    private ImageView seePassword;
+    private ImageView buttonBack;
+    private TextView buttonLogIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
