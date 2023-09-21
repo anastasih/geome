@@ -22,6 +22,9 @@
             android:name=".DownloadPage"
             android:exported="false" />
         <activity
+            android:name=".HomePage"
+            android:exported="false" />
+        <activity
             android:name=".FirstPage"
             android:exported="false" />
         <activity
