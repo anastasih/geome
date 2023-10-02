@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 
 import com.example.geome.Models.DatabaseHelper;
+import com.example.geome.Models.FragmentReplacer;
 import com.example.geome.Models.User;
 
 
@@ -26,6 +27,8 @@ import com.example.geome.Models.User;
 import java.util.ArrayList;
 
 public class HomePage extends AppCompatActivity {
+    public static final String KEY_USERPROFILE = "androidx.appcompat.app.AppCompatActivity.LogInActivity.user";
+    private User user;
     ImageButton ImageButtonMap;
     ImageButton ImageButtonProfile;
     TextView Categories1;
@@ -43,6 +46,9 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        Intent intent = getIntent();
+        user = (User) intent.getSerializableExtra(LogInActivity.KEY_USERPROFILE);
 
         ImageButtonMap = findViewById(R.id.ImageButtonMap);
         ImageButtonProfile = findViewById(R.id.ImageButtonProfile);
@@ -213,9 +219,9 @@ public class HomePage extends AppCompatActivity {
         ImageButtonRibbon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Код для виконання при натисканні на button1
-                // Наприклад, перехід до MainActivity
-                Intent intent = new Intent(HomePage.this, FirstPage.class);
+                Intent intent = new Intent(HomePage.this, MainBottomMenuActivity.class);
+                intent.putExtra("fragmentName", NewsFeedFragment.class.getName());
+                intent.putExtra(KEY_USERPROFILE, user);
                 startActivity(intent);
             }
         });
@@ -223,9 +229,12 @@ public class HomePage extends AppCompatActivity {
         ImageButtonCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Код для виконання при натисканні на button1
-                // Наприклад, перехід до MainActivity
-                Intent intent = new Intent(HomePage.this, FirstPage.class);
+//                Intent intent = new Intent(HomePage.this, FirstPage.class);
+//                startActivity(intent);
+
+                Intent intent = new Intent(HomePage.this, MainBottomMenuActivity.class);
+                intent.putExtra("fragmentName", CityFragment.class.getName());
+                intent.putExtra(KEY_USERPROFILE, user);
                 startActivity(intent);
             }
         });
@@ -233,9 +242,17 @@ public class HomePage extends AppCompatActivity {
         ImageButtonChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Код для виконання при натисканні на button1
-                // Наприклад, перехід до MainActivity
-                Intent intent = new Intent(HomePage.this, FirstPage.class);
+//                Intent intent = new Intent(HomePage.this, FirstPage.class);
+//                startActivity(intent);
+
+//                Intent intent = new Intent(HomePage.this, MainBottomMenuActivity.class);
+//                intent.putExtra("fragmentName", ChatFragment.class.getName());
+//                intent.putExtra(KEY_USERPROFILE, user);
+//                startActivity(intent);
+
+                Intent intent = new Intent(HomePage.this, MainBottomMenuActivity.class);
+                intent.putExtra("fragmentName", ChatFragment.class.getName());
+                intent.putExtra(LogInActivity.KEY_USERPROFILE, user);
                 startActivity(intent);
             }
         });

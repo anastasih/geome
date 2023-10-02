@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/nameUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:paddingBottom="10dp"
+        android:text="Anastasiia"
+        android:textColor="#565656"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="4dp"/>
+
+    <ImageView
+        android:id="@+id/user_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_user_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameUser"
+        />
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_received_message"
+        app:layout_constraintStart_toEndOf="@+id/user_icon"
+        app:layout_constraintTop_toBottomOf="@+id/nameUser"
+        app:layout_constraintWidth_percent="0.7"
+        android:layout_marginLeft="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|end"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/messageTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:padding="12dp"
+                android:text="Hello world!"
+                android:textColor="#565656"
+                android:textSize="11sp" />
+
+            <ImageView
+                android:id="@+id/playButton"
+                android:layout_width="41dp"
+                android:layout_height="41dp"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/micro" />
+
+            <TextView
+                android:id="@+id/time_publication"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|end"
+                android:fontFamily="@font/montserrat_medium"
+                android:paddingRight="17dp"
+                android:paddingBottom="5dp"
+                android:text="12:45"
+                android:textColor="#565656"
+                android:textSize="11sp" />
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
