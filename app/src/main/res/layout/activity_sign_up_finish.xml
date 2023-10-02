@@ -50,7 +50,7 @@
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:background="@drawable/user_icon"
+            android:background="@drawable/background_user_icon"
             android:layout_gravity="start|center_vertical"
             android:layout_marginRight="19dp"/>
 

@@ -23,4 +23,6 @@
     <string name="description_four">Ви можете переглянути чат міста та задати питання тим, хто теж тут перебуває</string>
     <string name="description_five">В розділі “стрічка” з’являтимуться нові пропозиції (акції, знижки або цікаві події) від представлених на сервісі компаній</string>
     <string name="description_six">Ви можете залишити заяву на створення сторінки для вашої компанії на geome</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

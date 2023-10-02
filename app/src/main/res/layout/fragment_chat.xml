@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChatFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="100dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="340dp"
+            android:layout_height="33dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Чат міста"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="340dp"
+            android:layout_height="47dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Ви можете поставити запитання іншим користувачам, що користуються додатком у вашому місті, або поділитися своєю інформацією"
+            android:textSize="11dp" />
+
+        <ListView
+            android:id="@+id/chatListView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:nestedScrollingEnabled="true"
+            tools:layout_editor_absoluteX="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_above="@+id/messageEditText"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="300dp"
+                android:layout_height="41dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_3" />
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center|start"
+                    android:layout_marginLeft="43px"
+                    android:background="@drawable/search" />
+
+                <EditText
+                    android:id="@+id/messageEditText"
+                    style="@style/input"
+                    android:layout_width="270dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center|center"
+                    android:layout_marginStart="20dp"
+                    android:background="@null"
+                    android:contentDescription="Написати повідомлення..."
+                    android:hint="Написати повідомлення..."
+                    android:paddingStart="20dp"
+                    android:textColor="#D8D8D8"
+                    android:textColorHint="#D8D8D8" />
+
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/recordButton"
+                android:layout_width="41dp"
+                android:layout_height="41dp"
+                android:layout_gravity="center|end"
+                android:layout_marginLeft="43px"
+                android:background="@drawable/micro" />
+
+            <ImageView
+                android:id="@+id/sendButton"
+                android:layout_width="41dp"
+                android:layout_height="41dp"
+                android:layout_gravity="center|end"
+                android:layout_marginLeft="43px"
+                android:background="@drawable/send"
+                android:visibility="gone" /> <!-- По замовчуванню приховано -->
+
+
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

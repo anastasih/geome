@@ -42,7 +42,7 @@
             android:layout_gravity="center"
             android:background="#00000000"
             android:contentDescription="Кнопка профіль"
-            android:src="@drawable/user_icon" />
+            android:src="@drawable/background_user_icon" />
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView

@@ -18,7 +18,8 @@ import com.example.geome.Models.DatabaseHelper;
 import com.example.geome.Models.User;
 
 public class LogInActivity extends AppCompatActivity {
-    public static final String KEY_USER = "androidx.appcompat.app.AppCompatActivity.LogInActivity.user";
+    public static final String KEY_USERPROFILE = "androidx.appcompat.app.AppCompatActivity.LogInActivity.user";
+    private User user;
     TextView buttonSignUp;
     TextView buttonLogIn;
     EditText phoneEditText;
@@ -86,11 +87,16 @@ public class LogInActivity extends AppCompatActivity {
                 loggedInUser.setUserPassword(userPassword);
                 // інші поля даних
 
+                user = new User();
+                user.setUserPhone(userLog.getUserPhone());
+                user.setUserPassword(userLog.getUserPassword());
+
                 cursor.close();
                 db.close();
 
                 // Перехід на сторінку HomePage
                 Intent intent = new Intent(this, HomePage.class);
+                intent.putExtra(KEY_USERPROFILE, user);
                 startActivity(intent);
                 finish(); // Закрити поточну активність, щоб не можна було повернутися на сторінку входу
             } else {

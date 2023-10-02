@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewsFeedFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="100dp">
+
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="33dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="18dp"
+                android:text="Стрічка" />
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="340dp"
+                android:layout_height="47dp"
+                android:layout_gravity="center"
+                android:textSize="11dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Переглядайте нові дописи від компаній, аби дізнатися більше про події та акції у місті." />
+
+            <FrameLayout
+                android:layout_width="340dp"
+                android:layout_height="41dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_3" />
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:background="@drawable/search"
+                    android:layout_gravity="center|start"
+                    android:layout_marginLeft="43px"
+                    />
+
+                <EditText
+                    android:id="@+id/search_news"
+                    style="@style/input"
+                    android:layout_width="314dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:background="@null"
+                    android:contentDescription="Пошук за ключовими словами..."
+                    android:hint="Пошук за ключовими словами..."
+                    android:paddingStart="20dp"
+                    android:textColor="#D8D8D8"
+                    android:textColorHint="#D8D8D8" />
+            </FrameLayout>
+
+
+            <ListView
+                android:id="@+id/lvNews"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="1dp"
+                android:nestedScrollingEnabled="true"/>
+
+        </LinearLayout>
+
+
+</FrameLayout>
