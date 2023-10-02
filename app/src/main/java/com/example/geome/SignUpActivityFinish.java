@@ -83,7 +83,7 @@ public class SignUpActivityFinish extends AppCompatActivity {
     }
 
     private void logIn(View view) {
-        Intent intent = new Intent(this, LogInActivity.class);
+        Intent intent = new Intent(this, HomePage.class);
         startActivity(intent);
     }
 }
