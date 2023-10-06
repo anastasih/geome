@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
+import com.example.geome.Models.AppData;
 import com.example.geome.Models.FragmentReplacer;
 import com.example.geome.Models.User;
 
@@ -22,22 +23,14 @@ public class MainBottomMenuActivity extends AppCompatActivity implements Fragmen
     private ImageButton ImageButtonMain, ImageButtonRibbon, ImageButtonCity, ImageButtonChat;
     private FrameLayout fragmentContainer;
     private User user;
+    public  int newWidth = 60;
+    public int newHeight = 60;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_bottom_menu);
 
-        Intent intent = getIntent();
-        user = (User) intent.getSerializableExtra(LogInActivity.KEY_USERPROFILE);
-
-//        if (user == null) {
-//            Log.d("MyTag", "user is null"); // Вивести повідомлення у консоль, якщо user є null
-//        } else {
-//            Log.d("MyTag", "user is not null");
-//        }
-
-        User userLog = new User();
-        userLog.setUserPhone(user.getUserPhone());
+        user = AppData.getInstance().getUser();
 
         ImageButtonMain = findViewById(R.id.ImageButtonMain);
         ImageButtonRibbon = findViewById(R.id.ImageButtonRibbon);
@@ -49,15 +42,13 @@ public class MainBottomMenuActivity extends AppCompatActivity implements Fragmen
 
         if (fragmentName != null) {
             try {
-//                Class<?> fragmentClass = Class.forName(fragmentName);
-//                Fragment fragment = (Fragment) fragmentClass.newInstance();
-                //replaceFragment(fragment);
+                Class<?> fragmentClass = Class.forName(fragmentName);
+                Fragment fragment = (Fragment) fragmentClass.newInstance();
+                replaceFragment(fragment);
 
                 if(fragmentName.contains("NewsFeedFragment")){
                     Drawable drawable = ContextCompat.getDrawable(MainBottomMenuActivity.this,
                             getResources().getIdentifier("news_feed_main", "drawable", getPackageName()));
-                    int newWidth = 60;
-                    int newHeight = 60;
                     drawable.setBounds(0, 0, newWidth, newHeight);
                     ImageButtonRibbon.setImageDrawable(drawable);
 
@@ -65,16 +56,10 @@ public class MainBottomMenuActivity extends AppCompatActivity implements Fragmen
                             getResources().getIdentifier("home_not_main", "drawable", getPackageName()));
                     drawable.setBounds(0, 0, newWidth, newHeight);
                     ImageButtonMain.setImageDrawable(drawable);
-
-                    Class<?> fragmentClass = Class.forName(fragmentName);
-                    Fragment fragment = (Fragment) fragmentClass.newInstance();
-                    replaceFragment(fragment);
                 }
                 else if(fragmentName.contains("CityFragment")){
                     Drawable drawable = ContextCompat.getDrawable(MainBottomMenuActivity.this,
                             getResources().getIdentifier("city_main", "drawable", getPackageName()));
-                    int newWidth = 60;
-                    int newHeight = 60;
                     drawable.setBounds(0, 0, newWidth, newHeight);
                     ImageButtonCity.setImageDrawable(drawable);
 
@@ -82,22 +67,10 @@ public class MainBottomMenuActivity extends AppCompatActivity implements Fragmen
                             getResources().getIdentifier("home_not_main", "drawable", getPackageName()));
                     drawable.setBounds(0, 0, newWidth, newHeight);
                     ImageButtonMain.setImageDrawable(drawable);
-
-                    Class<?> fragmentClass = Class.forName(fragmentName);
-                    Fragment fragment = (Fragment) fragmentClass.newInstance();
-                    replaceFragment(fragment);
                 }
                 else if(fragmentName.contains("ChatFragment")){
-//                    Class<?> fragmentClass = Class.forName(fragmentName);
-//                    Fragment fragment = (Fragment) fragmentClass.newInstance();
-                    ChatFragment chatFragment = new ChatFragment();
-                    chatFragment.setUser(user); // Встановлюємо дані користувача в ChatFragment
-                    replaceFragment(chatFragment);
-
                     Drawable drawable = ContextCompat.getDrawable(MainBottomMenuActivity.this,
                             getResources().getIdentifier("chat_main", "drawable", getPackageName()));
-                    int newWidth = 60;
-                    int newHeight = 60;
                     drawable.setBounds(0, 0, newWidth, newHeight);
                     ImageButtonChat.setImageDrawable(drawable);
 
@@ -105,7 +78,6 @@ public class MainBottomMenuActivity extends AppCompatActivity implements Fragmen
                             getResources().getIdentifier("home_not_main", "drawable", getPackageName()));
                     drawable.setBounds(0, 0, newWidth, newHeight);
                     ImageButtonMain.setImageDrawable(drawable);
-//                    replaceFragment(fragment);
                 }
             } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
                 e.printStackTrace();
@@ -124,8 +96,6 @@ public class MainBottomMenuActivity extends AppCompatActivity implements Fragmen
             public void onClick(View v) {
                 Drawable drawable = ContextCompat.getDrawable(MainBottomMenuActivity.this,
                         getResources().getIdentifier("news_feed_main", "drawable", getPackageName()));
-                int newWidth = 60;
-                int newHeight = 60;
                 drawable.setBounds(0, 0, newWidth, newHeight);
                 ImageButtonRibbon.setImageDrawable(drawable);
 
@@ -153,8 +123,6 @@ public class MainBottomMenuActivity extends AppCompatActivity implements Fragmen
             public void onClick(View v) {
                 Drawable drawable = ContextCompat.getDrawable(MainBottomMenuActivity.this,
                         getResources().getIdentifier("city_main", "drawable", getPackageName()));
-                int newWidth = 60;
-                int newHeight = 60;
                 drawable.setBounds(0, 0, newWidth, newHeight);
                 ImageButtonCity.setImageDrawable(drawable);
 
@@ -182,8 +150,6 @@ public class MainBottomMenuActivity extends AppCompatActivity implements Fragmen
             public void onClick(View v) {
                 Drawable drawable = ContextCompat.getDrawable(MainBottomMenuActivity.this,
                         getResources().getIdentifier("chat_main", "drawable", getPackageName()));
-                int newWidth = 60;
-                int newHeight = 60;
                 drawable.setBounds(0, 0, newWidth, newHeight);
                 ImageButtonChat.setImageDrawable(drawable);
 
@@ -201,12 +167,7 @@ public class MainBottomMenuActivity extends AppCompatActivity implements Fragmen
                         getResources().getIdentifier("city", "drawable", getPackageName()));
                 drawable.setBounds(0, 0, newWidth, newHeight);
                 ImageButtonCity.setImageDrawable(drawable);
-
-                //replaceFragment(new ChatFragment());
-
-                ChatFragment chatFragment = new ChatFragment();
-                chatFragment.setUser(userLog); // Встановлюємо дані користувача в ChatFragment
-                replaceFragment(chatFragment);
+                replaceFragment(new ChatFragment());
             }
         });
     }

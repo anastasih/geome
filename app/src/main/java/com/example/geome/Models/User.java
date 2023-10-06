@@ -9,7 +9,9 @@ public class User implements Serializable {
     private String gender;
     private String userPhone;
     private String userPassword;
-    private String userCity;
+    //private String userCity;
+
+    private int userCity;
     private int age;
     private boolean accessGeo;
 
@@ -45,11 +47,11 @@ public class User implements Serializable {
         this.userPassword = userPassword;
     }
 
-    public String getUserCity() {
+    public int getUserCity() {
         return userCity;
     }
 
-    public void setUserCity(String userCity) {
+    public void setUserCity(int userCity) {
         this.userCity = userCity;
     }
 

@@ -1,4 +1,5 @@
 package com.example.geome;
+import com.example.geome.Models.AppData;
 import com.example.geome.Models.CustomCursorAdapter;
 
 import android.app.AlertDialog;
@@ -59,8 +60,7 @@ public class ChatFragment extends Fragment {
     private MediaPlayer mediaPlayer;
     private boolean isRecording = false;
     private String currentVoiceMessagePath;
-
-    private String userCity;
+    private int userCity;
 
     private static final int REQUEST_AUDIO_PERMISSION = 200; // Замість 200 ви можете використовувати будь-яке унікальне ціле число
 
@@ -72,11 +72,17 @@ public class ChatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_chat, container, false);
+//        if (getArguments() != null) {
+//            user = (User) getArguments().getSerializable(LogInActivity.KEY_USERPROFILE);
+//        }
+
+        user = AppData.getInstance().getUser();
+
 
         dbHelper = new DatabaseHelper(getActivity());
-        if(dbHelper != null) {
-            Toast.makeText(getActivity(), "get Activity", Toast.LENGTH_SHORT).show();
-        }
+//        if(dbHelper != null) {
+//            Toast.makeText(getActivity(), "get Activity", Toast.LENGTH_SHORT).show();
+//        }
 
         database = dbHelper.getReadableDatabase();
 
@@ -112,18 +118,50 @@ public class ChatFragment extends Fragment {
             }
         });
 
-
         userCity = dbHelper.getCityForUser(user.getUserPhone());
         final int chatId = getChatIdForCity(userCity);
 
         if (chatId != -1) {
-            Cursor cursor = getMessagesForChat(chatId);
 
-            adapter = new CustomCursorAdapter(getActivity(), cursor, dbHelper.getUserId(user.getUserPhone()));
-            //adapter = new CustomCursorAdapter(getActivity(), cursor, dbHelper.getUserId(user.getUserPhone()), R.layout.item_container_sent_message);
+            if (adapter == null) {
+                Cursor cursor = getMessagesForChat(chatId);
+                adapter = new CustomCursorAdapter(getActivity(), cursor, dbHelper.getUserId(user.getUserPhone()));
+                chatListView.setAdapter(adapter);
+            }
 
-            chatListView.setAdapter(adapter);
+//            Cursor cursor = getMessagesForChat(chatId);
+//
+//            adapter = new CustomCursorAdapter(getActivity(), cursor, dbHelper.getUserId(user.getUserPhone()));
+//            //adapter = new CustomCursorAdapter(getActivity(), cursor, dbHelper.getUserId(user.getUserPhone()), R.layout.item_container_sent_message);
+//
+//            chatListView.setAdapter(adapter);
         }
+
+//        rootView.findViewById(R.id.sendButton).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String messageText = messageEditText.getText().toString();
+//                if (!messageText.isEmpty()) {
+//                    int userId = dbHelper.getUserId(user.getUserPhone());
+//                    int chatId = getChatIdForCity(userCity);
+//
+//                    if (chatId != -1) {
+//                        long result = dbHelper.insertMessage(chatId, userId, "text", messageText);
+//
+//                        if (result != -1) {
+//                            // Оновіть список повідомлень
+//                            updateMessagesList(chatId);
+//                            messageEditText.setText("");
+//                        } else {
+//                            Toast.makeText(getActivity(), "Помилка при вставці повідомлення", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                    else{
+//                        Toast.makeText(getActivity(), "Chat id = -1", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//        });
 
         rootView.findViewById(R.id.sendButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +170,11 @@ public class ChatFragment extends Fragment {
                 if (!messageText.isEmpty()) {
                     int userId = dbHelper.getUserId(user.getUserPhone());
                     int chatId = getChatIdForCity(userCity);
+
+                    if (chatId == -1) {
+                        // Чат не існує, створюємо новий чат
+                        chatId = dbHelper.createChat(userCity);
+                    }
 
                     if (chatId != -1) {
                         long result = dbHelper.insertMessage(chatId, userId, "text", messageText);
@@ -143,10 +186,14 @@ public class ChatFragment extends Fragment {
                         } else {
                             Toast.makeText(getActivity(), "Помилка при вставці повідомлення", Toast.LENGTH_SHORT).show();
                         }
+                    } else {
+                        Toast.makeText(getActivity(), "Помилка при створенні чату", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
+
+
 
         // Додайте обробник для кнопки запису голосового повідомлення
 //        rootView.findViewById(R.id.recordButton).setOnClickListener(new View.OnClickListener() {
@@ -586,9 +633,14 @@ public class ChatFragment extends Fragment {
             mediaPlayer.release();
         }
     }
-    private int getChatIdForCity(String cityName) {
+//    private int getChatIdForCity(String cityName) {
+//        // Отримуємо ідентифікатор чату за назвою міста
+//        return dbHelper.getChatIdByCityName(cityName);
+//    }
+
+    private int getChatIdForCity(int cityId) {
         // Отримуємо ідентифікатор чату за назвою міста
-        return dbHelper.getChatIdByCityName(cityName);
+        return dbHelper.getChatIdByCityName(cityId);
     }
 
     private Cursor getMessagesForChat(int chatId) {

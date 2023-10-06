@@ -94,29 +94,30 @@ public class SignUpActivityThird extends AppCompatActivity {
         onBackPressed();
     }
     private void openNext(View view) {
-        DatabaseHelper db = new DatabaseHelper(SignUpActivityThird.this);
-        long result = db.addUser(user.getUserName(), user.getUserPhone(), user.getUserPassword(),
-                user.getUserCity(), user.getGender(), user.getAge(), user.isAccessGeo(),
-                user.isPrivatePolicy(), user.isUserOffers(),
-                user.isNotificationPromotions());
-        if (result == -1) {
-            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
-        } else {
-            int userId = db.getUserId(user.getUserPhone());
-            Toast.makeText(this, "Added successfully", Toast.LENGTH_SHORT).show();
-
-            // Додавання категорій користувача до таблиці user_category
-            for (String category : user.getUserCategories()) {
-                // Отримати ідентифікатор категорії за її назвою (попередньо створивши цю функцію в DatabaseHelper)
-                int categoryId = db.getCategoryId(category);
-
-                // Додати запис в таблицю user_category
-                db.addUserCategory(userId, categoryId);
-            }
+        if(user.getUserCategories().size() == 0){
+            Toast.makeText(this, "Categories are empty!", Toast.LENGTH_SHORT).show();
         }
+        else{
+            DatabaseHelper db = new DatabaseHelper(SignUpActivityThird.this);
+            long result = db.addUser(user.getUserName(), user.getUserPhone(), user.getUserPassword(),
+                    user.getUserCity(), user.getGender(), user.getAge(), user.isAccessGeo(),
+                    user.isPrivatePolicy(), user.isUserOffers(),
+                    user.isNotificationPromotions());
+            if (result == -1) {
+                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+            } else {
+                int userId = db.getUserId(user.getUserPhone());
+                //Toast.makeText(this, "Added successfully", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(this, SignUpActivityFinish.class);
-        startActivity(intent);
+                for (String category : user.getUserCategories()) {
+                    int categoryId = db.getCategoryId(category);
+                    db.addUserCategory(userId, categoryId);
+                }
+            }
+
+            Intent intent = new Intent(this, SignUpActivityFinish.class);
+            startActivity(intent);
+        }
     }
     private void logIn(View view) {
         Intent intent = new Intent(this, LogInActivity.class);

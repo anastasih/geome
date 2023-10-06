@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SignUpActivitySecond">
+
+    <ImageView
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="34dp"
+        app:srcCompat="@drawable/next" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/logo"
+        android:layout_marginBottom="22dp"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="340dp"
+        android:layout_height="51dp"
+        android:text="Час знайомитись!"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="#323232"
+        android:textSize="24dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="25dp"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="340dp"
+        android:layout_height="46dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="Додайте інформацію про себе, аби ми змогли персоналізувати вибір послуг для вас"
+        style="@style/textView2"
+        android:lineHeight="17sp"
+        android:layout_marginLeft="25dp"
+        />
+
+    <TextView
+        android:id="@+id/some_id"
+        android:layout_width="340dp"
+        android:layout_height="53dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="25dp"
+        android:layout_alignParentTop="true"
+        android:text="Якої ви статі?"
+        android:textAppearance="@style/textViewTitle"
+        android:gravity="center_vertical"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="34.4dp"
+        android:layout_marginBottom="31dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="10dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginBottom="15dp">
+
+                <ImageView
+                    android:layout_width="124.82dp"
+                    android:layout_height="124.82dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10.26dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/ellipse" />
+
+                <ImageView
+                    android:id="@+id/female"
+                    android:layout_width="147.9dp"
+                    android:layout_height="299.22dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/female_icon" />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="165dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_2" />
+
+                <TextView
+                    android:id="@+id/buttonFemale"
+                    android:layout_width="165dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="Я - жінка"
+                    android:textAppearance="@style/button"
+                    android:gravity="center_horizontal|center_vertical"
+                    />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginBottom="15dp">
+
+                <ImageView
+                    android:layout_width="124.82dp"
+                    android:layout_height="124.82dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10.26dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/ellipse" />
+
+                <ImageView
+                    android:id="@+id/male"
+                    android:layout_width="147.9dp"
+                    android:layout_height="299.22dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/male_icon" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="165dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_2" />
+
+                <TextView
+                    android:id="@+id/buttonMale"
+                    android:layout_width="165dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="Я - чоловік"
+                    android:textAppearance="@style/button"
+                    android:gravity="center_horizontal|center_vertical"
+                    />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340.01dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="25dp"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:layout_marginBottom="35dp">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="340dp"
+            android:layout_height="16.7dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:text="Скільки вам років?"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="1dp"
+            style="@style/textViewTitle"
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <!-- ImageView з фоновим зображенням -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rectangle_1" />
+
+            <!-- EditText для введення імені та прізвища -->
+            <EditText
+                android:id="@+id/ageEditText"
+                android:layout_width="310dp"
+                android:layout_height="48dp"
+                android:inputType="number"
+                android:hint="Вкажіть ваш вік..."
+                android:textColorHint="#D8D8D8"
+                android:textColor="#D8D8D8"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:layout_marginStart="20dp"
+                style="@style/input"/>
+        </FrameLayout>
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/checkboxInfo"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:text="Не пропонувати послуги, призначені для іншого віку або статі"
+        style="@style/textViewCheckbox"
+        android:checked="true"
+        android:buttonTint="#0054D2"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="15dp"/>
+
+    <FrameLayout
+        android:layout_width="340dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:id="@+id/buttonSecondNext"
+            android:layout_width="340dp"
+            android:layout_height="55dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:text="Далі"
+            android:textAppearance="@style/button"
+            android:gravity="center_horizontal|center_vertical"
+            />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="29dp"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Вже є акаунт?"
+            style="@style/textView8"
+            />
+
+        <TextView
+            android:id="@+id/buttonLogIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Увійти"
+            style="@style/textViewLogIn"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.geome.Models.AppData;
 import com.example.geome.Models.DatabaseHelper;
 import com.example.geome.Models.User;
 
@@ -94,9 +95,14 @@ public class LogInActivity extends AppCompatActivity {
                 cursor.close();
                 db.close();
 
+                //збереження глобальної змінни
+                AppData appData = AppData.getInstance();
+                User usersaved = new User();
+                usersaved.setUserPhone(userLog.getUserPhone());
+                appData.setUser(usersaved);
+
                 // Перехід на сторінку HomePage
                 Intent intent = new Intent(this, HomePage.class);
-                intent.putExtra(KEY_USERPROFILE, user);
                 startActivity(intent);
                 finish(); // Закрити поточну активність, щоб не можна було повернутися на сторінку входу
             } else {

@@ -28,6 +28,10 @@ import android.widget.ArrayAdapter;
 import com.example.geome.Models.DatabaseHelper;
 import com.example.geome.Models.User;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 
 public class SignUpActivity extends AppCompatActivity {
     public static final String KEY_USER = "androidx.appcompat.app.AppCompatActivity.SignUpActivity.user";
@@ -144,23 +148,23 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
     private void setSpinner(){
-        String[] cities = {"Житомир", "Київ", "Львів", "Харків", "Одеса", "Дніпро"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cities);
+        DatabaseHelper db = new DatabaseHelper(this);
+        Map<Integer, String> cityData = db.getCityData();
+        List<String> cityNames = new ArrayList<>(cityData.values());
+        List<Integer> cityIds = new ArrayList<>(cityData.keySet());
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cityNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCity.setAdapter(adapter);
-        int selectedCityIndex = 0;
-        spinnerCity.setSelection(selectedCityIndex);
+
         spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedValue = parent.getItemAtPosition(position).toString();
-                user.setUserCity(selectedValue);
+                int selectedCityId = cityIds.get(position);
+                user.setUserCity(selectedCityId);
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Обробка відсутності вибору
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
     private void toSeePassword(View view){

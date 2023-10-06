@@ -33,7 +33,6 @@ import java.util.Map;
 public class NewsFeedFragment extends Fragment {
     private ListView lvNews;
     private EditText search_news;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
