@@ -20,6 +20,30 @@
         android:theme="@style/Theme.Geome"
         tools:targetApi="31">
         <activity
+            android:name=".Info"
+            android:exported="false" />
+        <activity
+            android:name=".Reviews"
+            android:exported="false" />
+        <activity
+            android:name=".News_Feed"
+            android:exported="false" />
+        <activity
+            android:name=".Business_services_page"
+            android:exported="false" />
+        <activity
+            android:name=".Business_services_page_delivery"
+            android:exported="false" />
+        <activity
+            android:name=".Business_services_page_hostel"
+            android:exported="false" />
+        <activity
+            android:name=".HostelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DeliveryActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainBottomMenuActivity"
             android:exported="false" />
         <activity

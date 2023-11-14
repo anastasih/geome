@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Info">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="33dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="22dp"
+                android:text="Інфо" />
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="33dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="15dp"
+                android:text="Контакти" />
+            <FrameLayout
+                android:layout_width="410dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="50dp"
+                    android:background="@drawable/phone">
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:layout_marginLeft="90dp"
+                    android:layout_marginTop="5dp"
+                    android:text="+38 067 812 34 67" />
+
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="45dp"
+                    android:layout_marginLeft="45dp"
+                    android:background="@drawable/mail">
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:layout_marginLeft="90dp"
+                    android:layout_marginTop="45dp"
+                    android:text="dodohotel_zt@gmail.com" />
+
+            </FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="Бажаєте задати запитання безпосередньо в додатку? Ви отримаєте відповідь протягом найближчих 24 годин"
+                android:gravity="center"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="#000000"
+                />
+            <FrameLayout
+                android:layout_width="370dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_2" />
+
+                <TextView
+                    android:id="@+id/buttonLogIn"
+                    android:layout_width="340dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="Написати повідемлення"
+                    android:textAppearance="@style/button" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="33dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="15dp"
+                android:text="Соціальні мережі" />
+
+            <FrameLayout
+                android:layout_width="410dp"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="100dp"
+                    android:background="@drawable/inst" />
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/faceb" />
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="100dp"
+                    android:background="@drawable/youtube" />
+            </FrameLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/line"
+                android:layout_marginTop="30dp">
+            </ImageView>
+
+
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="15dp"
+                android:text="Контакти"/>
+
+            <FrameLayout
+                android:layout_width="410dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="start"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="#000000"
+                    android:text="Понеділок"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="start"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="#000000"
+                    android:text="Вівторок"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="start"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="60dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="#000000"
+                    android:text="Середа"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="start"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="90dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="#000000"
+                    android:text="Четвер"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="start"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="120dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="#000000"
+                    android:text="П'ятниця"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="start"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="150dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="#000000"
+                    android:text="Субота"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="start"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="180dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="#000000"
+                    android:text="Неділя"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="09.00 - 22.00"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="09.00 - 22.00"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="60dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="09.00 - 22.00"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="90dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="09.00 - 22.00"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="120dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="09.00 - 22.00"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="150dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="10.00 - 22.00"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="180dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="10.00 - 22.00"
+                    android:textSize="15dp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

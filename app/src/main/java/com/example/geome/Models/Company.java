@@ -18,6 +18,9 @@ public class Company {
         this.companyRating = companyRating;
     }
 
+    public int getCompanyId() {
+        return companyId;
+    }
     public String getCompanyName() {
         return companyName;
     }

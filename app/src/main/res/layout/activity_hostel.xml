@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DeliveryActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout_hostel"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/imageView_hostel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="0dp"
+            app:srcCompat="@drawable/logo" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonMap_hostel"
+            android:layout_width="43dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="140dp"
+            android:background="#00000000"
+            android:contentDescription="Кнопка Мапа"
+            android:src="@drawable/map_icon" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonProfile_hostel"
+            android:layout_width="43dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:background="#00000000"
+            android:contentDescription="Кнопка профіль"
+            android:src="@drawable/background_user_icon" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout_hostel3"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_hostel"
+        tools:ignore="MissingConstraints">
+
+
+        <ImageView
+            android:id="@+id/buttonBack_hostel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            app:srcCompat="@drawable/next" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginBottom="0dp"
+            android:text="Житло"
+            android:textColor="#323232"
+            android:textSize="21dp" />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_hostel4"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_hostel3"
+        tools:ignore="MissingConstraints">
+        <FrameLayout
+            android:layout_width="380dp"
+            android:layout_height="41dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginStart="18dp"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rectangle_3" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:background="@drawable/search"
+                android:layout_gravity="center|start"
+                android:layout_marginLeft="43px"
+                />
+
+            <EditText
+                android:id="@+id/search_news"
+                style="@style/input"
+                android:layout_width="314dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:background="@null"
+                android:contentDescription="Заклад або продукт..."
+                android:hint="Заклад або продукт..."
+                android:paddingStart="20dp"
+                android:textColor="#D8D8D8"
+                android:textColorHint="#D8D8D8" />
+        </FrameLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_hostel5"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_hostel4"
+        tools:ignore="MissingConstraints">
+
+        <ImageButton
+            android:id="@+id/ButtonHostel"
+            android:layout_width="120dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="55dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка закладки"
+            android:scaleType="fitCenter"
+            android:src="@drawable/hostel"
+            />
+
+        <ImageButton
+            android:id="@+id/ButtonApps"
+            android:layout_width="123dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка супермаркети"
+            android:scaleType="fitCenter"
+            android:src="@drawable/not_apps" />
+    </LinearLayout>
+
+
+
+    <ListView
+        android:id="@+id/listView_hostel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:layout_editor_absoluteX="1dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_hostel5"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout_hostel2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout_hostel2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <ImageButton
+            android:id="@+id/ImageButtonMain_hostel"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="35dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка головна"
+            android:scaleType="fitCenter"
+            android:src="@drawable/home_not_main" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonRibbon_hostel"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="35dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка стрічка"
+            android:scaleType="fitCenter"
+            android:src="@drawable/strichka" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonCity_hostel"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="25dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка місто"
+            android:scaleType="fitCenter"
+            android:src="@drawable/city" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonChat_hostel"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка чат"
+            android:scaleType="fitCenter"
+            android:src="@drawable/chat" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
