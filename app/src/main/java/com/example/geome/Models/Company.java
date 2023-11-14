@@ -7,17 +7,21 @@ public class Company {
     public String companyPhoto;
     public String companyDescription;
     public String companyRating;
+    public String email;
+    public String phone;
 
     public Company(){}
-    public Company(int companyId, String companyName, String idCategory, String companyPhoto, String companyDescription, String companyRating) {
+    public Company(int companyId, String companyName, String idCategory, String companyPhoto,
+                   String companyDescription, String companyRating, String email, String phone) {
         this.companyId = companyId;
         this.companyName = companyName;
         this.idCategory = idCategory;
         this.companyPhoto = companyPhoto;
         this.companyDescription = companyDescription;
         this.companyRating = companyRating;
+        this.email = email;
+        this.phone = phone;
     }
-
     public int getCompanyId() {
         return companyId;
     }
@@ -52,12 +56,26 @@ public class Company {
     public void setCompanyDescription(String companyDescription) {
         this.companyDescription = companyDescription;
     }
-
     public String getCompanyRating() {
         return companyRating;
     }
 
     public void setCompanyRating(String companyRating) {
         this.companyRating = companyRating;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

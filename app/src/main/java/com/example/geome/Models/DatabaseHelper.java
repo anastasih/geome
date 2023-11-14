@@ -5,12 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.icu.util.TimeZone;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PASSWORD = "user_password";
     public static final String COLUMN_CITY = "user_city";
     public static final String COLUMN_GENDER = "user_gender";
+    public static final String COLUMN_USER_PHOTO = "user_photo";
     public static final String COLUMN_AGE = "user_age";
     public static final String COLUMN_ACCESS_GEO = "access_geo";
     public static final String COLUMN_PRIVATE_POLICY = "private_policy";
@@ -62,6 +66,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_COM_DESCRIPTION = "company_description";
     //public static final String COLUMN_COM_ADDRESS = "company_address";
     public static final String COLUMN_COM_RATING = "company_rating";
+    public static final String COLUMN_COM_EMAIL = "company_email";
+    public static final String COLUMN_COM_PHONE = "company_phone";
 
     //для стрічки новин і пропозицій (нижнє меню екрану)
     public static final String TABLE_NEWS_FEED = "news_feed";
@@ -92,6 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CITY_ID = "city_id";
     public static final String COLUMN_CITY_TITLE = "city_name";
     public static final String COLUMN_CITY_DESCRIPTION = "city_description";
+    public static final String COLUMN_CITY_PHOTO = "city_photo";
 
     // для звязування таблиць компанія і місто
     public static final String TABLE_COMPANY_CITY = "company_city";
@@ -105,6 +112,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_COMPANY_DETAILS_ADDRESS = "company_address";
     public static final String COLUMN_COMPANY_DETAILS_PHOTO = "company_photo";
     public static final String COLUMN_COMPANY_CITY_ID_TABLE = "company_city_id"; // зовнішній ключ для TABLE_COMPANY_CITY
+
+    // для вакансії
+    public static final String TABLE_JOB_OFFER = "job_offer";
+    public static final String COLUMN_JOB_OFFER_ID = "id";
+    public static final String COLUMN_JOB_OFFER_ID_COMPANY = "id_company";
+    public static final String COLUMN_JOB_OFFER_COMPANY_NAME = "company_name";
+    public static final String COLUMN_JOB_OFFER_NAME = "offer_name";
+    public static final String COLUMN_JOB_OFFER_DESCRIPTION = "description";
+    public static final String COLUMN_JOB_OFFER_SALARY = "salary";
+    public static final String COLUMN_JOB_OFFER_EMAIL = "email";
+    public static final String COLUMN_JOB_OFFER_PHONE = "phone";
+    public static final String COLUMN_JOB_OFFER_REQUIREMENTS = "requirements";
+    public static final String COLUMN_JOB_OFFER_CATEGORY = "category";
+    public static final String COLUMN_JOB_OFFER_CATEGORY_COMPANY = "category_company";
+    public static final String COLUMN_JOB_OFFER_KEYWORDS = "keywords";
+
+    // для вакансій з сервісів пошуку роботи
+    public static final String TABLE_JOB_OFFER_SERVICES= "job_offer_services";
+    public static final String COLUMN_JOB_OFFER_SERVICES_ID = "id";
+    public static final String COLUMN_JOB_OFFER_SERVICES_COMPANY_NAME = "company_name";
+    public static final String COLUMN_JOB_OFFER_SERVICES_COMPANY_ICON = "company_icon";
+    public static final String COLUMN_JOB_OFFER_SERVICES_COMPANY_CATEGORY_ID = "category_id";
+    public static final String COLUMN_JOB_OFFER_SERVICES_NAME = "offer_name";
+    public static final String COLUMN_JOB_OFFER_SERVICES_ADDRESS = "adress";
+    public static final String COLUMN_JOB_OFFER_SERVICES_CITY_ID = "city_id";
+    public static final String COLUMN_JOB_OFFER_SERVICES_DESCRIPTION = "description";
+    public static final String COLUMN_JOB_OFFER_SERVICES_SALARY = "salary";
+    public static final String COLUMN_JOB_OFFER_SERVICES_KEYWORDS = "keywords";
+    public static final String COLUMN_JOB_OFFER_SERVICES_LINK = "link";
+    public static final String TABLE_HIDDEN_USER_SERVICES = "hidden_user_services";
+    public static final String COLUMN_HIDDEN_USER_SERVICES_ID = "id";
+    public static final String COLUMN_HIDDEN_USER_SERVICES_ID_USER = "id_user";
+    public static final String COLUMN_HIDDEN_USER_SERVICES_ID_CATEGORY = "id_category";
+
+    //відгуки на компанію
+    public static final String TABLE_COMPANY_REVIEWS = "company_reviews";
+    public static final String COLUMN_COMPANY_REVIEWS_ID = "id";
+    public static final String COLUMN_COMPANY_REVIEWS_ID_COMPANY = "id_company";
+    public static final String COLUMN_COMPANY_REVIEWS_LOCATION = "location";
+    public static final String COLUMN_COMPANY_REVIEWS_SERVICE = "service";
+    public static final String COLUMN_COMPANY_REVIEWS_AVAILABILITY = "availability";
+    public static final String COLUMN_COMPANY_REVIEWS_COMFORT = "comfort";
+    public static final String COLUMN_COMPANY_REVIEWS_ID_USER = "user_id";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -121,6 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_PASSWORD + " TEXT, " +
                 COLUMN_CITY + " TEXT, " +
                 COLUMN_GENDER + " TEXT, " +
+                COLUMN_USER_PHOTO + " TEXT, " +
                 COLUMN_AGE + " INTEGER, " +
                 COLUMN_ACCESS_GEO + " INTEGER, " +
                 COLUMN_PRIVATE_POLICY + " INTEGER, " +
@@ -160,6 +211,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertCategoryCompany(db, "Готель");
         insertCategoryCompany(db, "Апартаменти");
         insertCategoryCompany(db, "Таксі");
+        insertCategoryCompany(db, "Фотографія");
+        insertCategoryCompany(db, "Спорт");
 
         // створення таблички news_feed
         String newsFeedTableQuery = "CREATE TABLE " + TABLE_NEWS_FEED + " (" +
@@ -178,76 +231,142 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_COM_PHOTO + " TEXT, " +
                 COLUMN_COM_DESCRIPTION + " TEXT, " +
                 //COLUMN_COM_ADDRESS + " TEXT, " +
+                COLUMN_COM_EMAIL + " TEXT, " +
+                COLUMN_COM_PHONE + " TEXT, " +
                 COLUMN_COM_RATING + " REAL);";
         db.execSQL(companyTableQuery);
 
         insertCompany(db,"Ресторан CafeCarrot", 5, "cafecarrot_icon",
-                "lorem",  4);
+                "lorem", "cafecarrot@gmail.com", "147852369", 4);
         insertCompany(db,"Bolt", 9, "bolt_icon",
-                "lorem", 4);
+                "lorem", "bolt@gmail.com", "147852369",4);
         insertCompany(db,"Нічний клуб Фendo", 5, "fendo_icon",
-                "lorem",  4);
+                "lorem",  "fendo@gmail.com", "147852369",4);
         insertCompany(db,"Hotel Island", 7, "hotelisland_icon",
-                "lorem",  4);
+                "lorem",  "hotelisland@gmail.com", "147852369",4);
         insertCompany(db,"Diamond BeautyStudio", 2, "beautybeautystudio_icon",
-                "lorem", 4);
+                "Зачіска, макіяж, брови, манікюр, педикюр, догляд за шкірою, пірсинг, мелірування волосся",
+                "beautybeautystudio@gmail.com", "147852369",
+                4.6);
 
         // заклади харчування
         insertCompany(db,"Salad", 5, "salad_icon",
                 "Доставка із різних закладів (бургери, картопля фрі, м’ясо гриль, десерти, напої)",
+                "salad@gmail.com", "147852369",
                 4.9);
         insertCompany(db,"Балувана Галя", 5, "baluvana_halya_icon",
                 "Борщ, вареники, млинці, сирники, узвар",
+                "baluvana_halya@gmail.com", "147852369",
                 4.8);
         insertCompany(db,"McDonalds", 5, "mcdonalds_icon",
                 "Бургери, картопля фрі, нагетси, картопляні діпи, напої",
+                "mcdonalds@gmail.com", "147852369",
                 4.5);
         insertCompany(db,"Дім млинців", 5, "dim_mlyntsiv_icon",
                 "Солодкі млинці, солоні млинці, панкейки, салати, піца, сніданки (яєшня, омлет та інше)",
+                "dim_mlyntsiv@gmail.com", "147852369",
                 4.3);
 
 
         // супермаркети
         insertCompany(db,"АТБ", 6, "atb_icon",
                 "Продукти харчування, побутові товари, свіжа випічка, відділ кулінарії",
+                "atb@gmail.com", "147852369",
                 4.9);
         insertCompany(db,"Метро", 6, "metro_icon",
                 "Продукти харчування, побутові товари, свіжа випічка, кав’ярня",
+                "metro@gmail.com", "147852369",
                 4.9);
         insertCompany(db,"Ашан", 6, "ashan_icon",
                 "Продукти харчування, побутові товари, випічка від партнерів, відділ кулінарії, кав’ярня",
+                "ashan@gmail.com", "147852369",
                 4.4);
         insertCompany(db,"Еко-маркет", 6, "eco_market_icon",
                 "Продукти харчування, побутові товари, власна випічка, відділ кулінарії",
+                "eco_market@gmail.com", "147852369",
                 4.2);
 
         // готелі
         insertCompany(db,"Готель “Reikartz”", 7, "reikartz_icon",
                 "Італійський ресторан, вид із вікна на історичний центр міста, безкоштовне скасування",
+                "reikartz@gmail.com", "147852369",
                 4.9);
         insertCompany(db,"Готель “Гайки”", 7, "gajky_icon",
                 "Можна з тваринами, ресторан домашньої кухні, караоке-бар, безкоштовне скасування",
+                "gajky@gmail.com", "147852369",
                 4.8);
         insertCompany(db,"Hermes hotel", 7, "hermes_icon",
                 "Сніданок входить у вартість, можна з тваринами, конференц-зала, ресторан",
+                "hermes@gmail.com", "147852369",
                 4.9);
         insertCompany(db,"Готель “DODO”", 7, "dodo_icon",
                 "Цілодобовий ресторан, SPA-салон, басейн, сауна, спортивна зала",
+                "dodo@gmail.com", "147852369",
                 4.3);
 
         // апартаменти
         insertCompany(db,"Tree House", 8, "tree_house_icon",
                 "Кухня, барбекю, безкоштовна парковка, власна ванна кімната, безкоштовний Wi-Fi",
+                "tree_house@gmail.com", "147852369",
                 4.6);
         insertCompany(db,"OLIVEA", 8, "olivea_icon",
                 "Трансфер з/до автостанції, номери для некурців, безкоштовний Wi-Fi, вид на місто",
+                "olivea@gmail.com", "147852369",
                 4.8);
         insertCompany(db,"Sweet apartments", 8, "sweet_apartments_icon",
                 "Кондиціонер, балкон, номери для некурців, можна з тваринами, пральна машина",
+                "sweet_apartments@gmail.com", "147852369",
                 4.0);
         insertCompany(db,"COSTAIONICA", 8, "costaionica_icon",
                 "Безкоштовний Wi-Fi, безкоштовне скасування, опалення/кондиціонер, щоденне прибирання",
+                "costaionica@gmail.com", "147852369",
                 4.1);
+
+        // усі послуги
+        insertCompany(db,"Фотостудія LightStudio", 10, "lightstudio_icon",
+                "Фотосесія з фотографом, аренда студії",
+                "lightstudio@gmail.com", "147852369",
+                4.8);
+        insertCompany(db,"Клініка Medibor", 3, "medibor_icon",
+                "Дитячий лікар, приватна хірургія, швидкі аналізи, лор-хірургія, естетична медицина",
+                "medibor@gmail.com", "147852369",
+                4.0);
+        insertCompany(db,"YogaClub", 11, "yogaclub_icon",
+                "Хатха йога, йога для початківців, айенгар йога, кундаліні йога, віньяса йога",
+                "yogaclub@gmail.com", "147852369",
+                4.7);
+
+        // барбершопи
+        insertCompany(db,"Барбершоп OldTime", 1, "old_time_icon",
+                "Чоловіча стрижка, дитяча стрижка, стрижка машинкою, укладання волосся",
+                "old_time@gmail.com", "147852369",
+                4.9);
+        insertCompany(db,"Барбершоп КОД", 1, "code_icon",
+                "Чоловіча стрижка, стрижка машинкою, камуфлювання бороди, укладання волосся",
+                "code@gmail.com", "147852369",
+                4.6);
+        insertCompany(db,"Барбершоп Frisor", 1, "frisor_icon",
+                "Чоловіча стрижка, гоління, полубокс стрижка, теніс стрижка, камуфлювання сивини",
+                "frisor@gmail.com", "147852369",
+                4.2);
+        insertCompany(db,"Барбершоп BlackPeppers", 1, "black_peppers_icon",
+                "Чоловіча стрижка, гоління, стрижка бороди та вусів, укладання волосся, дитяча стрижка",
+                "black_peppers@gmail.com", "147852369",
+                4.5);
+
+        // салони
+        insertCompany(db,"INNA BILA", 2, "inna_bila_icon",
+                "Оформлення брів та вій, макіяж, процедури для шкіри тіла, догляд за волоссям, догляд за руками",
+                "inna_bila@gmail.com", "147852369",
+                4.7);
+        insertCompany(db,"Венеція", 2, "venice_icon",
+                "Догляд з нігтями рук, фарбування волосся, догляд за ногами, оформлення брів та вій",
+                "venice@gmail.com", "147852369",
+                4.1);
+        insertCompany(db,"Green Room beauty", 2, "green_room_beauty_icon",
+                "Косметологія обличчя, оформлення брів та вій, реконструкція волосся, догляд за нігтями рук",
+                "green_room_beauty@gmail.com", "147852369",
+                4.9);
 
 
         String company_cityTableQuery = "CREATE TABLE " + TABLE_COMPANY_CITY + " (" +
@@ -280,6 +399,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertCompanyCity(db,19, 1);
         insertCompanyCity(db,20, 1);
         insertCompanyCity(db,21, 1);
+        insertCompanyCity(db,22, 1);
+        insertCompanyCity(db,23, 1);
+        insertCompanyCity(db,24, 1);
+        insertCompanyCity(db,25, 1);
+        insertCompanyCity(db,26, 1);
+        insertCompanyCity(db,27, 1);
+        insertCompanyCity(db,28, 1);
+        insertCompanyCity(db,29, 1);
+        insertCompanyCity(db,30, 1);
+        insertCompanyCity(db,31, 1);
 
         String companyDetailsTableQuery = "CREATE TABLE " + TABLE_COMPANY_DETAILS + " (" +
                 COLUMN_COMPANY_DETAILS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -288,11 +417,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_COMPANY_CITY_ID_TABLE + " INTEGER);";
         db.execSQL(companyDetailsTableQuery);
 
-        insertCompanyDetails(db, "", "", 1);
-        insertCompanyDetails(db, "", "", 2);
-        insertCompanyDetails(db, "", "", 3);
-        insertCompanyDetails(db, "", "", 4);
-        insertCompanyDetails(db, "", "", 5);
+        insertCompanyDetails(db, "вул. Перемоги, 12", "cafe_photo", 1);
+        insertCompanyDetails(db, "Online", "bolt_photo", 2);
+        insertCompanyDetails(db, "вул. Київська, 77 (ТРЦ Глобал UA)", "fendo_photo", 3);
+        insertCompanyDetails(db, "проспект Незалежності, 13", "hotel_island_photo", 4);
+        insertCompanyDetails(db, "вул. Покровська, 27", "beauty_studio_photo", 5);
 
         insertCompanyDetails(db, "Online", "salad_photo", 6);
         insertCompanyDetails(db, "вул. Перемоги, 12", "baluvana_halya_photo", 7);
@@ -313,6 +442,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertCompanyDetails(db, "вул. Покровська, 27", "olivea_photo", 19);
         insertCompanyDetails(db, "вул. Київська, 64", "sweet_apartments_photo", 20);
         insertCompanyDetails(db, "вул. Вокзальна, 14", "costaionica_photo", 21);
+
+        insertCompanyDetails(db, "вул. Кочерги, 39", "lightstudio_photo", 22);
+        insertCompanyDetails(db, "вул. Велика Бердичівська, 64", "medibor_photo", 23);
+        insertCompanyDetails(db, "вул. Театральна, 19", "yogaclub_photo", 24);
+
+        insertCompanyDetails(db, "пров. Скорульського, 2", "old_time_photo", 25);
+        insertCompanyDetails(db, "вул. Львівська, 1", "code_photo", 26);
+        insertCompanyDetails(db, "вул. Велика Бердичівська, 6", "frisor_photo", 27);
+        insertCompanyDetails(db, "вул. Київська, 75", "black_peppers_photo", 28);
+
+        insertCompanyDetails(db, "вул. Перемоги, 23", "inna_bila_photo", 29);
+        insertCompanyDetails(db, "вул. Михайла Грушевського, 7", "venice_photo", 30);
+        insertCompanyDetails(db, "вул. Хлібна, 29", "green_room_beauty_photo", 31);
 
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -373,12 +515,197 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String cityTableQuery = "CREATE TABLE " + TABLE_CITY + " (" +
                 COLUMN_CITY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_CITY_TITLE + " TEXT, " +
+                COLUMN_CITY_PHOTO + " TEXT, " +
                 COLUMN_CITY_DESCRIPTION + " TEXT);";
         db.execSQL(cityTableQuery);
 
-        insertCity(db, "Житомир");
-        insertCity(db, "Львів");
-        insertCity(db, "Київ");
+        insertCity(db, "Житомир", "city_zhytomyr", "Місто з тисячолітньою історією, батьківщина архітектора космонавтики Сергія Корольова, місто експерементів, романтики та унікальної архітектури.");
+        insertCity(db, "Львів", "lviv_city", "Львів — місто, що здивовує своєю красою та атмосферою. Вулички старовинного Львова переповнені історією, яка звучить у кожному камені, будівлі та віддзеркалюється в малюнках вікон. Тут архітектура зливається зі стилістикою кав'ярень, створюючи неповторний образ міста. ");
+        insertCity(db, "Київ", "kyiv_city", "Київ, столиця України, місто, що дихає історією та сучасністю. На його вулицях переплітаються тисячолітні традиції та сучасні тренди. Київ — колиска князівства та духовний центр, в якому обіймають своїми крилами велич та динаміку. ");
+
+        String jobOfferTableQuery = "CREATE TABLE " + TABLE_JOB_OFFER + " (" +
+                COLUMN_JOB_OFFER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_JOB_OFFER_ID_COMPANY + " TEXT, " +
+                COLUMN_JOB_OFFER_COMPANY_NAME + " TEXT, " +
+                COLUMN_JOB_OFFER_NAME + " TEXT, " +
+                COLUMN_JOB_OFFER_DESCRIPTION + " TEXT, " +
+                COLUMN_JOB_OFFER_SALARY + " TEXT, " +
+                COLUMN_JOB_OFFER_EMAIL + " TEXT, " +
+                COLUMN_JOB_OFFER_PHONE + " TEXT, " +
+                COLUMN_JOB_OFFER_REQUIREMENTS + " TEXT, " +
+                COLUMN_JOB_OFFER_CATEGORY + " TEXT, " +
+                COLUMN_JOB_OFFER_CATEGORY_COMPANY + " TEXT, " +
+                COLUMN_JOB_OFFER_KEYWORDS + " TEXT);";
+        db.execSQL(jobOfferTableQuery);
+        insertJobOffer(db, 12, "Ашан", "Менеджер по роботі з клієнтами",
+                "Повна / часткова зайнятість. Вимоги: висока компетентність у взаємодії з клієнтами, вміння вирішувати проблеми. Буде перевагою досвід роботи в сфері юридичних послуг. ",
+                17000, "ashan@gmail.com", "0974875951", "lorem", "Послуги", 4, "Віддалена робота, Крута команда, Медстрахування, Без досвіду");
+        insertJobOffer(db, 15, "Гайки", "Контент-мейкер",
+                "Повна / часткова зайнятість. Вимоги: висока компетентність у взаємодії з клієнтами, вміння вирішувати проблеми. Буде перевагою досвід роботи в сфері юридичних послуг. ",
+                15000, "gaiki@gmail.com", "0974875951", "lorem", "Житло", 7, "Віддалена робота, Крута команда, Медстрахування, Без досвіду");
+        insertJobOffer(db, 10, "АТБ", "Помічник керівника компанії",
+                "Повна / часткова зайнятість. Вимоги: висока компетентність у взаємодії з клієнтами, вміння вирішувати проблеми. Буде перевагою досвід роботи в сфері юридичних послуг. ",
+                22000, "atb@gmail.com", "0974875951", "lorem", "Доставка", 6, "Віддалена робота, Крута команда, Медстрахування, Без досвіду");
+
+        insertJobOffer(db, 12, "Ашан", "Менеджер по роботі з клієнтами",
+                "Повна / часткова зайнятість. Вимоги: висока компетентність у взаємодії з клієнтами, вміння вирішувати проблеми. Буде перевагою досвід роботи в сфері юридичних послуг. ",
+                17000, "ashan@gmail.com", "0974875951", "lorem", "Доставка", 6, "Віддалена робота, Медстрахування, Без досвіду");
+        insertJobOffer(db, 9, "Дім млинців", "Контент-мейкер",
+                "Повна / часткова зайнятість. Вимоги: висока компетентність у взаємодії з клієнтами, вміння вирішувати проблеми. Буде перевагою досвід роботи в сфері юридичних послуг. ",
+                15000, "dim_mlyntsiv@gmail.com", "0974875951", "lorem", "Доставка", 5, "Віддалена робота, Крута команда, Медстрахування, Без досвіду");
+        insertJobOffer(db, 21, "COSTAIONICA", "Помічник керівника компанії",
+                "Повна / часткова зайнятість. Вимоги: висока компетентність у взаємодії з клієнтами, вміння вирішувати проблеми. Буде перевагою досвід роботи в сфері юридичних послуг. ",
+                22000, "COSTAIONICA@gmail.com", "0974875951", "lorem", "Житло", 8, "Віддалена робота, Без досвіду");
+
+
+        String jobOfferServiceTableQuery = "CREATE TABLE " + TABLE_JOB_OFFER_SERVICES + " (" +
+                COLUMN_JOB_OFFER_SERVICES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_JOB_OFFER_SERVICES_COMPANY_NAME + " TEXT, " +
+                COLUMN_JOB_OFFER_SERVICES_COMPANY_ICON + " TEXT, " +
+                COLUMN_JOB_OFFER_SERVICES_COMPANY_CATEGORY_ID + " TEXT, " +
+                COLUMN_JOB_OFFER_SERVICES_NAME + " TEXT, " +
+                COLUMN_JOB_OFFER_SERVICES_ADDRESS + " TEXT, " +
+                COLUMN_JOB_OFFER_SERVICES_CITY_ID + " TEXT, " +
+                COLUMN_JOB_OFFER_SERVICES_DESCRIPTION + " TEXT, " +
+                COLUMN_JOB_OFFER_SERVICES_SALARY + " TEXT, " +
+                COLUMN_JOB_OFFER_SERVICES_KEYWORDS + " TEXT, " +
+                COLUMN_JOB_OFFER_SERVICES_LINK + " TEXT);";
+        db.execSQL(jobOfferServiceTableQuery);
+
+        insertJobOfferService(db, "Трибеля", "new_company", 5, "Кухар-кондитер",
+                "Повна зайнятість. Вимоги: знання класики кондитерського мистецтва різних кухонь світу, вміння працювати з пропорціями, температурою, гігієна та безпека, досвід у приготуванні авторських ...",
+                "вулиця Михайлівська, 8/1", 1,18000, "Медстрахування, Крута команда, Без досвіду", "https://www.work.ua");
+
+        insertJobOfferService(db, "Балувана Галя", "new_company", 5, "Кухар-кондитер",
+                "Повна зайнятість. Вимоги: знання класики кондитерського мистецтва різних кухонь світу, вміння працювати з пропорціями, температурою, гігієна та безпека, досвід у приготуванні авторських ...",
+                "вулиця Київська, 10", 1,11000, "Медстрахування, Для студентів", "https://www.work.ua");
+
+        insertJobOfferService(db, "Час поїсти", "new_company", 5, "Кухар-кондитер",
+                "Повна зайнятість. Вимоги: знання класики кондитерського мистецтва різних кухонь світу, вміння працювати з пропорціями, температурою, гігієна та безпека, досвід у приготуванні авторських ...",
+                "проспект Миру, 10", 1,20000, "Медстрахування, Для людей старшого віку", "https://www.work.ua");
+
+        insertJobOfferService(db, "Балувана Галя", "new_company", 7, "Кухар-кондитер",
+                "Повна зайнятість. Вимоги: знання класики кондитерського мистецтва різних кухонь світу, вміння працювати з пропорціями, температурою, гігієна та безпека, досвід у приготуванні авторських ...",
+                "вулиця Михайлівська, 10", 1,11000, "Медстрахування, Для студентів", "https://www.work.ua");
+
+        String hiddenServicesQuery = "CREATE TABLE " + TABLE_HIDDEN_USER_SERVICES + " (" +
+                COLUMN_HIDDEN_USER_SERVICES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_HIDDEN_USER_SERVICES_ID_USER + " TEXT, " +
+                COLUMN_HIDDEN_USER_SERVICES_ID_CATEGORY + " TEXT);";
+        db.execSQL(hiddenServicesQuery);
+
+        String companyReviewsQuery = "CREATE TABLE " + TABLE_COMPANY_REVIEWS + " (" +
+                COLUMN_COMPANY_REVIEWS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_COMPANY_REVIEWS_ID_COMPANY + " TEXT, " +
+                COLUMN_COMPANY_REVIEWS_ID_USER + " TEXT, " +
+                COLUMN_COMPANY_REVIEWS_LOCATION + " TEXT, " +
+                COLUMN_COMPANY_REVIEWS_SERVICE + " TEXT, " +
+                COLUMN_COMPANY_REVIEWS_AVAILABILITY + " TEXT, " +
+                COLUMN_COMPANY_REVIEWS_COMFORT + " TEXT);";
+        db.execSQL(companyReviewsQuery);
+
+        insertCompanyReviews(db, 1, 3, 4.5, 4, 5, 1);
+        insertCompanyReviews(db,2, 4, 4, 5, 4.5, 1);
+        insertCompanyReviews(db,3, 4.2, 4, 5, 4.1, 1);
+        insertCompanyReviews(db,4, 5, 4, 4, 4, 1);
+        insertCompanyReviews(db,5, 4, 4, 3, 4, 1);
+        insertCompanyReviews(db,6, 4, 4.3, 4, 5, 1);
+        insertCompanyReviews(db,7, 4.2, 4.7, 4, 4.2, 1);
+        insertCompanyReviews(db,8, 3, 4.5, 4, 5, 1);
+        insertCompanyReviews(db,9, 4, 4, 5, 4.5, 1);
+        insertCompanyReviews(db,10, 4.2, 4, 5, 4.1, 1);
+        insertCompanyReviews(db,11, 5, 4, 4, 4, 1);
+        insertCompanyReviews(db,12, 4, 4, 3, 4, 1);
+        insertCompanyReviews(db,13, 4, 4.3, 4, 5, 1);
+        insertCompanyReviews(db,14, 4.2, 4.7, 4, 4.2, 1);
+        insertCompanyReviews(db,15, 3, 4.5, 4, 5, 1);
+        insertCompanyReviews(db,16, 4, 4, 5, 4.5, 1);
+        insertCompanyReviews(db,17, 4.2, 4, 5, 4.1, 1);
+        insertCompanyReviews(db,18, 5, 4, 4, 4, 1);
+        insertCompanyReviews(db,19, 4, 4, 3, 4, 1);
+        insertCompanyReviews(db,20, 3, 4.5, 4, 5, 1);
+        insertCompanyReviews(db,21, 4, 4, 5, 4.5, 1);
+        insertCompanyReviews(db,22, 4.2, 4, 5, 4.1, 1);
+        insertCompanyReviews(db,23, 5, 4, 4, 4, 1);
+        insertCompanyReviews(db,24, 4, 4, 3, 4, 1);
+        insertCompanyReviews(db,25, 4.2, 4.7, 4, 4.2, 1);
+        insertCompanyReviews(db,26, 3, 4.5, 4, 5, 1);
+        insertCompanyReviews(db,27, 4, 4, 5, 4.5, 1);
+        insertCompanyReviews(db,28, 5, 4, 4, 4, 1);
+        insertCompanyReviews(db,29, 3, 4.5, 4, 5, 1);
+        insertCompanyReviews(db,30, 4.2, 4, 5, 4.1, 1);
+    }
+
+    public long insertCompanyReviews(SQLiteDatabase db, int companyId, double location,
+                                     double service, double availability, double comfort, int userId) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_COMPANY_REVIEWS_ID_COMPANY, companyId);
+        values.put(COLUMN_COMPANY_REVIEWS_LOCATION, location);
+        values.put(COLUMN_COMPANY_REVIEWS_SERVICE, service);
+        values.put(COLUMN_COMPANY_REVIEWS_AVAILABILITY, availability);
+        values.put(COLUMN_COMPANY_REVIEWS_COMFORT, comfort);
+        values.put(COLUMN_COMPANY_REVIEWS_ID_USER, userId);
+
+        return db.insert(TABLE_COMPANY_REVIEWS, null, values);
+    }
+    public List<Integer> getCategoriesForUser(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Integer> categories = new ArrayList<>();
+
+        String query = "SELECT " + COLUMN_HIDDEN_USER_SERVICES_ID_CATEGORY +
+                " FROM " + TABLE_HIDDEN_USER_SERVICES +
+                " WHERE " + COLUMN_HIDDEN_USER_SERVICES_ID_USER + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                int categoryId = cursor.getInt(cursor.getColumnIndex(COLUMN_HIDDEN_USER_SERVICES_ID_CATEGORY));
+                categories.add(categoryId);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return categories;
+    }
+
+
+    public long insertJobOfferService(SQLiteDatabase db, String companyName, String companyIcon,
+                                      int categoryId, String jobOfferName, String description, String address,
+                                      int cityId, int salary, String keywords, String link) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_JOB_OFFER_SERVICES_COMPANY_NAME, companyName);
+        values.put(COLUMN_JOB_OFFER_SERVICES_COMPANY_ICON, companyIcon);
+        values.put(COLUMN_JOB_OFFER_SERVICES_COMPANY_CATEGORY_ID, categoryId);
+        values.put(COLUMN_JOB_OFFER_SERVICES_NAME, jobOfferName);
+        values.put(COLUMN_JOB_OFFER_SERVICES_DESCRIPTION, description);
+        values.put(COLUMN_JOB_OFFER_SERVICES_ADDRESS, address);
+        values.put(COLUMN_JOB_OFFER_SERVICES_CITY_ID, cityId);
+        values.put(COLUMN_JOB_OFFER_SERVICES_SALARY, salary);
+        values.put(COLUMN_JOB_OFFER_SERVICES_KEYWORDS, keywords);
+        values.put(COLUMN_JOB_OFFER_SERVICES_LINK, link);
+
+        return db.insert(TABLE_JOB_OFFER_SERVICES, null, values);
+    }
+
+    public long insertJobOffer(SQLiteDatabase db, int companyId, String companyName,
+                               String jobOfferName, String description, int salary,
+                               String email, String phone, String requirements,
+                               String category, int categoryCompany, String keywords) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_JOB_OFFER_ID_COMPANY, companyId);
+        values.put(COLUMN_JOB_OFFER_COMPANY_NAME, companyName);
+        values.put(COLUMN_JOB_OFFER_NAME, jobOfferName);
+        values.put(COLUMN_JOB_OFFER_DESCRIPTION, description);
+        values.put(COLUMN_JOB_OFFER_SALARY, salary);
+        values.put(COLUMN_JOB_OFFER_EMAIL, email);
+        values.put(COLUMN_JOB_OFFER_PHONE, phone);
+        values.put(COLUMN_JOB_OFFER_REQUIREMENTS, requirements);
+        values.put(COLUMN_JOB_OFFER_CATEGORY, category);
+        values.put(COLUMN_JOB_OFFER_CATEGORY_COMPANY, categoryCompany);
+        values.put(COLUMN_JOB_OFFER_KEYWORDS, keywords);
+
+        return db.insert(TABLE_JOB_OFFER, null, values);
     }
 
     public long insertCompanyCity(SQLiteDatabase db, int companyId, int cityId) {
@@ -496,6 +823,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return userName;
     }
+
+    public String getUserIconById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COLUMN_USER_PHOTO + " FROM " + TABLE_NAME +
+                " WHERE " + COLUMN_ID + " = ?"; // Змінено COLUMN_NAME на COLUMN_ID
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id)}); // Змінено тип параметра на String та передано id у вигляді рядка
+
+        String userIcon = null; // Змінено тип результату на String
+
+        if (cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndex(COLUMN_USER_PHOTO);
+            if (columnIndex != -1) {
+                userIcon = cursor.getString(columnIndex); // Змінено отримання значення на getString
+            }
+        }
+
+        cursor.close();
+        return userIcon;
+    }
     private long insertCategory(SQLiteDatabase db, String categoryName) {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_CATEGORY_NAME, categoryName);
@@ -509,7 +856,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public long insertCompany(SQLiteDatabase db,String companyName, int categoryId, String companyPhoto,
-                              String companyDescription,
+                              String companyDescription, String email, String phone,
                               //String companyAddress,
                               double companyRating) {
         //SQLiteDatabase db = this.getWritableDatabase();
@@ -518,6 +865,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_COM_ID_CATEGORY, categoryId);
         cv.put(COLUMN_COM_PHOTO, companyPhoto);
         cv.put(COLUMN_COM_DESCRIPTION, companyDescription);
+        cv.put(COLUMN_COM_EMAIL, email);
+        cv.put(COLUMN_COM_PHONE, phone);
         //cv.put(COLUMN_COM_ADDRESS, companyAddress);
         cv.put(COLUMN_COM_RATING, companyRating);
         return db.insert(TABLE_COMPANY, null, cv);
@@ -621,14 +970,56 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return newsList;
     }
 
-    private long insertCity(SQLiteDatabase db, String cityName) {
+    private long insertCity(SQLiteDatabase db, String cityName, String photo, String description) {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_CITY_TITLE, cityName);
+        cv.put(COLUMN_CITY_PHOTO, photo);
+        cv.put(COLUMN_CITY_DESCRIPTION, description);
         return db.insert(TABLE_CITY, null, cv);
 
 
 //        cv.put(COLUMN_CITY_NAME, cityName);
 //        return db.insert(TABLE_CHAT, null, cv);
+    }
+
+    public String getCityDescriptionById(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COLUMN_CITY_DESCRIPTION + " FROM " + TABLE_CITY +
+                " WHERE " + COLUMN_CITY_ID + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id)});
+
+        String description = null;
+
+        if (cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndex(COLUMN_CITY_DESCRIPTION);
+            if (columnIndex != -1) {
+                description = cursor.getString(columnIndex);
+            }
+        }
+
+        cursor.close();
+        return description;
+    }
+
+    public String getCityPhotoById(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COLUMN_CITY_PHOTO + " FROM " + TABLE_CITY +
+                " WHERE " + COLUMN_CITY_ID + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id)});
+
+        String photo = null;
+
+        if (cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndex(COLUMN_CITY_PHOTO);
+            if (columnIndex != -1) {
+                photo = cursor.getString(columnIndex);
+            }
+        }
+
+        cursor.close();
+        return photo;
     }
 
     // метод для отримання ідентифікатора чату за назвою міста
@@ -799,6 +1190,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cityData;
     }
 
+    public String getCityById(int cityId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String cityName = null;
+
+        String query = "SELECT " + COLUMN_CITY_TITLE + " FROM " + TABLE_CITY + " WHERE " + COLUMN_CITY_ID + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(cityId)});
+
+        if (cursor.moveToFirst()) {
+            cityName = cursor.getString(cursor.getColumnIndex(COLUMN_CITY_TITLE));
+        }
+
+        cursor.close();
+        return cityName;
+    }
+
+
     public List<Company> getCompaniesByCityId(int cityId) {
         List<Company> companies = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -819,8 +1226,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String companyPhoto = cursor.getString(cursor.getColumnIndex(COLUMN_COM_PHOTO));
                 String companyDescription = cursor.getString(cursor.getColumnIndex(COLUMN_COM_DESCRIPTION));
                 String companyRating = cursor.getString(cursor.getColumnIndex(COLUMN_COM_RATING));
+                String companyEmail = cursor.getString(cursor.getColumnIndex(COLUMN_COM_EMAIL));
+                String companyPhone = cursor.getString(cursor.getColumnIndex(COLUMN_COM_PHONE));
 
-                Company company = new Company(companyId, companyName, idCategory, companyPhoto, companyDescription, companyRating);
+                Company company = new Company(companyId, companyName, idCategory, companyPhoto, companyDescription, companyRating, companyEmail, companyPhone);
                 companies.add(company);
             } while (cursor.moveToNext());
         }
@@ -856,6 +1265,224 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return companyDetails;
     }
 
+    //для пошуку вакансій за ключовими словами
+    public List<Map<String, Object>> searchJobOffersByKeywords(String keywords) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Map<String, Object>> offersList = new ArrayList<>();
 
+        String query = "SELECT * " +
+                "FROM " + TABLE_JOB_OFFER +
+                " WHERE " + COLUMN_JOB_OFFER_NAME + " LIKE ?" +
+                " OR " + COLUMN_JOB_OFFER_COMPANY_NAME + " LIKE ?";
+
+        String[] selectionArgs = new String[]{"%" + keywords + "%", "%" + keywords + "%"};
+
+        Cursor cursor = db.rawQuery(query, selectionArgs);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Map<String, Object> offerItem = new HashMap<>();
+                int offerId = cursor.getInt(cursor.getColumnIndex(COLUMN_JOB_OFFER_ID));
+                int companyId = cursor.getInt(cursor.getColumnIndex(COLUMN_JOB_OFFER_ID_COMPANY));
+                String offerName = cursor.getString(cursor.getColumnIndex(COLUMN_JOB_OFFER_NAME));
+                String description = cursor.getString(cursor.getColumnIndex(COLUMN_JOB_OFFER_DESCRIPTION));
+                String salary = cursor.getString(cursor.getColumnIndex(COLUMN_JOB_OFFER_SALARY));
+                String email = cursor.getString(cursor.getColumnIndex(COLUMN_JOB_OFFER_EMAIL));
+                String phone = cursor.getString(cursor.getColumnIndex(COLUMN_JOB_OFFER_PHONE));
+                String requirements = cursor.getString(cursor.getColumnIndex(COLUMN_JOB_OFFER_REQUIREMENTS));
+                String category = cursor.getString(cursor.getColumnIndex(COLUMN_JOB_OFFER_CATEGORY));
+                String companyName = cursor.getString(cursor.getColumnIndex(COLUMN_JOB_OFFER_COMPANY_NAME));
+                String categoryCompany = cursor.getString(cursor.getColumnIndex(COLUMN_JOB_OFFER_CATEGORY_COMPANY));
+                String keywordsCompany = cursor.getString(cursor.getColumnIndex(COLUMN_JOB_OFFER_KEYWORDS));
+
+                offerItem.put("Id", offerId);
+                offerItem.put("companyId", companyId);
+                offerItem.put("companyName", companyName);
+                offerItem.put("offerName", offerName);
+                offerItem.put("description", description);
+                offerItem.put("salary", salary);
+                offerItem.put("email", email);
+                offerItem.put("phone", phone);
+                offerItem.put("requirements", requirements);
+                offerItem.put("category", category);
+                offerItem.put("categoryCompany", categoryCompany);
+                offerItem.put("keywords", keywordsCompany);
+
+                offersList.add(offerItem);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return offersList;
+    }
+    public Map<Integer, String> getCompanyCategoryData() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Map<Integer, String> cityData = new HashMap<>();
+
+        String query = "SELECT " + COLUMN_COM_CAT_ID + ", " + COLUMN_COM_CAT_NAME + " FROM " + TABLE_COMPANY_CATEGORY;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int categoryId = cursor.getInt(cursor.getColumnIndex(COLUMN_COM_CAT_ID));
+                String categoryName = cursor.getString(cursor.getColumnIndex(COLUMN_COM_CAT_NAME));
+                cityData.put(categoryId, categoryName);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return cityData;
+    }
+
+    public User getUserByPhone(String phone) {
+        User user = null;
+
+        // Ось ваш SQL-запит для отримання інформації про користувача за номером телефона
+        String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_PHONE + " = ?";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{phone});
+
+        if (cursor.moveToFirst()) {
+            // Отримуємо дані про користувача з рядка результату запиту
+            user = new User();
+            user.setUserName(cursor.getString(cursor.getColumnIndex(COLUMN_NAME)));
+            user.setGender(cursor.getString(cursor.getColumnIndex(COLUMN_GENDER)));
+            user.setUserPhone(cursor.getString(cursor.getColumnIndex(COLUMN_PHONE)));
+            user.setUserPassword(cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD)));
+            user.setUserCity(cursor.getInt(cursor.getColumnIndex(COLUMN_CITY)));
+            user.setUserPhoto(cursor.getString(cursor.getColumnIndex(COLUMN_USER_PHOTO)));
+            user.setAge(cursor.getInt(cursor.getColumnIndex(COLUMN_AGE)));
+            user.setAccessGeo(cursor.getInt(cursor.getColumnIndex(COLUMN_ACCESS_GEO)) == 1);
+            user.setPrivatePolicy(cursor.getInt(cursor.getColumnIndex(COLUMN_PRIVATE_POLICY)) == 1);
+            user.setUserOffers(cursor.getInt(cursor.getColumnIndex(COLUMN_USER_OFFERS)) == 1);
+            user.setNotificationPromotions(cursor.getInt(cursor.getColumnIndex(COLUMN_NOTIFICATION_PROMOTIONS)) == 1);
+        }
+
+        cursor.close();
+        db.close();
+
+        return user;
+    }
+
+    public long updateUser(int userId, String newName, String newPhone, String newPassword,
+                           int newCity, String newGender, int newAge, boolean newAccessGeo,
+                           boolean newPrivatePolicy, boolean newUserOffers, boolean newNotificationPromotions,
+                           String newPhoto) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_NAME, newName);
+        values.put(COLUMN_PHONE, newPhone);
+        values.put(COLUMN_PASSWORD, newPassword);
+        values.put(COLUMN_CITY, newCity);
+        values.put(COLUMN_GENDER, newGender);
+        values.put(COLUMN_AGE, newAge);
+        values.put(COLUMN_ACCESS_GEO, newAccessGeo);
+        values.put(COLUMN_PRIVATE_POLICY, newPrivatePolicy);
+        values.put(COLUMN_USER_OFFERS, newUserOffers);
+        values.put(COLUMN_NOTIFICATION_PROMOTIONS, newNotificationPromotions);
+        values.put(COLUMN_USER_PHOTO, newPhoto);
+
+        return db.update(TABLE_NAME, values, COLUMN_ID + " = ?", new String[]{String.valueOf(userId)});
+    }
+
+    //hidden category
+    public long addCategoryToUser(int userId, int categoryId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_HIDDEN_USER_SERVICES_ID_USER, userId);
+        cv.put(COLUMN_HIDDEN_USER_SERVICES_ID_CATEGORY, categoryId);
+
+        long result = db.insert(TABLE_HIDDEN_USER_SERVICES, null, cv);
+
+        return result;
+    }
+    public void removeCategoryFromUser(int userId, int categoryId) {
+        String deleteQuery = "DELETE FROM " + TABLE_HIDDEN_USER_SERVICES +
+                " WHERE " + COLUMN_HIDDEN_USER_SERVICES_ID_USER + " = " + userId +
+                " AND " + COLUMN_HIDDEN_USER_SERVICES_ID_CATEGORY + " = " + categoryId;
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(deleteQuery);
+        db.close();
+    }
+
+    public void updateUserCategories(int userId, List<Integer> selectedCategoryIds) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+         //Спочатку видаліть всі існуючі записи про категорії для користувача
+        String deleteQuery = "DELETE FROM " + TABLE_HIDDEN_USER_SERVICES +
+                " WHERE " + COLUMN_HIDDEN_USER_SERVICES_ID_USER + " = " + userId;
+        db.execSQL(deleteQuery);
+
+        // Додайте нові записи для вибраних категорій
+        for (int categoryId : selectedCategoryIds) {
+            ContentValues cv = new ContentValues();
+            cv.put(COLUMN_HIDDEN_USER_SERVICES_ID_USER, userId);
+            cv.put(COLUMN_HIDDEN_USER_SERVICES_ID_CATEGORY, categoryId);
+            db.insert(TABLE_HIDDEN_USER_SERVICES, null, cv);
+        }
+    }
+
+    public NewsCard getNewsByCompanyId(int companyId) {
+        NewsCard newsCard = null;
+
+        String selectQuery = "SELECT * FROM " + TABLE_NEWS_FEED + " WHERE " + COLUMN_ID_COMPANY + " = ?";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(companyId)});
+
+        if (cursor.moveToFirst()) {
+            newsCard = new NewsCard();
+            int idCompany = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_ID_COMPANY)));
+            newsCard.setId_company(idCompany);
+            newsCard.setImage(cursor.getString(cursor.getColumnIndex(COLUMN_NEWS_FEED_PHOTO)));
+            newsCard.setDescription(cursor.getString(cursor.getColumnIndex(COLUMN_NEWS_FEED_DESCRIPTION)));
+            String time = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_NEWS_FEED_TIME));
+            String dateFormatPattern = "yyyy-MM-dd HH:mm:ss";
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatPattern, Locale.US);
+                Date date = dateFormat.parse(time);
+                newsCard.setPublication_time(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        cursor.close();
+        db.close();
+
+        return newsCard;
+    }
+
+    public double getRatingCompanyByCompanyId(int companyId) {
+        String selectQuery = "SELECT * FROM " + TABLE_COMPANY_REVIEWS + " WHERE " + COLUMN_COMPANY_REVIEWS_ID_COMPANY + " = ?";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(companyId)});
+        double totalRating = 0;
+
+        if (cursor.moveToFirst()) {
+            double locationRating = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_LOCATION)));
+            double serviceRating = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_SERVICE)));
+            double availabilityRating = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_AVAILABILITY)));
+            double comfortRating = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_COMFORT)));
+
+            double weightLocation = 0.25;
+            double weightService = 0.25;
+            double weightAvailability = 0.25;
+            double weightComfort = 0.25;
+
+            // Обчислення загального рейтингу
+            totalRating = (locationRating * weightLocation) + (serviceRating * weightService) + (availabilityRating * weightAvailability) + (comfortRating * weightComfort);
+        }
+
+        cursor.close();
+        db.close();
+
+        return totalRating;
+    }
 
 }

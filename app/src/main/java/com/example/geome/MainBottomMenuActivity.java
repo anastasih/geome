@@ -20,7 +20,7 @@ import com.example.geome.Models.FragmentReplacer;
 import com.example.geome.Models.User;
 
 public class MainBottomMenuActivity extends AppCompatActivity implements FragmentReplacer {
-    private ImageButton ImageButtonMain, ImageButtonRibbon, ImageButtonCity, ImageButtonChat;
+    private ImageButton ImageButtonMain, ImageButtonRibbon, ImageButtonCity, ImageButtonChat, ImageButtonProfile;
     private FrameLayout fragmentContainer;
     private User user;
     public  int newWidth = 60;
@@ -36,6 +36,7 @@ public class MainBottomMenuActivity extends AppCompatActivity implements Fragmen
         ImageButtonRibbon = findViewById(R.id.ImageButtonRibbon);
         ImageButtonCity = findViewById(R.id.ImageButtonCity);
         ImageButtonChat = findViewById(R.id.ImageButtonChat);
+        ImageButtonProfile = findViewById(R.id.ImageButtonProfile);
         fragmentContainer = findViewById(R.id.fragmentContainer);
 
         String fragmentName = getIntent().getStringExtra("fragmentName");
@@ -168,6 +169,32 @@ public class MainBottomMenuActivity extends AppCompatActivity implements Fragmen
                 drawable.setBounds(0, 0, newWidth, newHeight);
                 ImageButtonCity.setImageDrawable(drawable);
                 replaceFragment(new ChatFragment());
+            }
+        });
+
+        ImageButtonProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Drawable drawable = ContextCompat.getDrawable(MainBottomMenuActivity.this,
+                        getResources().getIdentifier("chat", "drawable", getPackageName()));
+                drawable.setBounds(0, 0, newWidth, newHeight);
+                ImageButtonChat.setImageDrawable(drawable);
+
+                drawable = ContextCompat.getDrawable(MainBottomMenuActivity.this,
+                        getResources().getIdentifier("home_not_main", "drawable", getPackageName()));
+                drawable.setBounds(0, 0, newWidth, newHeight);
+                ImageButtonMain.setImageDrawable(drawable);
+
+                drawable = ContextCompat.getDrawable(MainBottomMenuActivity.this,
+                        getResources().getIdentifier("strichka", "drawable", getPackageName()));
+                drawable.setBounds(0, 0, newWidth, newHeight);
+                ImageButtonRibbon.setImageDrawable(drawable);
+
+                drawable = ContextCompat.getDrawable(MainBottomMenuActivity.this,
+                        getResources().getIdentifier("city", "drawable", getPackageName()));
+                drawable.setBounds(0, 0, newWidth, newHeight);
+                ImageButtonCity.setImageDrawable(drawable);
+                replaceFragment(new ProfileFragment());
             }
         });
     }
