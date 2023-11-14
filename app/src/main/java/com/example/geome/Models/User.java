@@ -13,6 +13,8 @@ public class User implements Serializable {
 
     private int userCity;
     private int age;
+
+    private String userPhoto;
     private boolean accessGeo;
 
     public String getUserName() {
@@ -21,6 +23,13 @@ public class User implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+    public String getUserPhoto() {
+        return userPhoto;
+    }
+
+    public void setUserPhoto(String userPhoto) {
+        this.userPhoto = userPhoto;
     }
 
     public String getGender() {

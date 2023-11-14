@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VacanciesServiceCompaniesFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="340dp"
+            android:layout_height="29dp"
+            android:layout_gravity="center"
+            android:text="Вакансії від компаній сервісу"
+            android:textColor="#323232"
+            android:textSize="18dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserrat_semibold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="9dp">
+
+            <FrameLayout
+                android:layout_width="165dp"
+                android:layout_height="108dp"
+                android:layout_weight="1"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/categoryServicesButton"
+                    android:layout_width="165dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/services_category_1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Послуги"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginBottom="34dp"/>
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Краса, приватна медицина, адвокатські компанії"
+                    android:textSize="10dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginBottom="10dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="165dp"
+                android:layout_height="108dp"
+                android:layout_weight="1"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/categoryDeliveryButton"
+                    android:layout_width="165dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/delivery_category_1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Доставка"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginBottom="34dp"/>
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Заклади харчування, супермаркети"
+                    android:textSize="10dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginBottom="10dp" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <FrameLayout
+                android:layout_width="165dp"
+                android:layout_height="108dp"
+                android:layout_weight="1"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/categoryAccommodationButton"
+                    android:layout_width="165dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/accomodation_category_1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Житло"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginBottom="34dp"/>
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Готелі та апартаменти"
+                    android:textSize="10dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginBottom="20dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="165dp"
+                android:layout_height="108dp"
+                android:layout_weight="1"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/categoryTaxiButton"
+                    android:layout_width="165dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/taxi_category_1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Таксі"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginBottom="34dp"/>
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Вакансії від провідних компаній таксі міста"
+                    android:textSize="10dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginBottom="10dp" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="340dp"
+            android:layout_height="1.8dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginBottom="9dp"
+            android:background="#D8D8D8" />
+
+        <TextView
+            android:layout_width="340dp"
+            android:layout_height="29dp"
+            android:layout_gravity="center"
+            android:text="Популярні вакансії"
+            android:textColor="#323232"
+            android:textSize="15dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:layout_marginBottom="5dp"/>
+
+        <ListView
+            android:id="@+id/lvpopularVacancies"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="1dp"
+            android:nestedScrollingEnabled="true"
+            />
+    </LinearLayout>
+
+</FrameLayout>
