@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Reviews">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="33dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="18dp"
+                android:text="Відгуки користувачів" />
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="33dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="12dp"
+                android:text="Загальний рейтиг компанії" />
+
+            <RelativeLayout
+                android:layout_width="170dp"
+                android:layout_height="60dp"
+                android:layout_gravity="start">
+
+                <TextView
+                    android:id="@+id/ratingValueTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="85dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="4.3"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/ratingValueTextView"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="/5"
+                    android:textSize="12dp" />
+
+                <RatingBar
+                    android:id="@+id/company_rating_main"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ratingValueTextView"
+                    android:layout_marginLeft="70dp"
+                    android:numStars="5"
+                    android:progressBackgroundTint="#706D64"
+                    android:rating="4.0"
+                    android:stepSize="0.1"
+                    android:theme="@style/MyRatingBar" />
+
+                <TextView
+                    android:id="@+id/ratingValueTextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/company_rating_main"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="80dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="811"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/company_rating_main"
+                    android:layout_toEndOf="@+id/ratingValueTextView2"
+                    android:layout_marginStart="2dp"
+
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="оцінок"
+                    android:textSize="12dp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="170dp"
+                android:layout_height="100dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="-80dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="Розміщення"
+                    android:textSize="12dp" />
+
+                <ProgressBar
+                    android:id="@+id/ratingBar1"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="150dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="15dp"
+                    android:indeterminate="false"
+                    android:indeterminateTint="@android:color/transparent"
+                    android:max="5"
+                    android:progress="4"
+                    android:progressTint="#FFD700" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:layout_marginTop="25dp"
+                    android:text="Обслуговування"
+                    android:textSize="12dp" />
+                <ProgressBar
+                    android:id="@+id/ratingBar2"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="150dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="40dp"
+                    android:indeterminate="false"
+                    android:indeterminateTint="@android:color/transparent"
+                    android:max="5"
+                    android:progress="3"
+                    android:progressTint="#FFD700" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:layout_marginTop="50dp"
+                    android:text="Доступність"
+                    android:textSize="12dp" />
+                <ProgressBar
+                    android:id="@+id/ratingBar3"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="150dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="65dp"
+                    android:indeterminate="false"
+                    android:indeterminateTint="@android:color/transparent"
+                    android:max="5"
+                    android:progress="3"
+                    android:progressTint="#FFD700" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:layout_marginTop="72dp"
+                    android:text="Комфорт"
+                    android:textSize="12dp" />
+                <ProgressBar
+                    android:id="@+id/ratingBar4"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="150dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="90dp"
+                    android:indeterminate="false"
+                    android:indeterminateTint="@android:color/transparent"
+                    android:max="5"
+                    android:progress="3"
+                    android:progressTint="#FFD700" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="33dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="12dp"
+                android:text="Ви можете залишити відгук про місце після того, як відвідаєте його" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>
