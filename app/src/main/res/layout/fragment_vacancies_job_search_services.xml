@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VacanciesJobSearchServicesFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="340dp"
+            android:layout_height="29dp"
+            android:layout_gravity="center"
+            android:text="Вакансії від сервісів пошуку роботи"
+            android:textColor="#323232"
+            android:textSize="16dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserrat_semibold"/>
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="9dp"
+            android:layout_gravity="center">
+
+            <FrameLayout
+                android:layout_width="340dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+                <!-- ImageView з фоновим зображенням -->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_1" />
+
+                <!-- Spinner для введення міста  -->
+                <Spinner
+                    android:id="@+id/spinnerWorkCategory"
+                    style="@style/SpinnerStyle"
+                    android:layout_width="310dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginBottom="6dp">
+
+            <TextView
+                android:id="@+id/studentsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Для студентів"
+                android:padding="8dp"
+                android:textSize="11dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:textAlignment="center"
+                android:fontFamily="@font/montserrat_medium"
+                android:background="@drawable/rounded_border"
+                />
+
+            <TextView
+                android:id="@+id/onlineButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Дистанційно"
+                android:padding="8dp"
+                android:textSize="11dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:layout_marginRight="10dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:background="@drawable/rounded_border"
+                />
+
+            <TextView
+                android:id="@+id/withoutExperienceButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Без досвіду"
+                android:padding="8dp"
+                android:textSize="11dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:textAlignment="center"
+                android:fontFamily="@font/montserrat_medium"
+                android:background="@drawable/rounded_border"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/olderPeopleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Для людей старшого віку"
+                android:padding="8dp"
+                android:textSize="11dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:textAlignment="center"
+                android:fontFamily="@font/montserrat_medium"
+                android:background="@drawable/rounded_border"
+                />
+
+            <TextView
+                android:id="@+id/peopleWithDisabilitiesButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Для людей із інвалідністю"
+                android:padding="8dp"
+                android:textSize="11dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:textAlignment="center"
+                android:fontFamily="@font/montserrat_medium"
+                android:background="@drawable/rounded_border"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="340dp"
+            android:layout_height="1.8dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginBottom="9dp"
+            android:background="#D8D8D8" />
+
+
+        <ListView
+            android:id="@+id/lvVacancies"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="1dp"
+            android:nestedScrollingEnabled="true"/>
+    </LinearLayout>
+
+</FrameLayout>

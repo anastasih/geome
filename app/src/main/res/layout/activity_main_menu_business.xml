@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainMenuBusinessActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="0dp"
+            app:srcCompat="@drawable/logo_business" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonMap"
+            android:layout_width="43dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="140dp"
+            android:background="#00000000"
+            android:contentDescription="Кнопка Мапа"
+            android:src="@drawable/geo_business" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonProfile"
+            android:layout_width="43dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:background="#00000000"
+            android:contentDescription="Кнопка профіль"
+            android:src="@drawable/user_business" />
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <ImageButton
+            android:id="@+id/ImageButtonMain"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="35dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка головна"
+            android:scaleType="fitCenter"
+            android:src="@drawable/home_not_main" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonRibbon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="35dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка стрічка"
+            android:scaleType="fitCenter"
+            android:src="@drawable/strichka" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonCity"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="25dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка місто"
+            android:scaleType="fitCenter"
+            android:src="@drawable/city" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonChat"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка чат"
+            android:scaleType="fitCenter"
+            android:src="@drawable/chat" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

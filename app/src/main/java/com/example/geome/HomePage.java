@@ -156,9 +156,8 @@ public class HomePage extends AppCompatActivity {
         ImageButtonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Код для виконання при натисканні на button1
-                // Наприклад, перехід до MainActivity
-                Intent intent = new Intent(HomePage.this, FirstPage.class);
+                Intent intent = new Intent(HomePage.this, MainBottomMenuActivity.class);
+                intent.putExtra("fragmentName", ProfileFragment.class.getName());
                 startActivity(intent);
             }
         });
@@ -207,8 +206,13 @@ public class HomePage extends AppCompatActivity {
             public void onClick(View v) {
                 // Код для виконання при натисканні на button1
                 // Наприклад, перехід до MainActivity
-                Intent intent = new Intent(HomePage.this, FirstPage.class);
+                Intent intent = new Intent(HomePage.this, WorkActivity.class);
                 startActivity(intent);
+
+//                Intent intent = new Intent(HomePage.this, MainMenuBusinessActivity.class);
+//                intent.putExtra("fragmentName", VacanciesJobSearchServicesFragment.class.getName());
+//                startActivity(intent);
+
             }
         });
 

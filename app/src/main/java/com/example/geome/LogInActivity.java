@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,7 +28,7 @@ public class LogInActivity extends AppCompatActivity {
     EditText phoneEditText;
     EditText passwordEditText;
     User userLog;
-    ImageView buttonBack;
+    ImageView buttonBack, password_see;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +47,20 @@ public class LogInActivity extends AppCompatActivity {
         phoneEditText = findViewById(R.id.phoneEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         buttonBack = findViewById(R.id.buttonBack);
+        password_see = findViewById(R.id.password_see);
 
         buttonSignUp.setOnClickListener(this::openSignUp);
         buttonLogIn.setOnClickListener(this::logIn);
         buttonBack.setOnClickListener(this::returnBack);
+        password_see.setOnClickListener(this::toSeePassword);
         setEditTexes();
+    }
+    private void toSeePassword(View view){
+        if (passwordEditText.getTransformationMethod() == PasswordTransformationMethod.getInstance()) {
+            passwordEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        } else {
+            passwordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        }
     }
     private void returnBack(View view){
         onBackPressed();

@@ -2,6 +2,16 @@ package com.example.geome.Models;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.util.Log;
@@ -13,9 +23,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
+
 import com.example.geome.R;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class CustomCursorAdapter extends CursorAdapter {
 
@@ -74,9 +90,33 @@ public class CustomCursorAdapter extends CursorAdapter {
 
         TextView messageTextView = view.findViewById(R.id.messageTextView);
         TextView nameUser = view.findViewById(R.id.nameUser);
+        ImageView user_icon = view.findViewById(R.id.user_icon);
+        TextView time_publication = view.findViewById(R.id.time_publication);
 
         String messageText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_CONTENT));
         String userName = dbHelper.getUserNameById(userId);
+        String userIcon = dbHelper.getUserIconById(userId);
+        Date currentDate = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        String formattedDate = sdf.format(currentDate);
+        
+        if (userIcon != null && userIcon.length() != 0) {
+            //  шлях до збереженого зображення в кеші
+            File imageFile = new File(context.getCacheDir(), userIcon);
+
+            // Перевірка, чи файл існує
+            if (imageFile.exists()) {
+                Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+
+                int desiredWidth = 27;
+                int desiredHeight = 27;
+
+                Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, desiredWidth, desiredHeight, true);
+                Bitmap roundedBitmap = getRoundedBitmap(resizedBitmap);
+                user_icon.setImageBitmap(roundedBitmap);
+            }
+        }
+
         String messageType = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_MESSAGE_TYPE));
         ImageView playButton = view.findViewById(R.id.playButton);
         final String audioFilePath = messageText; // Припускаємо, що у вас в колонці `COLUMN_CONTENT` міститься шлях до аудіофайлу
@@ -102,6 +142,7 @@ public class CustomCursorAdapter extends CursorAdapter {
             } else {
                 playButton.setVisibility(View.GONE); // Зробити іконку голосового запису невидимою для текстових повідомлень
                 messageTextView.setText(messageText);
+                time_publication.setText(formattedDate);
                 messageTextView.setVisibility(View.VISIBLE); // Показати текст повідомлення
                 nameUser.setVisibility(View.GONE); // Приховати ім'я користувача
             }
@@ -123,6 +164,7 @@ public class CustomCursorAdapter extends CursorAdapter {
                 messageTextView.setVisibility(View.VISIBLE); // Показати текст повідомлення
                 nameUser.setVisibility(View.VISIBLE); // Показати ім'я користувача
                 nameUser.setText(userName);
+                time_publication.setText(formattedDate);
             }
 
 //            if ("audio".equals(messageType)) {
@@ -186,6 +228,31 @@ public class CustomCursorAdapter extends CursorAdapter {
         });
 
 
+    }
+
+    private Bitmap getRoundedBitmap(Bitmap srcBitmap) {
+        int width = srcBitmap.getWidth();
+        int height = srcBitmap.getHeight();
+        int size = Math.min(width, height);
+
+        Bitmap output = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(output);
+        Paint paint = new Paint();
+        Rect rect = new Rect(0, 0, size, size);
+        RectF rectF = new RectF(rect);
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(Color.WHITE);
+
+        canvas.drawRoundRect(rectF, size / 2, size / 2, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+
+        canvas.drawBitmap(srcBitmap, rect, rect, paint);
+
+        return output;
     }
 
 }
