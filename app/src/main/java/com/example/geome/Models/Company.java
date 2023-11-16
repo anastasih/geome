@@ -1,6 +1,8 @@
 package com.example.geome.Models;
 
-public class Company {
+import java.io.Serializable;
+
+public class Company implements Serializable {
     public int companyId;
     public String companyName;
     public String idCategory;

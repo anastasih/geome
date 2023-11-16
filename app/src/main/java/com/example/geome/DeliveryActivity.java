@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -33,6 +34,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.geome.Models.NewFeedAdapter;
@@ -41,6 +43,7 @@ import com.example.geome.Models.User;
 import com.example.geome.Models.AppData;
 import com.example.geome.Models.CompanyListAdapter;
 import com.example.geome.Models.CompanyDetails;
+import com.google.gson.Gson;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -94,45 +97,30 @@ public class DeliveryActivity extends AppCompatActivity   {
         dbHelper = new DatabaseHelper(DeliveryActivity.this);
         user = AppData.getInstance().getUser();
         int idCity = dbHelper.getCityForUser(user.getUserPhone());
-        List<Company> companies = getCompaniesByCategoryAndCity(idCity, 6);
+        Toast.makeText(this, "UserPhone = " + user.getUserPhone(), Toast.LENGTH_SHORT).show();
+        List<Company> companies = getCompaniesByCategoryAndCity(idCity, 5);
 
-        CompanyListAdapter adapter = new CompanyListAdapter(this, R.layout.delivery_card,companies);
+        CompanyListAdapter adapter = new CompanyListAdapter(this, R.layout.delivery_card, companies);
         listView_delivery.setAdapter(adapter);
+        listView_delivery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Отримати об'єкт, який був натиснутий, на основі позиції
+                Company selectedCompany = (Company) parent.getItemAtPosition(position);
+
+                // Перетворення об'єкта JobOffer в JSON рядок
+                String jobOfferJson = new Gson().toJson(selectedCompany);
+
+                Intent intent = new Intent(DeliveryActivity.this, Business_services_page_delivery.class);
+                intent.putExtra("selectedCompanyJson", jobOfferJson);
+                startActivity(intent);
+            }
+        });
+
+       // listView_delivery.setOnItemClickListener(this);
         initView();
     }
-//    public void setEditText() {
-//        search_delivery.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                String keywords = search_delivery.getText().toString();
-//                DatabaseHelper dbHelper = new DatabaseHelper(DeliveryActivity.this);
-//                List<Map<String, Object>> searchResults = dbHelper.searchNewsByKeywords(keywords);
-//
-//                List<NewsCard> newsCards = new ArrayList<>();
-//
-//                for (Map<String, Object> newsItem : searchResults) {
-//                    int newsId = (int) newsItem.get("newsId");
-//                    int companyId = (int) newsItem.get("companyId");
-//                    String newsPhoto = (String) newsItem.get("newsPhoto");
-//                    String description = (String) newsItem.get("description");
-//                    String companyName = (String) newsItem.get("companyName");
-//                    Date date = (Date) newsItem.get("date");
-//
-//                    NewsCard newsCard = new NewsCard(newsId, companyId, newsPhoto, description, date);
-//                    newsCards.add(newsCard);
-//                }
-//
-//                CompanyListAdapter searchAdapter = new CompanyListAdapter(getContext(), R.layout.news_card, newsCards);
-//                listView_delivery.setAdapter(searchAdapter);
-//            }
-//        });
-//    }
+
     public List<Company> getCompaniesByCategoryAndCity(int idCity, int idCategory) {
         List<Company> allCompanies = dbHelper.getCompaniesByCityId(idCity);
         List<Company> filteredCompanies = new ArrayList<>();
@@ -155,9 +143,9 @@ public class DeliveryActivity extends AppCompatActivity   {
                 dbHelper = new DatabaseHelper(DeliveryActivity.this);
                 user = AppData.getInstance().getUser();
                 int idCity = dbHelper.getCityForUser(user.getUserPhone());
-                List<Company> companies = getCompaniesByCategoryAndCity(idCity, 6);
+                List<Company> companies = getCompaniesByCategoryAndCity(idCity, 5);
 
-                CompanyListAdapter adapter = new CompanyListAdapter(DeliveryActivity.this, R.layout.delivery_card,companies);
+                CompanyListAdapter adapter = new CompanyListAdapter(DeliveryActivity.this, R.layout.delivery_card, companies);
 
                 listView_delivery.setAdapter(adapter);
                 Drawable drawable1 = ContextCompat.getDrawable(DeliveryActivity.this,
@@ -179,7 +167,8 @@ public class DeliveryActivity extends AppCompatActivity   {
                 int idCity = dbHelper.getCityForUser(user.getUserPhone());
                 List<Company> companies = getCompaniesByCategoryAndCity(idCity, 6);
 
-                CompanyListAdapter adapter = new CompanyListAdapter(DeliveryActivity.this, R.layout.delivery_card,companies);
+                CompanyListAdapter adapter = new CompanyListAdapter(DeliveryActivity.this, R.layout.delivery_card, companies);
+                listView_delivery.setAdapter(adapter);
                 Drawable drawable1 = ContextCompat.getDrawable(DeliveryActivity.this,
                         getResources().getIdentifier("supermarket", "drawable", getPackageName()));
                 drawable1.setBounds(0, 0, newWidth, newHeight);

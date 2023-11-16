@@ -32,6 +32,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.geome.Models.NewFeedAdapter;
@@ -56,6 +57,7 @@ public class HostelActivity extends AppCompatActivity implements AdapterView.OnI
     public ImageButton ImageButtonMap;
     public ImageButton ImageButtonProfile;
     public ImageView buttonBack;
+    EditText search_news;
     public ImageButton ButtonHostel1;
     public ImageButton ButtonApps1;
     public ImageButton ImageButtonMain;
@@ -75,6 +77,7 @@ public class HostelActivity extends AppCompatActivity implements AdapterView.OnI
         listView_hostel = findViewById(R.id.listView_hostel);
 
         buttonBack = findViewById(R.id.buttonBack_hostel);
+        search_news = findViewById(R.id.search_news);
 
         ButtonHostel1 = findViewById(R.id.ButtonHostel);
         ButtonApps1 = findViewById(R.id.ButtonApps);
@@ -84,33 +87,50 @@ public class HostelActivity extends AppCompatActivity implements AdapterView.OnI
         ImageButtonCity = findViewById(R.id.ImageButtonCity_hostel);
         ImageButtonChat = findViewById(R.id.ImageButtonChat_hostel);
 
+        search_news.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String keywords = search_news.getText().toString();
+                DatabaseHelper dbHelper = new DatabaseHelper(HostelActivity.this);
+                User user1 = AppData.getInstance().getUser();
+                int IdCity = dbHelper.getCityForUser(user1.getUserPhone());
+                List<Company> searchResults = dbHelper.getCompanyByKeywordsAndCity(IdCity, keywords);
+                Toast.makeText(HostelActivity.this, "Result = " + searchResults.size(), Toast.LENGTH_SHORT).show();
+                CompanyListAdapter searchAdapter = new CompanyListAdapter(HostelActivity.this, R.layout.news_card, searchResults);
+                listView_hostel.setAdapter(searchAdapter);
+            }
+        });
+
 
         dbHelper = new DatabaseHelper(HostelActivity.this);
         user = AppData.getInstance().getUser();
         int idCity = dbHelper.getCityForUser(user.getUserPhone());
-        List<Company> companies = getCompaniesByCategoryAndCity(idCity, 8);
+        List<Company> companies = getCompaniesByCategoryAndCity(idCity, 7);
 
+
+        listView_hostel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Отримати об'єкт, який був натиснутий, на основі позиції
+                Company selectedCompany = (Company) parent.getItemAtPosition(position);
+
+                // Перетворення об'єкта JobOffer в JSON рядок
+                String jobOfferJson = new Gson().toJson(selectedCompany);
+
+                Intent intent = new Intent(HostelActivity.this, Business_services_page_hostel.class);
+                intent.putExtra("selectedCompanyJson", jobOfferJson);
+                startActivity(intent);
+            }
+        });
         CompanyListAdapter adapter = new CompanyListAdapter(this, R.layout.delivery_card, companies);
         listView_hostel.setAdapter(adapter);
-//        listView_hostel.setFocusable(true);
-//        listView_hostel.setClickable(true);
-//        listView_hostel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                // Отримати об'єкт, який був натиснутий, на основі позиції
-//                Log.d("HostelActivity", "onItemClick triggered");
-//                Company selectedCompany = (Company) parent.getItemAtPosition(position);
-//
-//                // Перетворення об'єкта JobOffer в JSON рядок
-//                String jobOfferJson = new Gson().toJson(selectedCompany);
-//
-//                Intent intent = new Intent(HostelActivity.this, Business_services_page_hostel.class);
-//                intent.putExtra("selectedCompanyJson", jobOfferJson);
-//                startActivity(intent);
-//            }
-//        });
-
-        listView_hostel.setOnItemClickListener(this);
+        //listView_hostel.setOnItemClickListener(this);
         initView();
     }
     @Override
@@ -145,7 +165,7 @@ public class HostelActivity extends AppCompatActivity implements AdapterView.OnI
                 dbHelper = new DatabaseHelper(HostelActivity.this);
                 user = AppData.getInstance().getUser();
                 int idCity = dbHelper.getCityForUser(user.getUserPhone());
-                List<Company> companies = getCompaniesByCategoryAndCity(idCity, 8);
+                List<Company> companies = getCompaniesByCategoryAndCity(idCity, 7);
 
                 CompanyListAdapter adapter = new CompanyListAdapter(HostelActivity.this, R.layout.delivery_card,companies);
 
@@ -170,6 +190,7 @@ public class HostelActivity extends AppCompatActivity implements AdapterView.OnI
                 List<Company> companies = getCompaniesByCategoryAndCity(idCity, 8);
 
                 CompanyListAdapter adapter = new CompanyListAdapter(HostelActivity.this, R.layout.delivery_card,companies);
+                listView_hostel.setAdapter(adapter);
                 Drawable drawable1 = ContextCompat.getDrawable(HostelActivity.this,
                         getResources().getIdentifier("apps", "drawable", getPackageName()));
                 drawable1.setBounds(0, 0, newWidth, newHeight);

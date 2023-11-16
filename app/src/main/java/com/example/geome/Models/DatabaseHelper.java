@@ -673,6 +673,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertCompanyReviews(db,28, 5, 4, 4, 4, 1);
         insertCompanyReviews(db,29, 3, 4.5, 4, 5, 1);
         insertCompanyReviews(db,30, 4.2, 4, 5, 4.1, 1);
+        insertCompanyReviews(db,31, 4.2, 4, 5, 4.1, 1);
 
         String appliedVacanciesQuery = "CREATE TABLE " + TABLE_APPLIED_VACANCY + " (" +
                 COLUMN_APPLIED_VACANCY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -1552,8 +1553,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public NewsCard getNewsByCompanyId(int companyId) {
-        NewsCard newsCard = null;
+    public List<NewsCard> getNewsByCompanyId(int companyId) {
+        List<NewsCard> itemList = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM " + TABLE_NEWS_FEED + " WHERE " + COLUMN_ID_COMPANY + " = ?";
 
@@ -1561,40 +1562,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(companyId)});
 
         if (cursor.moveToFirst()) {
-            newsCard = new NewsCard();
-            int idCompany = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_ID_COMPANY)));
-            newsCard.setId_company(idCompany);
-            newsCard.setImage(cursor.getString(cursor.getColumnIndex(COLUMN_NEWS_FEED_PHOTO)));
-            newsCard.setDescription(cursor.getString(cursor.getColumnIndex(COLUMN_NEWS_FEED_DESCRIPTION)));
-            String time = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_NEWS_FEED_TIME));
-            String dateFormatPattern = "yyyy-MM-dd HH:mm:ss";
-            try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatPattern, Locale.US);
-                Date date = dateFormat.parse(time);
-                newsCard.setPublication_time(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            do {
+                NewsCard newsCard = new NewsCard();
+                int idCompany = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_ID_COMPANY)));
+                newsCard.setId_company(idCompany);
+                newsCard.setImage(cursor.getString(cursor.getColumnIndex(COLUMN_NEWS_FEED_PHOTO)));
+                newsCard.setDescription(cursor.getString(cursor.getColumnIndex(COLUMN_NEWS_FEED_DESCRIPTION)));
+                String time = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_NEWS_FEED_TIME));
+                String dateFormatPattern = "yyyy-MM-dd HH:mm:ss";
+                try {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatPattern, Locale.US);
+                    Date date = dateFormat.parse(time);
+                    newsCard.setPublication_time(date);
+                    itemList.add(newsCard);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }while (cursor.moveToNext());
         }
 
         cursor.close();
         db.close();
 
-        return newsCard;
+        return itemList;
     }
 
-    public double getRatingCompanyByCompanyId(int companyId) {
+    public Reviews getRatingCompanyByCompanyId(int companyId) {
         String selectQuery = "SELECT * FROM " + TABLE_COMPANY_REVIEWS + " WHERE " + COLUMN_COMPANY_REVIEWS_ID_COMPANY + " = ?";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(companyId)});
         double totalRating = 0;
-
+        Reviews reviews = null;
         if (cursor.moveToFirst()) {
             double locationRating = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_LOCATION)));
             double serviceRating = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_SERVICE)));
             double availabilityRating = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_AVAILABILITY)));
             double comfortRating = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_COMFORT)));
+            reviews = new Reviews(companyId, locationRating, serviceRating, availabilityRating, comfortRating);
 
             double weightLocation = 0.25;
             double weightService = 0.25;
@@ -1608,7 +1613,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
 
-        return totalRating;
+        return reviews;
+    }
+
+    public Company getCompanyById(int Id) {
+        String selectQuery = "SELECT * FROM " + TABLE_COMPANY + " WHERE " + COLUMN_COM_ID + " = ?";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(Id)});
+        Company company = null;
+        if (cursor.moveToFirst()) {
+            int companyId = cursor.getInt(cursor.getColumnIndex(COLUMN_COM_ID));
+            String companyName = cursor.getString(cursor.getColumnIndex(COLUMN_COM_NAME));
+            String IdCategory = cursor.getString(cursor.getColumnIndex(COLUMN_COM_ID_CATEGORY));
+            String CompanyPhoto = cursor.getString(cursor.getColumnIndex(COLUMN_COM_PHOTO));
+            String CompanyDescription = cursor.getString(cursor.getColumnIndex(COLUMN_COM_DESCRIPTION));
+            String CompanyRating = cursor.getString(cursor.getColumnIndex(COLUMN_COM_RATING));
+            String Email = cursor.getString(cursor.getColumnIndex(COLUMN_COM_EMAIL));
+            String Phone = cursor.getString(cursor.getColumnIndex(COLUMN_COM_PHONE));
+
+            company = new Company(companyId, companyName, IdCategory, CompanyPhoto, CompanyDescription,CompanyRating,Email, Phone);
+        }
+
+        cursor.close();
+        db.close();
+
+        return company;
     }
     public long addAppliedVacancy(int idVacancy, int idUser, String experience, String whyYou,
                                   String languages, String employment, String fileNames) {
@@ -1627,10 +1657,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return result;
     }
-    public List<Company> getCompanyByKeywordsAndCity(int id, String keywords){
+    public List<Company> getCompanyByKeywordsAndCity(int cityId, String keywords) {
         List<Company> sortedList = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
+
+//        String query = "SELECT " + TABLE_COMPANY + ".* " +
+//                "FROM " + TABLE_COMPANY + " " +
+//                "INNER JOIN " + TABLE_COMPANY_CITY + " ON " +
+//                TABLE_COMPANY + "." + COLUMN_COM_ID + " = " + TABLE_COMPANY_CITY + "." + COLUMN_COM_COMPANY_ID + " " +
+//                "WHERE " + TABLE_COMPANY_CITY + "." + COLUMN_COM_CITY_ID + " = ? AND " +
+//                TABLE_COMPANY + "." + COLUMN_COM_NAME + " = ?";
 
         String query = "SELECT " + TABLE_COMPANY + ".* " +
                 "FROM " + TABLE_COMPANY + " " +
@@ -1638,7 +1675,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 TABLE_COMPANY + "." + COLUMN_COM_ID + " = " + TABLE_COMPANY_CITY + "." + COLUMN_COM_COMPANY_ID + " " +
                 "WHERE " + TABLE_COMPANY_CITY + "." + COLUMN_COM_CITY_ID + " = ?";
 
-        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id)});
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(cityId)});
+//        String query = "SELECT " + TABLE_COMPANY + ".* " +             "FROM " + TABLE_COMPANY + " " +             "INNER JOIN " + TABLE_COMPANY_CITY + " ON " +             TABLE_COMPANY + "." + COLUMN_COM_ID + " = " + TABLE_COMPANY_CITY + "." + COLUMN_COM_COMPANY_ID + " " +             "WHERE " + TABLE_COMPANY_CITY + "." + COLUMN_COM_CITY_ID + " = ? AND " +             "(" + TABLE_COMPANY + "." + COLUMN_COM_NAME + " LIKE ? OR " +             TABLE_COMPANY + "." + COLUMN_COM_DESCRIPTION + " LIKE ?)";
+//        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(cityId), "%" + keywords + "%", "%" + keywords + "%"});
+//        String[] selectionArgs = new String[]{String.valueOf(cityId), "%" + keywords + "%", "%" + keywords + "%"};
 
         if (cursor.moveToFirst()) {
             do {
@@ -1651,7 +1691,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String companyEmail = cursor.getString(cursor.getColumnIndex(COLUMN_COM_EMAIL));
                 String companyPhone = cursor.getString(cursor.getColumnIndex(COLUMN_COM_PHONE));
 
-                if(companyName.equals(keywords)){
+                if(companyName.toLowerCase().contains(keywords.toLowerCase())){
                     Company company = new Company(companyId, companyName, idCategory, companyPhoto, companyDescription, companyRating, companyEmail, companyPhone);
                     sortedList.add(company);
                 }

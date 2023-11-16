@@ -54,13 +54,11 @@
         tools:ignore="MissingConstraints">
 
         <ImageView
-            android:id="@+id/image_delivery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
-            android:background="@drawable/salad"
-            android:scaleType="centerCrop">
+            android:background="@drawable/oldtime">
         </ImageView>
         <ImageView
             android:id="@+id/saveImageView"
@@ -74,7 +72,7 @@
             app:tint="@android:color/white">
         </ImageView>
         <ImageView
-            android:id="@+id/buttonBack_delivery"
+            android:id="@+id/buttonBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
@@ -82,39 +80,28 @@
             app:srcCompat="@drawable/next"
             app:tint="@android:color/white" />
         <FrameLayout
-            android:layout_width="200dp"
+            android:layout_width="240dp"
             android:layout_height="80dp"
             android:layout_marginLeft="25dp"
             android:layout_marginBottom="25dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true">
             <TextView
-                android:id="@+id/name_delivery"
+                android:id="@+id/name_page"
                 android:layout_width="370dp"
                 android:layout_height="30dp"
-                android:text="Salad"
+                android:text="Барбершоп OldTime"
                 android:textSize="25dp"
                 android:textColor="@android:color/white">
             </TextView>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                app:srcCompat="@drawable/small_time"
-                app:tint="@android:color/white"
-                android:contentDescription="TODO" />
-
             <TextView
-                android:layout_width="100dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="33dp"
-                android:layout_marginLeft="30dp"
-                android:text="40xв"
-                android:textColor="@android:color/white"
-                android:textSize="15dp">
-
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="пров. Скорульського, 2"
+                android:layout_marginTop="30dp"
+                android:textSize="15dp"
+                android:textColor="@android:color/white">
             </TextView>
-
             <TextView
                 android:id="@+id/rating"
                 android:layout_width="20dp"
@@ -165,16 +152,16 @@
             android:src="@drawable/main_word" />
 
         <ImageButton
-            android:id="@+id/ImageButtonDelivery_word"
+            android:id="@+id/ImageButtonServices"
             android:layout_width="105dp"
             android:layout_height="16dp"
             android:layout_gravity="bottom"
             android:layout_marginLeft="20dp"
             android:adjustViewBounds="true"
             android:background="#00000000"
-            android:contentDescription="Кнопка доставка"
+            android:contentDescription="Кнопка Проживання"
             android:scaleType="fitCenter"
-            android:src="@drawable/not_delivery" />
+            android:src="@drawable/not_services" />
 
         <ImageButton
             android:id="@+id/ImageButtonReviews"

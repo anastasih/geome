@@ -17,7 +17,7 @@
                 android:layout_width="340dp"
                 android:layout_height="33dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:textSize="18dp"
                 android:text="Відгуки користувачів" />
@@ -69,28 +69,6 @@
                     android:rating="4.0"
                     android:stepSize="0.1"
                     android:theme="@style/MyRatingBar" />
-
-                <TextView
-                    android:id="@+id/ratingValueTextView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/company_rating_main"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="80dp"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="811"
-                    android:textSize="12dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/company_rating_main"
-                    android:layout_toEndOf="@+id/ratingValueTextView2"
-                    android:layout_marginStart="2dp"
-
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="оцінок"
-                    android:textSize="12dp" />
             </RelativeLayout>
 
 
@@ -109,7 +87,7 @@
                     android:textSize="12dp" />
 
                 <ProgressBar
-                    android:id="@+id/ratingBar1"
+                    android:id="@+id/ProgressBarBar1"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="150dp"
                     android:layout_height="10dp"
@@ -130,7 +108,7 @@
                     android:text="Обслуговування"
                     android:textSize="12dp" />
                 <ProgressBar
-                    android:id="@+id/ratingBar2"
+                    android:id="@+id/ProgressBarBar2"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="150dp"
                     android:layout_height="10dp"
@@ -150,7 +128,7 @@
                     android:text="Доступність"
                     android:textSize="12dp" />
                 <ProgressBar
-                    android:id="@+id/ratingBar3"
+                    android:id="@+id/ProgressBarBar3"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="150dp"
                     android:layout_height="10dp"
@@ -170,7 +148,7 @@
                     android:text="Комфорт"
                     android:textSize="12dp" />
                 <ProgressBar
-                    android:id="@+id/ratingBar4"
+                    android:id="@+id/ProgressBarBar4"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="150dp"
                     android:layout_height="10dp"

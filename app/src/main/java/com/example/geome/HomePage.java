@@ -32,7 +32,6 @@ public class HomePage extends AppCompatActivity {
     TextView Categories1;
     TextView Categories2;
     TextView Categories3;
-    TextView Categories4;
     TextView Categories5;
     ImageButton ImageButtonMain;
     ImageButton ImageButtonRibbon;
@@ -48,7 +47,6 @@ public class HomePage extends AppCompatActivity {
         Categories1 = findViewById(R.id.Categories1);
         Categories2 = findViewById(R.id.Categories2);
         Categories3 = findViewById(R.id.Categories3);
-        Categories4 = findViewById(R.id.Categories4);
         Categories5 = findViewById(R.id.Categories5);
         ImageButtonMain = findViewById(R.id.ImageButtonMain);
         ImageButtonRibbon = findViewById(R.id.ImageButtonRibbon);
@@ -82,7 +80,7 @@ public class HomePage extends AppCompatActivity {
             public void onClick(View v) {
                 // Код для виконання при натисканні на button1
                 // Наприклад, перехід до MainActivity
-                Intent intent = new Intent(HomePage.this, FirstPage.class);
+                Intent intent = new Intent(HomePage.this, Services.class);
                 startActivity(intent);
             }
         });
@@ -107,15 +105,6 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-        Categories4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Код для виконання при натисканні на button1
-                // Наприклад, перехід до MainActivity
-                Intent intent = new Intent(HomePage.this, FirstPage.class);
-                startActivity(intent);
-            }
-        });
         Categories5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

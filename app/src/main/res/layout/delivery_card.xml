@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
-        android:layout_width="340dp"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:orientation="vertical">
-        <ImageButton
+        <ImageView
             android:id="@+id/photo_card"
             android:layout_width="340dp"
             android:layout_height="170dp"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"/>
 
         <ImageView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
-        android:src="@drawable/save"
-        android:layout_marginTop="-160dp"
-        android:layout_marginLeft="340dp">
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:src="@drawable/save"
+            android:layout_marginTop="-160dp"
+            android:layout_marginLeft="340dp">
 
-    </ImageView>
+        </ImageView>
         <FrameLayout
             android:layout_width="130dp"
             android:layout_height="20dp"
@@ -37,7 +40,7 @@
                 android:layout_height="20dp"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
-            />
+                />
 
             <RatingBar
                 android:id="@+id/company_rating"

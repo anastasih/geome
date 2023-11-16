@@ -135,32 +135,6 @@
                     android:layout_width="340dp"
                     android:layout_height="120dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10px"
-                    android:layout_marginBottom="10dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/categories4" />
-
-
-
-                    <TextView
-                        android:id="@+id/Categories4"
-                        android:layout_width="340dp"
-                        android:layout_height="120dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:textAppearance="@style/button" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="340dp"
-                    android:layout_height="120dp"
-                    android:layout_gravity="center"
                     android:layout_marginTop="25px"
                     android:layout_marginBottom="10dp">
 

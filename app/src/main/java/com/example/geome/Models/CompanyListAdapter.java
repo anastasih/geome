@@ -7,11 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.example.geome.R;
@@ -33,9 +34,8 @@ public class CompanyListAdapter extends ArrayAdapter<Company> {
         inflater = LayoutInflater.from(context);
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 //        View view = convertView;
 //        if (view == null) {
 //            LayoutInflater inflater = LayoutInflater.from(context);
@@ -43,7 +43,7 @@ public class CompanyListAdapter extends ArrayAdapter<Company> {
 //        }
         View view = inflater.inflate(resource, parent, false);
 
-        ImageButton photo_card = view.findViewById(R.id.photo_card);
+        ImageView photo_card = view.findViewById(R.id.photo_card);
         ImageButton ImageButtonCompanyphoto = view.findViewById(R.id.ImageButtonCompanyphoto);
         TextView company_name = view.findViewById(R.id.company_name);
         TextView company_address = view.findViewById(R.id.company_address);
@@ -73,14 +73,24 @@ public class CompanyListAdapter extends ArrayAdapter<Company> {
         company_name.setText(company.getCompanyName());
         company_address.setText(companyDetails.getCompanyAddress());
         company_description.setText(company.getCompanyDescription());
+
+        Reviews reviews = databaseHelper.getRatingCompanyByCompanyId(company.getCompanyId());
+        double weightLocation = 0.25;
+        double weightService = 0.25;
+        double weightAvailability = 0.25;
+        double weightComfort = 0.25;
+
+        // Обчислення загального рейтингу
+        double totalRating = (reviews.getLocation() * weightLocation) + ( reviews.getService()* weightService) + (reviews.getAvailability() * weightAvailability) + (reviews.getComfort() * weightComfort);
+
         try {
-            double companyRatingValue = Double.parseDouble(company.getCompanyRating());
-            companyRating.setRating((float) companyRatingValue);
+            //double companyRatingValue = Double.parseDouble(company.getCompanyRating());
+            companyRating.setRating((float) totalRating);
         } catch (NumberFormatException e) {
             // Обробка помилки, якщо не вдається перетворити рядок у число
             companyRating.setRating(0.0f); // Можливо, ви хочете задати значення за замовчуванням
         }
-        Rating.setText(company.getCompanyRating());
+        Rating.setText(String.valueOf(totalRating));
 
         return view;
     }

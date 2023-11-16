@@ -18,7 +18,7 @@
         tools:ignore="MissingConstraints">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imageLogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -54,23 +54,26 @@
         tools:ignore="MissingConstraints">
 
         <ImageView
+            android:id="@+id/image_hostel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
-            android:background="@drawable/dodo">
+            android:layout_centerVertical="true"
+            android:background="@drawable/dodo"
+            android:scaleType="centerCrop">
         </ImageView>
+
         <ImageView
             android:id="@+id/saveImageView"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/save"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:layout_alignParentTop="true"
-            app:tint="@android:color/white">
-        </ImageView>
+            android:src="@drawable/save"
+            app:tint="@android:color/white"></ImageView>
+
         <ImageView
             android:id="@+id/buttonBack_delivery"
             android:layout_width="wrap_content"
@@ -79,67 +82,67 @@
             android:layout_marginTop="20dp"
             app:srcCompat="@drawable/next"
             app:tint="@android:color/white" />
+
         <FrameLayout
             android:layout_width="200dp"
             android:layout_height="80dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginBottom="25dp"
             android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="25dp">
+
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/name_hostel"
+                android:layout_width="370dp"
                 android:layout_height="30dp"
                 android:text="Готель ''DODO''"
-                android:textSize="25dp"
-                android:textColor="@android:color/white">
-            </TextView>
+                android:textColor="@android:color/white"
+                android:textSize="25dp"></TextView>
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="проспект незалежності, 13"
+                android:id="@+id/street"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
                 android:layout_marginTop="30dp"
-                android:textSize="15dp"
-                android:textColor="@android:color/white">
-            </TextView>
+                android:text="проспект незалежності, 13"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"></TextView>
+
             <TextView
                 android:id="@+id/rating"
                 android:layout_width="20dp"
-                android:layout_gravity="bottom"
                 android:layout_height="20dp"
+                android:layout_gravity="bottom"
                 android:text="4,3"
                 android:textColor="@android:color/white"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
+
             <RatingBar
                 android:id="@+id/company_rating"
+                style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:theme="@style/MyRatingBar"
-                style="?android:attr/ratingBarStyleSmall"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="4dp"
-                android:progressBackgroundTint="@color/black"
                 android:numStars="5"
-                android:stepSize="0.1"
+                android:progressBackgroundTint="@color/black"
                 android:rating="4.3"
-                />
+                android:stepSize="0.1"
+                android:theme="@style/MyRatingBar" />
 
-    </FrameLayout>
-</RelativeLayout>
-
-
+        </FrameLayout>
+    </RelativeLayout>
 
 
     <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="46dp"
-        android:background="@drawable/vector_10"
         android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="320dp">
+        tools:layout_editor_absoluteX="-16dp">
 
         <ImageButton
             android:id="@+id/ImageButtonMain_word"
@@ -151,8 +154,7 @@
             android:background="#00000000"
             android:contentDescription="Кнопка Головна"
             android:scaleType="fitCenter"
-            android:src="@drawable/main_word"
-            />
+            android:src="@drawable/main_word" />
 
         <ImageButton
             android:id="@+id/ImageButtonResidence_word"
@@ -165,8 +167,9 @@
             android:contentDescription="Кнопка Проживання"
             android:scaleType="fitCenter"
             android:src="@drawable/not_residence_word" />
+
         <ImageButton
-            android:id="@+id/ImageButtonEstablishment"
+            android:id="@+id/ImageButtonReviews"
             android:layout_width="75dp"
             android:layout_height="16dp"
             android:layout_gravity="bottom"
@@ -175,11 +178,10 @@
             android:background="#00000000"
             android:contentDescription="Кнопка Відгуки"
             android:scaleType="fitCenter"
-            android:src="@drawable/not_reviews_word"
-            />
+            android:src="@drawable/not_reviews_word" />
 
         <ImageButton
-            android:id="@+id/ImageButtonSupermarket"
+            android:id="@+id/ImageButtonInfo"
             android:layout_width="55dp"
             android:layout_height="16dp"
             android:layout_gravity="bottom"
@@ -209,7 +211,7 @@
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
