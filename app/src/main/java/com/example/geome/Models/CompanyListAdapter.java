@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.example.geome.R;
@@ -17,22 +19,29 @@ import com.example.geome.R;
 import java.util.List;
 
 public class CompanyListAdapter extends ArrayAdapter<Company> {
+    private int resource;
     private Context context;
     private List<Company> companies;
 
-    public CompanyListAdapter(Context context, List<Company> companies) {
-        super(context, R.layout.delivery_card, companies);
+    private LayoutInflater inflater;
+
+    public CompanyListAdapter(@NonNull Context context, int resource, @NonNull List<Company> companies) {
+        super(context, resource, companies);
         this.context = context;
+        this.resource = resource;
         this.companies = companies;
+        inflater = LayoutInflater.from(context);
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            view = inflater.inflate(R.layout.delivery_card, null);
-        }
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+//        View view = convertView;
+//        if (view == null) {
+//            LayoutInflater inflater = LayoutInflater.from(context);
+//            view = inflater.inflate(R.layout.delivery_card, null);
+//        }
+        View view = inflater.inflate(resource, parent, false);
 
         ImageButton photo_card = view.findViewById(R.id.photo_card);
         ImageButton ImageButtonCompanyphoto = view.findViewById(R.id.ImageButtonCompanyphoto);

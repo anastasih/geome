@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -39,6 +40,7 @@ import com.example.geome.Models.User;
 import com.example.geome.Models.AppData;
 import com.example.geome.Models.CompanyListAdapter;
 import com.example.geome.Models.CompanyDetails;
+import com.google.gson.Gson;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,33 +49,30 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-public class HostelActivity extends AppCompatActivity   {
-    DatabaseHelper dbHelper;
-    User user;
-    private ListView listView_delivery;
-    ImageButton ImageButtonMap;
-    ImageButton ImageButtonProfile;
-    ImageView buttonBack;
-    ImageButton ButtonHostel1;
-    ImageButton ButtonApps1;
-    ImageButton ImageButtonMain;
-    ImageButton ImageButtonRibbon;
-    ImageButton ImageButtonCity;
-    ImageButton ImageButtonChat;
+public class HostelActivity extends AppCompatActivity implements AdapterView.OnItemClickListener   {
+    public DatabaseHelper dbHelper;
+    public User user;
+    public ListView listView_hostel;
+    public ImageButton ImageButtonMap;
+    public ImageButton ImageButtonProfile;
+    public ImageView buttonBack;
+    public ImageButton ButtonHostel1;
+    public ImageButton ButtonApps1;
+    public ImageButton ImageButtonMain;
+    public ImageButton ImageButtonRibbon;
+    public ImageButton ImageButtonCity;
+    public ImageButton ImageButtonChat;
     public  int newWidth = 60;
     public int newHeight = 60;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hostel);
-
 
         ImageButtonMap = findViewById(R.id.ImageButtonMap_hostel);
         ImageButtonProfile = findViewById(R.id.ImageButtonProfile_hostel);
 
-        listView_delivery = findViewById(R.id.listView_hostel);
+        listView_hostel = findViewById(R.id.listView_hostel);
 
         buttonBack = findViewById(R.id.buttonBack_hostel);
 
@@ -91,10 +90,39 @@ public class HostelActivity extends AppCompatActivity   {
         int idCity = dbHelper.getCityForUser(user.getUserPhone());
         List<Company> companies = getCompaniesByCategoryAndCity(idCity, 8);
 
-        CompanyListAdapter adapter = new CompanyListAdapter(this, companies);
-        listView_delivery.setAdapter(adapter);
+        CompanyListAdapter adapter = new CompanyListAdapter(this, R.layout.delivery_card, companies);
+        listView_hostel.setAdapter(adapter);
+//        listView_hostel.setFocusable(true);
+//        listView_hostel.setClickable(true);
+//        listView_hostel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                // Отримати об'єкт, який був натиснутий, на основі позиції
+//                Log.d("HostelActivity", "onItemClick triggered");
+//                Company selectedCompany = (Company) parent.getItemAtPosition(position);
+//
+//                // Перетворення об'єкта JobOffer в JSON рядок
+//                String jobOfferJson = new Gson().toJson(selectedCompany);
+//
+//                Intent intent = new Intent(HostelActivity.this, Business_services_page_hostel.class);
+//                intent.putExtra("selectedCompanyJson", jobOfferJson);
+//                startActivity(intent);
+//            }
+//        });
+
+        listView_hostel.setOnItemClickListener(this);
         initView();
     }
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.d("HostelActivity", "onItemClick triggered from XML");
+        Company selectedCompany = (Company) parent.getItemAtPosition(position);
+        String jobOfferJson = new Gson().toJson(selectedCompany);
+        Intent intent = new Intent(HostelActivity.this, Business_services_page_hostel.class);
+        intent.putExtra("selectedCompanyJson", jobOfferJson);
+        startActivity(intent);
+    }
+
     public List<Company> getCompaniesByCategoryAndCity(int idCity, int idCategory) {
         List<Company> allCompanies = dbHelper.getCompaniesByCityId(idCity);
         List<Company> filteredCompanies = new ArrayList<>();
@@ -119,9 +147,9 @@ public class HostelActivity extends AppCompatActivity   {
                 int idCity = dbHelper.getCityForUser(user.getUserPhone());
                 List<Company> companies = getCompaniesByCategoryAndCity(idCity, 8);
 
-                CompanyListAdapter adapter = new CompanyListAdapter(HostelActivity.this, companies);
+                CompanyListAdapter adapter = new CompanyListAdapter(HostelActivity.this, R.layout.delivery_card,companies);
 
-                listView_delivery.setAdapter(adapter);
+                listView_hostel.setAdapter(adapter);
                 Drawable drawable1 = ContextCompat.getDrawable(HostelActivity.this,
                         getResources().getIdentifier("not_apps", "drawable", getPackageName()));
                 drawable1.setBounds(0, 0, newWidth, newHeight);
@@ -141,7 +169,7 @@ public class HostelActivity extends AppCompatActivity   {
                 int idCity = dbHelper.getCityForUser(user.getUserPhone());
                 List<Company> companies = getCompaniesByCategoryAndCity(idCity, 8);
 
-                CompanyListAdapter adapter = new CompanyListAdapter(HostelActivity.this, companies);
+                CompanyListAdapter adapter = new CompanyListAdapter(HostelActivity.this, R.layout.delivery_card,companies);
                 Drawable drawable1 = ContextCompat.getDrawable(HostelActivity.this,
                         getResources().getIdentifier("apps", "drawable", getPackageName()));
                 drawable1.setBounds(0, 0, newWidth, newHeight);

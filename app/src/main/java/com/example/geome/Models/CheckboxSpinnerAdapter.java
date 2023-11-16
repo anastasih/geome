@@ -6,7 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.geome.R;
 
@@ -15,76 +19,61 @@ import java.util.List;
 import java.util.Map;
 
 public class CheckboxSpinnerAdapter extends ArrayAdapter<String> {
-    private Context context;
-    private List<String> items;
-    private boolean[] checkedItems;
-    private OnCheckedChangeListener onCheckedChangeListener;
+    private final LayoutInflater inflater;
+    private List<String> selectedItems;
 
-    public CheckboxSpinnerAdapter(Context context, int resource, List<String> items) {
-        super(context, resource, items);
-        this.context = context;
-        this.items = items;
-        this.checkedItems = new boolean[items.size()];
+    public CheckboxSpinnerAdapter(@NonNull Context context, int resource, @NonNull List<String> objects, LayoutInflater inflater, List<String> selectedItems) {
+        super(context, resource, objects);
+        this.inflater = inflater;
+        this.selectedItems = selectedItems;
+    }
+
+    @NonNull
+    @Override
+    public View getView(int position, @NonNull View convertView, @NonNull ViewGroup parent) {
+        return getCustomView(position, convertView, parent);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        return createView(position, convertView, parent);
+    public View getDropDownView(int position, @NonNull View convertView, @NonNull ViewGroup parent) {
+        return getCustomView(position, convertView, parent);
     }
 
-    @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        return createView(position, convertView, parent);
-    }
+    private View getCustomView(final int position, View convertView, ViewGroup parent) {
+        View row = inflater.inflate(R.layout.spinner_item_layout, parent, false);
 
-    private View createView(int position, View convertView, ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.spinner_item_layout, null);
+        CheckBox checkBox = row.findViewById(R.id.checkBox);
+        TextView textView = row.findViewById(R.id.textView);
+
+        final String selectedItem = getItem(position);
+
+        if (selectedItem != null) {
+            textView.setText(selectedItem);
+
+            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked && !selectedItems.contains(selectedItem)) {
+                    selectedItems.add(selectedItem);
+                } else if (!isChecked && selectedItems.contains(selectedItem)) {
+                    selectedItems.remove(selectedItem);
+                }
+            });
+
+            checkBox.setChecked(selectedItems.contains(selectedItem));
         }
 
-        CheckBox checkBox = view.findViewById(R.id.checkBox);
-        TextView textView = view.findViewById(R.id.textView);
-
-        checkBox.setChecked(checkedItems[position]);
-        textView.setText(items.get(position));
-
-        // Встановлюємо обробник подій на чекбокс
-        checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (onCheckedChangeListener != null) {
-                onCheckedChangeListener.onCheckedChanged(position, isChecked);
-            }
-        });
-
-        return view;
+        return row;
     }
 
-//    public void setItemChecked(int position, boolean isChecked) {
-//        checkedItems[position] = isChecked;
-//    }
-
-    public boolean[] getCheckedItems() {
-        return checkedItems;
+    public void toggleItem(String item) {
+        if (selectedItems.contains(item)) {
+            selectedItems.remove(item);
+        } else {
+            selectedItems.add(item);
+        }
+        notifyDataSetChanged(); // Повідомляємо адаптеру про зміни
     }
 
-    // Додайте метод для встановлення обробника подій
-    public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
-        this.onCheckedChangeListener = listener;
-    }
-
-    public void setItemChecked(int position, boolean isChecked) {
-        checkedItems[position] = isChecked; // Оновлюємо значення "checked" для певної позиції
-        notifyDataSetChanged(); // Оновлюємо відображення
-    }
-
-
-    public void setCheckedItems(boolean[] checkedItems) {
-        this.checkedItems = checkedItems;
-        notifyDataSetChanged(); // Оновлюємо відображення на основі нових значень "checked"
-    }
-
-    public interface OnCheckedChangeListener {
-        void onCheckedChanged(int position, boolean isChecked);
+    public List<String> returnSelectedItems(){
+        return selectedItems;
     }
 }

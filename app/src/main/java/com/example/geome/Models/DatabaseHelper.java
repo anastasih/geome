@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.geome.CityFragment;
+
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -156,6 +158,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_COMPANY_REVIEWS_COMFORT = "comfort";
     public static final String COLUMN_COMPANY_REVIEWS_ID_USER = "user_id";
 
+    // відгукнутися на вакансію
+    public static final String TABLE_APPLIED_VACANCY = "applied_vacancy";
+    public static final String COLUMN_APPLIED_VACANCY_ID = "id";
+    public static final String COLUMN_APPLIED_VACANCY_ID_VACANCY = "id_vacancy";
+    public static final String COLUMN_APPLIED_VACANCY_ID_USER = "id_user";
+    public static final String COLUMN_APPLIED_VACANCY_EXPERIENCE = "experience";
+    public static final String COLUMN_APPLIED_VACANCY_WHY_YOU = "why_you";
+    public static final String COLUMN_APPLIED_VACANCY_LANGUAGES = "languages";
+    public static final String COLUMN_APPLIED_VACANCY_EMPLOYMENT = "employment";
+    public static final String COLUMN_APPLIED_VACANCY_FILE_NAMES = "file_names";
+
+    // відгуки користувачів про місто
+    public static final String TABLE_USER_REVIEWS_CITY = "user_reviews_city";
+    public static final String COLUMN_USER_REVIEWS_CITY_ID = "id";
+    public static final String COLUMN_USER_REVIEWS_CITY_ID_CITY = "id_vacancy";
+    public static final String COLUMN_USER_REVIEWS_CITY_ID_USER = "id_user";
+    public static final String COLUMN_USER_REVIEWS_CITY_DATE = "date";
+    public static final String COLUMN_USER_REVIEWS_CITY_COMMENT = "comment";
+    public static final String COLUMN_USER_REVIEWS_CITY_RATING = "rating";
+    public static final String COLUMN_USER_REVIEWS_CITY_PHOTO = "photo";
+
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
@@ -178,6 +201,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_USER_OFFERS + " INTEGER, " +
                 COLUMN_NOTIFICATION_PROMOTIONS + " INTEGER);";
         db.execSQL(query);
+
+        insertUser(db, "Софія Якименко", "0975821463", "uuuuuuuu", 1,
+                "female", 22, true, true,true, true);
+        insertUser(db, "Максим Тополя", "0975821563", "uuuuuuuu", 1,
+                "male", 35, true, true,true, true);
 
         // створення таблички category
         String categoryTableQuery = "CREATE TABLE " + TABLE_CATEGORIES + " (" +
@@ -557,6 +585,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Повна / часткова зайнятість. Вимоги: висока компетентність у взаємодії з клієнтами, вміння вирішувати проблеми. Буде перевагою досвід роботи в сфері юридичних послуг. ",
                 22000, "COSTAIONICA@gmail.com", "0974875951", "lorem", "Житло", 8, "Віддалена робота, Без досвіду");
 
+        insertJobOffer(db, 26, "Барбершоп КОД", "Контент-мейкер",
+                "Повна / часткова зайнятість. Вимоги: аналітичність, дослідницьких підхід, організаційні навички, добре розвинене візуальне сприйняття, вміння швидко вчитись, позитивна реакція на зауваження, креатив...",
+                11000, "code@gmail.com", "0978456974",  "lorem", "Послуги", 1,"Медстрахування, Для студентів");
+
+        insertJobOffer(db, 29, "INNA BILA", "Менеджер по роботі з клієнтами",
+                "Повна / часткова зайнятість. Вимоги: висока компетентність у взаємодії з клієнтами, вміння вирішувати проблеми. Буде перевагою досвід роботи в сфері юридичних послуг. Основні обов’яз...",
+                17000, "inna_bila@gmail.com", "0978456974",  "lorem", "Послуги", 2,"Медстрахування, Для студентів");
 
         String jobOfferServiceTableQuery = "CREATE TABLE " + TABLE_JOB_OFFER_SERVICES + " (" +
                 COLUMN_JOB_OFFER_SERVICES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -587,6 +622,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertJobOfferService(db, "Балувана Галя", "new_company", 7, "Кухар-кондитер",
                 "Повна зайнятість. Вимоги: знання класики кондитерського мистецтва різних кухонь світу, вміння працювати з пропорціями, температурою, гігієна та безпека, досвід у приготуванні авторських ...",
                 "вулиця Михайлівська, 10", 1,11000, "Медстрахування, Для студентів", "https://www.work.ua");
+
+        insertJobOfferService(db, "Барбершоп КОД", "code_icon", 1, "Контент-мейкер",
+                "Повна / часткова зайнятість. Вимоги: аналітичність, дослідницьких підхід, організаційні навички, добре розвинене візуальне сприйняття, вміння швидко вчитись, позитивна реакція на зауваження, креатив...",
+                "вул. Львівська, 1", 1,11000, "Медстрахування, Для студентів", "https://www.work.ua");
 
         String hiddenServicesQuery = "CREATE TABLE " + TABLE_HIDDEN_USER_SERVICES + " (" +
                 COLUMN_HIDDEN_USER_SERVICES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -634,7 +673,77 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertCompanyReviews(db,28, 5, 4, 4, 4, 1);
         insertCompanyReviews(db,29, 3, 4.5, 4, 5, 1);
         insertCompanyReviews(db,30, 4.2, 4, 5, 4.1, 1);
+
+        String appliedVacanciesQuery = "CREATE TABLE " + TABLE_APPLIED_VACANCY + " (" +
+                COLUMN_APPLIED_VACANCY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_APPLIED_VACANCY_ID_VACANCY + " TEXT, " +
+                COLUMN_APPLIED_VACANCY_ID_USER + " TEXT, " +
+                COLUMN_APPLIED_VACANCY_EXPERIENCE + " TEXT, " +
+                COLUMN_APPLIED_VACANCY_WHY_YOU + " TEXT, " +
+                COLUMN_APPLIED_VACANCY_LANGUAGES + " TEXT, " +
+                COLUMN_APPLIED_VACANCY_EMPLOYMENT + " TEXT, " +
+                COLUMN_APPLIED_VACANCY_FILE_NAMES + " TEXT);";
+        db.execSQL(appliedVacanciesQuery);
+
+        String reviewsCityQuery = "CREATE TABLE " + TABLE_USER_REVIEWS_CITY + " (" +
+                COLUMN_USER_REVIEWS_CITY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_USER_REVIEWS_CITY_ID_CITY + " TEXT, " +
+                COLUMN_USER_REVIEWS_CITY_ID_USER + " TEXT, " +
+                COLUMN_USER_REVIEWS_CITY_DATE + " TEXT, " +
+                COLUMN_USER_REVIEWS_CITY_COMMENT + " TEXT, " +
+                COLUMN_USER_REVIEWS_CITY_RATING + " TEXT, " +
+                COLUMN_USER_REVIEWS_CITY_PHOTO + " TEXT);";
+        db.execSQL(reviewsCityQuery);
+
+        Date currentDateNow = new Date();
+        insertCityReviews(db, 2, 1, String.valueOf(currentDateNow), "Кілька днів тому потрапив до Житомира абсолютно випадково, по роботі. Це був чудовий експіріанс, мені дуже сподобалася архітектура, приємна центральна вуличка та заклади міста. Варто подумати про розвиток туризму в місті!",
+                String.valueOf(5), "");
+        insertCityReviews(db, 1, 1, String.valueOf(currentDateNow), "Подорож до Житомира залишила змішані враження. Визначні місця були цікавими, але декотрі архітектурні пам'ятки потребують більшої уваги до реставрації. Однак, смачні страви в місцевих ресторанах і тепла атмосфера міста роблять Житомир приємним місцем для короткої відпустки.",
+                String.valueOf(4.2), "");
     }
+    public long insertCityReviews(SQLiteDatabase db, int idUser, int idCity,
+                                     String date, String comment, String rating, String photo) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_REVIEWS_CITY_ID_CITY, idCity);
+        values.put(COLUMN_USER_REVIEWS_CITY_ID_USER, idUser);
+        values.put(COLUMN_USER_REVIEWS_CITY_DATE, date);
+        values.put(COLUMN_USER_REVIEWS_CITY_COMMENT, comment);
+        values.put(COLUMN_USER_REVIEWS_CITY_RATING, rating);
+        values.put(COLUMN_USER_REVIEWS_CITY_PHOTO, photo);
+
+        return db.insert(TABLE_USER_REVIEWS_CITY, null, values);
+    }
+//    public List<CityReviews> getCityReviewsByIdCity(int id) {
+//        List<CityReviews> listReviews = new ArrayList<>();
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        String query = "SELECT * FROM " + TABLE_USER_REVIEWS_CITY +
+//                " WHERE " + COLUMN_USER_REVIEWS_CITY_ID_CITY + " = ?";
+//        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id)});
+//
+//        if (cursor.moveToFirst()) {
+//            do{
+//                int userId = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_USER_REVIEWS_CITY_ID_USER));
+//                int cityId = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_USER_REVIEWS_CITY_ID_CITY));
+//                String comment = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_USER_REVIEWS_CITY_COMMENT));
+//                String rating = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_USER_REVIEWS_CITY_RATING));
+//                String photo = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_USER_REVIEWS_CITY_PHOTO));
+//                String time = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_USER_REVIEWS_CITY_DATE));
+//                String dateFormatPattern = "yyyy-MM-dd HH:mm:ss";
+//                try {
+//                    SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatPattern, Locale.US);
+//                    Date date = dateFormat.parse(time);
+//                    CityReviews cityReviews = new CityReviews(userId, cityId, date, comment, rating, photo);
+//                    listReviews.add(cityReviews);
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
+//            } while (cursor.moveToNext());
+//        }
+//
+//        cursor.close();
+//        return listReviews;
+//    }
+
 
     public long insertCompanyReviews(SQLiteDatabase db, int companyId, double location,
                                      double service, double availability, double comfort, int userId) {
@@ -847,6 +956,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_CATEGORY_NAME, categoryName);
         return db.insert(TABLE_CATEGORIES, null, cv);
+    }
+
+    public long insertUser(SQLiteDatabase db, String name, String phone, String password, int city, String gender, int age, boolean accessGeo,
+                        boolean privatePolicy, boolean userOffers, boolean notificationPromotions) {
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_NAME, name);
+        cv.put(COLUMN_PHONE, phone);
+        cv.put(COLUMN_PASSWORD, password);
+        cv.put(COLUMN_CITY, city);
+        cv.put(COLUMN_GENDER, gender);
+        cv.put(COLUMN_AGE, age);
+        cv.put(COLUMN_ACCESS_GEO, accessGeo);
+        cv.put(COLUMN_PRIVATE_POLICY, privatePolicy);
+        cv.put(COLUMN_USER_OFFERS, userOffers);
+        cv.put(COLUMN_NOTIFICATION_PROMOTIONS, notificationPromotions);
+
+        return db.insert(TABLE_NAME, null, cv);
     }
 
     private long insertCategoryCompany(SQLiteDatabase db, String categoryName) {
@@ -1171,8 +1297,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cityName;
     }
 
-    public Map<Integer, String> getCityData() {
-        SQLiteDatabase db = this.getReadableDatabase();
+    public Map<Integer, String> getCityData(SQLiteDatabase db) {
+        //SQLiteDatabase db = this.getReadableDatabase();
         Map<Integer, String> cityData = new HashMap<>();
 
         String query = "SELECT " + COLUMN_CITY_ID + ", " + COLUMN_CITY_TITLE + " FROM " + TABLE_CITY;
@@ -1484,5 +1610,56 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return totalRating;
     }
+    public long addAppliedVacancy(int idVacancy, int idUser, String experience, String whyYou,
+                                  String languages, String employment, String fileNames) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
 
+        cv.put(COLUMN_APPLIED_VACANCY_ID_VACANCY, idVacancy);
+        cv.put(COLUMN_APPLIED_VACANCY_ID_USER, idUser);
+        cv.put(COLUMN_APPLIED_VACANCY_EXPERIENCE, experience);
+        cv.put(COLUMN_APPLIED_VACANCY_WHY_YOU, whyYou);
+        cv.put(COLUMN_APPLIED_VACANCY_LANGUAGES, languages);
+        cv.put(COLUMN_APPLIED_VACANCY_EMPLOYMENT, employment);
+        cv.put(COLUMN_APPLIED_VACANCY_FILE_NAMES, fileNames);
+
+        long result = db.insert(TABLE_APPLIED_VACANCY, null, cv);
+
+        return result;
+    }
+    public List<Company> getCompanyByKeywordsAndCity(int id, String keywords){
+        List<Company> sortedList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT " + TABLE_COMPANY + ".* " +
+                "FROM " + TABLE_COMPANY + " " +
+                "INNER JOIN " + TABLE_COMPANY_CITY + " ON " +
+                TABLE_COMPANY + "." + COLUMN_COM_ID + " = " + TABLE_COMPANY_CITY + "." + COLUMN_COM_COMPANY_ID + " " +
+                "WHERE " + TABLE_COMPANY_CITY + "." + COLUMN_COM_CITY_ID + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                int companyId = cursor.getInt(cursor.getColumnIndex(COLUMN_COM_ID));
+                String companyName = cursor.getString(cursor.getColumnIndex(COLUMN_COM_NAME));
+                String idCategory = cursor.getString(cursor.getColumnIndex(COLUMN_COM_ID_CATEGORY));
+                String companyPhoto = cursor.getString(cursor.getColumnIndex(COLUMN_COM_PHOTO));
+                String companyDescription = cursor.getString(cursor.getColumnIndex(COLUMN_COM_DESCRIPTION));
+                String companyRating = cursor.getString(cursor.getColumnIndex(COLUMN_COM_RATING));
+                String companyEmail = cursor.getString(cursor.getColumnIndex(COLUMN_COM_EMAIL));
+                String companyPhone = cursor.getString(cursor.getColumnIndex(COLUMN_COM_PHONE));
+
+                if(companyName.equals(keywords)){
+                    Company company = new Company(companyId, companyName, idCategory, companyPhoto, companyDescription, companyRating, companyEmail, companyPhone);
+                    sortedList.add(company);
+                }
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return sortedList;
+    }
 }

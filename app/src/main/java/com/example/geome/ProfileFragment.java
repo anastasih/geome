@@ -31,7 +31,7 @@ import java.io.File;
 public class ProfileFragment extends Fragment {
 
     private User user, userInfo;
-    private TextView user_name, settingsProfileButton, user_city;
+    private TextView user_name, settingsProfileButton, user_city, workButton;
     private ImageView userPhoto;
 
     @Override
@@ -72,7 +72,7 @@ public class ProfileFragment extends Fragment {
             }
         }
         else {
-            imageName = "user_icon_png";
+            imageName = "user";
             Drawable drawable = ContextCompat.getDrawable(getContext(), getResources().getIdentifier(imageName, "drawable", getContext().getPackageName()));
             userPhoto.setImageDrawable(drawable);
         }
@@ -83,8 +83,15 @@ public class ProfileFragment extends Fragment {
         user_city = rootView.findViewById(R.id.user_city);
         userPhoto = rootView.findViewById(R.id.userPhoto);
         settingsProfileButton = rootView.findViewById(R.id.settingsProfileButton);
+        workButton = rootView.findViewById(R.id.workButton);
 
         settingsProfileButton.setOnClickListener(this::settingsProfileButtonClick);
+        workButton.setOnClickListener(this::workButtonClick);
+    }
+
+    public void workButtonClick(View view){
+        Intent intent = new Intent(getContext(), WorkActivity.class);
+        startActivity(intent);
     }
 
     public void settingsProfileButtonClick(View view){
