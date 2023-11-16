@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -120,7 +121,7 @@ public class ProfileSettingsFragment extends Fragment {
             }
         }
         else {
-            imageName = "user_icon_png";
+            imageName = "user";
             Drawable drawable = ContextCompat.getDrawable(getContext(), getResources().getIdentifier(imageName, "drawable", getContext().getPackageName()));
             userPhoto.setImageDrawable(drawable);
         }
@@ -174,8 +175,11 @@ public class ProfileSettingsFragment extends Fragment {
         });
     }
     private void setSpinnerCity(){
-        DatabaseHelper db = new DatabaseHelper(getContext());
-        Map<Integer, String> cityData = db.getCityData();
+//        DatabaseHelper db = new DatabaseHelper(getContext());
+//        Map<Integer, String> cityData = db.getCityData();
+        DatabaseHelper dbHelper = new DatabaseHelper(getContext());
+        SQLiteDatabase db1 = dbHelper.getReadableDatabase();
+        Map<Integer, String> cityData = dbHelper.getCityData(db1);
         List<String> cityNames = new ArrayList<>(cityData.values());
         List<Integer> cityIds = new ArrayList<>(cityData.keySet());
 

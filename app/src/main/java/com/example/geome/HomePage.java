@@ -119,15 +119,8 @@ public class HomePage extends AppCompatActivity {
         Categories5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Код для виконання при натисканні на button1
-                // Наприклад, перехід до MainActivity
                 Intent intent = new Intent(HomePage.this, WorkActivity.class);
                 startActivity(intent);
-
-//                Intent intent = new Intent(HomePage.this, MainMenuBusinessActivity.class);
-//                intent.putExtra("fragmentName", VacanciesJobSearchServicesFragment.class.getName());
-//                startActivity(intent);
-
             }
         });
 

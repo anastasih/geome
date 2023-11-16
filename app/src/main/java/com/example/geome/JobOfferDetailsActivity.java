@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.geome.Models.DatabaseHelper;
 import com.example.geome.Models.JobOffer;
@@ -22,6 +23,7 @@ public class JobOfferDetailsActivity extends AppCompatActivity {
     public ImageView icon_company, buttonBack;
 
     public ImageButton ImageButtonMain, ImageButtonRibbon, ImageButtonCity, ImageButtonChat, ImageButtonProfile;
+    public  JobOffer selectedOffer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +37,7 @@ public class JobOfferDetailsActivity extends AppCompatActivity {
         String jobOfferJson = getIntent().getStringExtra("selectedOfferJson");
 
         // Перетворення JSON рядка назад в об'єкт JobOffer
-        JobOffer selectedOffer = new Gson().fromJson(jobOfferJson, JobOffer.class);
+        selectedOffer = new Gson().fromJson(jobOfferJson, JobOffer.class);
 
         titleOffer.setText(titleOffer.getText() + "“" + selectedOffer.getOffer_name() + "”" );
         position.setText(selectedOffer.getCompany_name());
@@ -74,6 +76,13 @@ public class JobOfferDetailsActivity extends AppCompatActivity {
         ImageButtonCity.setOnClickListener(this::ImageButtonCityClick);
         ImageButtonChat.setOnClickListener(this::ImageButtonChatClick);
         ImageButtonProfile.setOnClickListener(this::ImageButtonProfileClick);
+        acceptJobOffer.setOnClickListener(this::acceptJobOfferClick);
+    }
+    private void acceptJobOfferClick(View view) {
+        Intent intent = new Intent(JobOfferDetailsActivity.this, ApplyVacancyActivity.class);
+        intent.putExtra("selectedOfferJson", selectedOffer.getOffer_name());
+        intent.putExtra("selectedOfferIdJson", selectedOffer.getId());
+        startActivity(intent);
     }
     private void ImageButtonProfileClick(View view) {
         Intent intent = new Intent(JobOfferDetailsActivity.this, MainBottomMenuActivity.class);

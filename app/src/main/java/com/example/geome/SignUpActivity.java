@@ -148,8 +148,9 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
     private void setSpinner(){
-        DatabaseHelper db = new DatabaseHelper(this);
-        Map<Integer, String> cityData = db.getCityData();
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db1 = dbHelper.getReadableDatabase();
+        Map<Integer, String> cityData = dbHelper.getCityData(db1);
         List<String> cityNames = new ArrayList<>(cityData.values());
         List<Integer> cityIds = new ArrayList<>(cityData.keySet());
 

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="23dp"
+        android:layout_marginTop="23dp">
+
+        <ImageView
+            android:id="@+id/user_icon"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:background="@drawable/background_user_icon"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="11dp"
+                android:text="hello world"/>
+            <RatingBar
+                android:id="@+id/review_city"
+                android:layout_width="84dp"
+                android:layout_height="wrap_content"
+                style="?android:attr/ratingBarStyleSmall"
+                android:theme="@style/MyRatingBar"
+                android:layout_marginTop="3dp"
+                android:progressBackgroundTint="@color/black"
+                android:numStars="5"
+                android:stepSize="0.1" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/time_publication_review"
+            android:layout_width="80dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:textSize="11dp"
+            android:layout_height="wrap_content"
+            android:text="hello world"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="17dp">
+
+        <TextView
+            android:id="@+id/review_description"
+            android:layout_width="340dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/montserrat_medium"
+            android:textSize="11dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/reviewPhoto"
+            android:layout_width="340dp"
+            android:layout_gravity="center"
+            android:layout_height="170dp"
+            android:layout_marginBottom="20dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

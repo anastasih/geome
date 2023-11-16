@@ -30,6 +30,8 @@ import com.example.geome.Models.JobOfferServices;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -41,12 +43,15 @@ public class VacanciesJobSearchServicesFragment extends Fragment {
     public TextView peopleWithDisabilitiesButton, olderPeopleButton, withoutExperienceButton,
             onlineButton, studentsButton;
     public int selectedCategoryId;
+    public List<JobOfferServices> allJobOffers;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_vacancies_job_search_services, container, false);
 
+        allJobOffers = getCardItemsAll();
         initView(rootView);
+
 
         return rootView;
     }
@@ -67,7 +72,8 @@ public class VacanciesJobSearchServicesFragment extends Fragment {
         studentsButton.setOnClickListener(this::studentsButtonClick);
 
         int firstId = 1;
-        cardItemList = getCardItemsFromDatabase(firstId);
+        //cardItemList = getCardItemsFromDatabase(firstId);
+        cardItemList = getCardItemsSorted(1);
         adapter = new JobOfferAdapterServices(getContext(), R.layout.job_offer_card, cardItemList);
         lvVacancies.setAdapter(adapter);
 
@@ -93,86 +99,49 @@ public class VacanciesJobSearchServicesFragment extends Fragment {
         setSpinner();
     }
 
+    private void setSpinner() {
+        DatabaseHelper db = new DatabaseHelper(getContext());
+        Map<Integer, String> categoryData = db.getCompanyCategoryData();
+        List<String> categoryNames = new ArrayList<>(categoryData.values());
+        List<Integer> categoryIds = new ArrayList<>(categoryData.keySet());
+
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, categoryNames);
+        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerWorkCategory.setAdapter(adapterSpinner);
+
+        spinnerWorkCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedCategoryId = categoryIds.get(position);
+
+                if (activeButton != null) {
+                    deactivateButton(activeButton);
+                }
+                isPeopleWithDisabilitiesActive = false;
+                isOlderPeopleActive = false;
+                isWithoutExperienceActive = false;
+                isOnlineActive = false;
+                isStudentsActive = false;
+                activeButton = null;
+
+
+                List<JobOfferServices> cardItemListSelected =  getCardItemsSorted(selectedCategoryId);
+                adapter = new JobOfferAdapterServices(getContext(), R.layout.job_offer_card, cardItemListSelected);
+                lvVacancies.setAdapter(adapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
     private boolean isPeopleWithDisabilitiesActive = false;
     private boolean isOlderPeopleActive = false;
     private boolean isWithoutExperienceActive = false;
     private boolean isOnlineActive = false;
     private boolean isStudentsActive = false;
     private TextView activeButton;
-
-    private void onKeywordButtonClick(TextView button, boolean isActive) {
-        Toast.makeText(getContext(), "before " + isActive, Toast.LENGTH_SHORT).show();
-        if (activeButton != null) {
-            deactivateButton(activeButton);
-        }
-        if (!isActive) {
-//            Toast.makeText(getContext(), "active Button" + activeButton.getText(), Toast.LENGTH_SHORT).show();
-//            if (activeButton != null) {
-//                //Toast.makeText(getContext(), "active Button" + activeButton.getText(), Toast.LENGTH_SHORT).show();
-//                deactivateButton(activeButton);
-//            }
-            cardItemList = getCardItemsSortedByKeywords(selectedCategoryId, button.getText().toString());
-            activateButton(button);
-        } else {
-            Toast.makeText(getContext(), "hello2", Toast.LENGTH_SHORT).show();
-
-            cardItemList = getCardItemsFromDatabase(selectedCategoryId);
-            //deactivateButton(button);
-        }
-        adapter = new JobOfferAdapterServices(getContext(), R.layout.job_offer_card, cardItemList);
-        lvVacancies.setAdapter(adapter);
-        //setActiveState(button, isActive);
-        Toast.makeText(getContext(), "after " + isActive, Toast.LENGTH_SHORT).show();
-        Log.d("DEBUG", "onKeywordButtonClick: isActive=" + isActive + ", button=" + button.getText());
-    }
-
-    private void setActiveState(TextView button, boolean isActive) {
-//        if (!isActive) {
-//            changeBackgroundKeywordsSelected(button, true);
-//        } else {
-//            changeBackgroundKeywordsSelected(button, false);
-//        }
-
-//        String text = button.getText().toString();
-//        switch (text){
-//            case "Для студентів":{
-//                isStudentsActive = isActive;
-//                Toast.makeText(getContext(), "hello", Toast.LENGTH_SHORT).show();
-//                break;
-//            }
-//            case "Дистанційно":{
-//                isOnlineActive = isActive;
-//                break;
-//            }
-//            case "Без досвіду":{
-//                isWithoutExperienceActive = isActive;
-//                break;
-//            }
-//            case "Для людей старшого віку":{
-//                isOlderPeopleActive = isActive;
-//                break;
-//            }
-//            case "Для людей із інвалідністю":{
-//                isPeopleWithDisabilitiesActive = isActive;
-//                break;
-//            }
-//        }
-
-        if (button.getText().toString().contains(peopleWithDisabilitiesButton.getText().toString())) {
-            isPeopleWithDisabilitiesActive = !isActive;
-        } else if (button.getText().toString().contains(olderPeopleButton.getText().toString())) {
-            isOlderPeopleActive = !isActive;
-        } else if (button.getText().toString().contains(withoutExperienceButton.getText().toString())) {
-            isWithoutExperienceActive = !isActive;
-        } else if (button.getText().toString().contains(onlineButton.getText().toString())) {
-            isOnlineActive = !isActive;
-        } else if (button.getText().toString().contains(studentsButton.getText().toString())) {
-            isStudentsActive = !isActive;
-        }
-        Toast.makeText(getContext(), "sActive=" + isActive + ", button=" + button.getText(), Toast.LENGTH_SHORT).show();
-        //Log.d("DEBUG", "setActiveState: isActive=" + isActive + ", button=" + button.getText());
-    }
-
     private void peopleWithDisabilitiesButtonClick(View view) {
         onKeywordButtonClick(peopleWithDisabilitiesButton, isPeopleWithDisabilitiesActive);
     }
@@ -191,6 +160,34 @@ public class VacanciesJobSearchServicesFragment extends Fragment {
 
     private void studentsButtonClick(View view) {
         onKeywordButtonClick(studentsButton, isStudentsActive);
+    }
+
+    private boolean isSortAscending = true; // Змінна для відстеження порядку сортування
+    private String lastSortKeyword = "";
+    private void onKeywordButtonClick(TextView button, boolean isActive) {
+        if (activeButton != null) {
+            deactivateButton(activeButton);
+        }
+
+        if (!isActive) {
+            if (!lastSortKeyword.equals(button.getText().toString())) {
+                isSortAscending = true;
+                lastSortKeyword = button.getText().toString();
+            } else {
+                isSortAscending = !isSortAscending;
+            }
+
+            cardItemList = getCardItemsSorted(selectedCategoryId, lastSortKeyword);
+            activateButton(button);
+        } else {
+            deactivateButton(activeButton);
+            cardItemList = allJobOffers;
+            lastSortKeyword = "";
+        }
+
+        adapter = new JobOfferAdapterServices(getContext(), R.layout.job_offer_card, cardItemList);
+        lvVacancies.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
     private void changeBackgroundKeywordsSelected(TextView textView, boolean isActive) {
         GradientDrawable background = (GradientDrawable) textView.getBackground();
@@ -213,71 +210,23 @@ public class VacanciesJobSearchServicesFragment extends Fragment {
     }
 
     private void deactivateButton(TextView button) {
-        changeBackgroundKeywordsSelected(button, false);
-        setActiveState(button, false);
-    }
-
-    private void clearActiveStates(TextView button) {
-//        isPeopleWithDisabilitiesActive = true;
-//        isOlderPeopleActive = true;
-//        isWithoutExperienceActive = true;
-//        isOnlineActive = true;
-//        isStudentsActive = true;
-
-        if (button.getText().toString().contains(peopleWithDisabilitiesButton.getText().toString())) {
-            isPeopleWithDisabilitiesActive = true;
-        } else if (button.getText().toString().contains(olderPeopleButton.getText().toString())) {
-            isOlderPeopleActive = true;
-        } else if (button.getText().toString().contains(withoutExperienceButton.getText().toString())) {
-            isWithoutExperienceActive = true;
-        } else if (button.getText().toString().contains(onlineButton.getText().toString())) {
-            isOnlineActive = true;
-        } else if (button.getText().toString().contains(studentsButton.getText().toString())) {
-            isStudentsActive = true;
+        if (button != null) {
+            changeBackgroundKeywordsSelected(button, false);
+            cardItemList = getCardItemsSorted(selectedCategoryId);
         }
-
-        //activeButton = null;
     }
 
-
-    private void setSpinner() {
-        DatabaseHelper db = new DatabaseHelper(getContext());
-        Map<Integer, String> categoryData = db.getCompanyCategoryData();
-        List<String> categoryNames = new ArrayList<>(categoryData.values());
-        List<Integer> categoryIds = new ArrayList<>(categoryData.keySet());
-
-        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, categoryNames);
-        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerWorkCategory.setAdapter(adapterSpinner);
-
-        spinnerWorkCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedCategoryId = categoryIds.get(position);
-                List<JobOfferServices> cardItemListSelected =  getCardItemsFromDatabase(selectedCategoryId);
-                adapter = new JobOfferAdapterServices(getContext(), R.layout.job_offer_card, cardItemListSelected);
-                lvVacancies.setAdapter(adapter);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
-
-    private List<JobOfferServices> getCardItemsFromDatabase(int selectedCategoryId) {
+    private List<JobOfferServices> getCardItemsAll() {
         SQLiteDatabase db = null;
         Cursor cursor = null;
-        List<JobOfferServices> cardItemListSelected = new ArrayList<>();
+        List<JobOfferServices> cardItemList = new ArrayList<>();
 
         try {
             DatabaseHelper dbHelper = new DatabaseHelper(getContext());
             db = dbHelper.getReadableDatabase();
 
-            String query = "SELECT * FROM " + DatabaseHelper.TABLE_JOB_OFFER_SERVICES +
-                    " WHERE " + DatabaseHelper.COLUMN_JOB_OFFER_SERVICES_COMPANY_CATEGORY_ID + " = ?";
-
-            cursor = db.rawQuery(query, new String[]{String.valueOf(selectedCategoryId)});
+            String query = "SELECT * FROM " + DatabaseHelper.TABLE_JOB_OFFER_SERVICES;
+            cursor = db.rawQuery(query, null);
 
             if (cursor.moveToFirst()) {
                 do {
@@ -293,14 +242,10 @@ public class VacanciesJobSearchServicesFragment extends Fragment {
                     String address = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_JOB_OFFER_SERVICES_ADDRESS));
                     String cityId = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_JOB_OFFER_SERVICES_CITY_ID));
 
-                    //if(companyId == 0){
                     JobOfferServices offer = new JobOfferServices(offerId, companyName,
                             offerName, description, address, cityId,
                             salary, companyCategory, keywords, icon, link);
-
-                    cardItemListSelected.add(offer);
-                    //}
-
+                    cardItemList.add(offer);
                 } while (cursor.moveToNext());
             }
         } catch (Exception e) {
@@ -313,67 +258,36 @@ public class VacanciesJobSearchServicesFragment extends Fragment {
                 db.close();
             }
         }
-        return cardItemListSelected;
+
+        return cardItemList;
     }
+    private List<JobOfferServices> getCardItemsSorted(int id, String wordToCompare) {
+        List<JobOfferServices> cardItemListSorted = new ArrayList<>();
 
-    private List<JobOfferServices> getCardItemsSortedByKeywords(int selectedCategoryId, String wordToCompare) {
-        SQLiteDatabase db = null;
-        Cursor cursor = null;
-        List<JobOfferServices> cardItemListSelected = new ArrayList<>();
-
-        try {
-            DatabaseHelper dbHelper = new DatabaseHelper(getContext());
-            db = dbHelper.getReadableDatabase();
-
-            String query = "SELECT * FROM " + DatabaseHelper.TABLE_JOB_OFFER_SERVICES +
-                    " WHERE " + DatabaseHelper.COLUMN_JOB_OFFER_SERVICES_COMPANY_CATEGORY_ID + " = ?";
-
-            cursor = db.rawQuery(query, new String[]{String.valueOf(selectedCategoryId)});
-
-            if (cursor.moveToFirst()) {
-                do {
-                    int offerId = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_JOB_OFFER_SERVICES_ID));
-                    String companyName = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_JOB_OFFER_SERVICES_COMPANY_NAME));
-                    String icon = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_JOB_OFFER_SERVICES_COMPANY_ICON));
-                    String description = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_JOB_OFFER_SERVICES_DESCRIPTION));
-                    String offerName = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_JOB_OFFER_SERVICES_NAME));
-                    String companyCategory = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_JOB_OFFER_SERVICES_COMPANY_CATEGORY_ID));
-                    String keywords = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_JOB_OFFER_SERVICES_KEYWORDS));
-                    String salary = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_JOB_OFFER_SERVICES_SALARY));
-                    String link = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_JOB_OFFER_SERVICES_LINK));
-                    String address = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_JOB_OFFER_SERVICES_ADDRESS));
-                    String cityId = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_JOB_OFFER_SERVICES_CITY_ID));
-
-                    //if(companyId == 0){
-//                    JobOfferServices offer = new JobOfferServices(offerId, companyName,
-//                            offerName, description, address, cityId,
-//                            salary, companyCategory, keywords, icon, link);
-
-                    String[] elements = keywords.split(",");
-                    for (String element : elements) {
-                        if (element.contains(wordToCompare)) {
-                            JobOfferServices offer = new JobOfferServices(offerId, companyName,
-                                    offerName, description, address, cityId,
-                                    salary, companyCategory, keywords, icon, link);
-                            cardItemListSelected.add(offer);
-                        }
+        for (JobOfferServices item : allJobOffers) {
+            if(Integer.parseInt(item.getCompanyCategory()) == id){
+                String keywords = item.getKeywords();
+                String[] elements =  keywords.split(",");
+                for (String element : elements) {
+                    if (element.contains(wordToCompare)) {
+                        cardItemListSorted.add(item);
                     }
-
-                    //cardItemListSelected.add(offer);
-                    //}
-
-                } while (cursor.moveToNext());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            if (db != null) {
-                db.close();
+                }
             }
         }
-        return cardItemListSelected;
+
+        return cardItemListSorted;
     }
+    private List<JobOfferServices> getCardItemsSorted(int id) {
+        List<JobOfferServices> cardItemListSorted = new ArrayList<>();
+
+        for (JobOfferServices item : allJobOffers) {
+            if(Integer.parseInt(item.getCompanyCategory()) == id){
+                cardItemListSorted.add(item);
+            }
+        }
+
+        return cardItemListSorted;
+    }
+
 }

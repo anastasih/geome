@@ -65,14 +65,6 @@ public class WorkActivity extends AppCompatActivity {
 
         setEditText();
 
-//        try {
-//            Class<?> fragmentClass = Class.forName(VacanciesServiceCompaniesFragment.class.getName());
-//            Fragment fragment = (Fragment) fragmentClass.newInstance();
-//            replaceFragment(fragment);
-//        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-//            e.printStackTrace();
-//        }
-
         workServiceButton.setOnClickListener(this::workServiceButtonClick);
         workPartnersButton.setOnClickListener(this::workPartnersButtonClick);
         buttonBack.setOnClickListener(this::buttonBackClick);
@@ -174,22 +166,9 @@ public class WorkActivity extends AppCompatActivity {
                             description, salary, email, phone, requirements, category, categoryCompany,
                             keywordsTable);
                     offers.add(newOffer);
-
-                    //int companyCategory = Integer.parseInt(categoryCompany);
-                    // Перевіряємо, чи відповідає пропозиція роботи обраній категорії
-//                    if (selectedCategory == companyCategory) {
-//                        JobOffer newOffer = new JobOffer(offerId, companyId, companyName, offerName,
-//                                description, salary, email, phone, requirements, category, categoryCompany);
-//                        offers.add(newOffer);
-//                    }
                 }
 
                 companiesServiceFragment.updateFragmentContent(offers);
-
-//                JobOfferAdapter searchAdapter = new JobOfferAdapter(WorkActivity.this, R.layout.job_offer_card, offers);
-//                lvNews.setAdapter(searchAdapter);
-
-                //return offers;
             }
         });
     }

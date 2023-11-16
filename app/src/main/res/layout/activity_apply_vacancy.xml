@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".WorkActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="0dp"
+            app:srcCompat="@drawable/logo_business" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonMap"
+            android:layout_width="43dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="140dp"
+            android:background="#00000000"
+            android:contentDescription="Кнопка Мапа"
+            android:src="@drawable/geo_business" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonProfile"
+            android:layout_width="43dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:background="#00000000"
+            android:contentDescription="Кнопка профіль"
+            android:src="@drawable/user_business" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1.2dp"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:background="#D8D8D8"
+        android:layout_marginBottom="5dp"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="586dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="340dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="9dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/buttonBack"
+                        android:layout_width="14dp"
+                        android:layout_height="12dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/next" />
+
+                    <TextView
+                        android:id="@+id/nameVacancy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:lineHeight="22sp"
+                        android:text="Вакансія "
+                        android:textAlignment="center"
+                        android:textColor="#323232"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:lineHeight="22sp"
+                android:text="Заповніть усі поля анкети, щоб надіслати її роботодавцю"
+                android:textColor="#323232"
+                android:textSize="11dp"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:lineHeight="22sp"
+                android:text="Вкладення (портфоліо / дипломи / сертифікати)"
+                android:textColor="#323232"
+                android:textSize="11dp" 
+                android:layout_marginBottom="5dp"/>
+            
+            <LinearLayout
+                android:layout_width="340dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/dashed_border">
+                
+                <ImageView
+                    android:layout_width="62dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/select_files"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Оберіть файли для завантаження..."
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="#323232"
+                    android:textSize="11dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:layout_marginBottom="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Доступний формат: JPEG, PNG, GIF"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="#737373"
+                    android:textSize="10dp"
+                    android:layout_marginBottom="10dp"/>
+
+                <FrameLayout
+                    android:layout_width="216dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/rectangle_2"
+                        android:backgroundTint="#FA5A00"/>
+
+                    <TextView
+                        android:id="@+id/selectFiles"
+                        android:layout_width="216dp"
+                        android:layout_height="18dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="Обрати"
+                        android:textSize="12dp"
+                        android:textAppearance="@style/button" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/nameFile"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textColor="#737373"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="1.2dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="#D8D8D8"
+                android:layout_marginBottom="11dp"/>
+
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:lineHeight="22sp"
+                android:text="Опишіть свій досвід роботи в даній сфері"
+                android:textColor="#323232"
+                android:textSize="11dp"
+                android:layout_marginBottom="5dp"/>
+
+            <FrameLayout
+                android:layout_width="340dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_1" />
+
+                <EditText
+                    android:id="@+id/experienceEditText"
+                    style="@style/input"
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:background="@null"
+                    android:hint="Почніть вводити текст..."
+                    android:textColor="#D8D8D8"
+                    android:textColorHint="#D8D8D8"
+                    android:inputType="textMultiLine"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:lineHeight="22sp"
+                android:text="Чому роботодавець має обрати саме вас?"
+                android:textColor="#323232"
+                android:textSize="11dp"
+                android:layout_marginBottom="5dp"/>
+
+            <FrameLayout
+                android:layout_width="340dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_1" />
+
+                <EditText
+                    android:id="@+id/whyEditText"
+                    style="@style/input"
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:background="@null"
+                    android:hint="Почніть вводити текст..."
+                    android:textColor="#D8D8D8"
+                    android:textColorHint="#D8D8D8"
+                    android:inputType="textMultiLine"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="1.2dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="#D8D8D8"
+                android:layout_marginBottom="11dp"/>
+
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:lineHeight="22sp"
+                android:text="Володіння мовами"
+                android:textColor="#323232"
+                android:textSize="11dp"
+                android:layout_marginBottom="5dp"/>
+
+            <FrameLayout
+                android:layout_width="340dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_1" />
+
+                <Spinner
+                    android:id="@+id/spinnerLanguages"
+                    style="@style/SpinnerStyle"
+                    android:layout_width="310dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp" />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:lineHeight="22sp"
+                android:text="Зайнятість"
+                android:textColor="#323232"
+                android:textSize="11dp"
+                android:layout_marginBottom="5dp"/>
+
+            <FrameLayout
+                android:layout_width="340dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_1" />
+
+                <Spinner
+                    android:id="@+id/spinnerEmployment"
+                    style="@style/SpinnerStyle"
+                    android:layout_width="310dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp" />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="1.2dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="#D8D8D8"
+                android:layout_marginBottom="11dp"/>
+
+            <FrameLayout
+                android:layout_width="340dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle_2"
+                    android:backgroundTint="#FA5A00"/>
+
+                <TextView
+                    android:id="@+id/acceptJobOffer"
+                    android:layout_width="340dp"
+                    android:layout_height="55dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="Надіслати"
+                    android:textSize="16dp"
+                    android:textAppearance="@style/button" />
+            </FrameLayout>
+
+            </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <ImageButton
+            android:id="@+id/ImageButtonMain"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="35dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка головна"
+            android:scaleType="fitCenter"
+            android:src="@drawable/home_not_main" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonRibbon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="35dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка стрічка"
+            android:scaleType="fitCenter"
+            android:src="@drawable/strichka" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonCity"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="25dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка місто"
+            android:scaleType="fitCenter"
+            android:src="@drawable/city" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonChat"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка чат"
+            android:scaleType="fitCenter"
+            android:src="@drawable/chat" />
+
+    </LinearLayout>
+
+</LinearLayout>

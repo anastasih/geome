@@ -32,6 +32,9 @@ public class JobOffer {
         this.keywords = keywords;
     }
 
+    public int getId() {
+        return Id;
+    }
     public int getId_company() {
         return id_company;
     }

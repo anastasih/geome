@@ -96,7 +96,7 @@ public class DeliveryActivity extends AppCompatActivity   {
         int idCity = dbHelper.getCityForUser(user.getUserPhone());
         List<Company> companies = getCompaniesByCategoryAndCity(idCity, 6);
 
-        CompanyListAdapter adapter = new CompanyListAdapter(this, companies);
+        CompanyListAdapter adapter = new CompanyListAdapter(this, R.layout.delivery_card,companies);
         listView_delivery.setAdapter(adapter);
         initView();
     }
@@ -157,7 +157,7 @@ public class DeliveryActivity extends AppCompatActivity   {
                 int idCity = dbHelper.getCityForUser(user.getUserPhone());
                 List<Company> companies = getCompaniesByCategoryAndCity(idCity, 6);
 
-                CompanyListAdapter adapter = new CompanyListAdapter(DeliveryActivity.this, companies);
+                CompanyListAdapter adapter = new CompanyListAdapter(DeliveryActivity.this, R.layout.delivery_card,companies);
 
                 listView_delivery.setAdapter(adapter);
                 Drawable drawable1 = ContextCompat.getDrawable(DeliveryActivity.this,
@@ -179,7 +179,7 @@ public class DeliveryActivity extends AppCompatActivity   {
                 int idCity = dbHelper.getCityForUser(user.getUserPhone());
                 List<Company> companies = getCompaniesByCategoryAndCity(idCity, 6);
 
-                CompanyListAdapter adapter = new CompanyListAdapter(DeliveryActivity.this, companies);
+                CompanyListAdapter adapter = new CompanyListAdapter(DeliveryActivity.this, R.layout.delivery_card,companies);
                 Drawable drawable1 = ContextCompat.getDrawable(DeliveryActivity.this,
                         getResources().getIdentifier("supermarket", "drawable", getPackageName()));
                 drawable1.setBounds(0, 0, newWidth, newHeight);
