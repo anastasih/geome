@@ -96,30 +96,14 @@
                 android:textSize="25dp"
                 android:textColor="@android:color/white">
             </TextView>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                app:srcCompat="@drawable/small_time"
-                app:tint="@android:color/white"
-                android:contentDescription="TODO" />
 
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="33dp"
-                android:layout_marginLeft="30dp"
-                android:text="40xв"
-                android:textColor="@android:color/white"
-                android:textSize="15dp">
-
-            </TextView>
 
             <TextView
                 android:id="@+id/rating"
                 android:layout_width="20dp"
                 android:layout_gravity="bottom"
                 android:layout_height="20dp"
+                android:layout_marginBottom="30dp"
                 android:text="4,9"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
@@ -132,7 +116,7 @@
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="20dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="32dp"
                 android:progressBackgroundTint="@color/black"
                 android:numStars="5"
                 android:stepSize="0.1"

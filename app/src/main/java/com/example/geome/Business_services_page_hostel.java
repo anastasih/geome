@@ -173,7 +173,7 @@ public class Business_services_page_hostel extends AppCompatActivity {
                         getResources().getIdentifier("not_info_word", "drawable", getPackageName()));
                 drawable.setBounds(0, 0, newWidth, newHeight);
                 ImageButtonInfo.setImageDrawable(drawable);
-                replaceFragment(new Feeds(IdCompany));
+                replaceFragment(new payment(IdCompany));
             }
         });
 

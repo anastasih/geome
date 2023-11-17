@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".payment">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/line"
+                android:layout_marginTop="10dp"
+                app:tint="@color/black">
+            </ImageView>
+
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="33dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="18dp"
+                android:text="Номери" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="Будь ласка, вкажіть інформацію про вашу поїздку, щоб ми могли підібрати для вас найкращимй варіант"
+                android:gravity="center"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="#000000"
+                />
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_gravity="center">
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="33dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="0dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="15dp"
+                android:text="Дата заїзду" />
+                <ImageView
+                    android:id="@+id/vector1"
+                    android:layout_width="17dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="46dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/vector">
+                </ImageView>
+                <TextView
+                    android:background="@drawable/rectangle_little"
+                    android:id="@+id/day1"
+                    android:layout_width="40dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="0" />
+                <TextView
+                    android:background="@drawable/rectangle_big"
+                    android:id="@+id/month1"
+                    android:layout_width="130dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="76dp"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Вересня" />
+                <ImageView
+                    android:id="@+id/vector2"
+                    android:layout_width="17dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="214dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/vector">
+                </ImageView>
+                <TextView
+                    android:background="@drawable/rectangle_medium"
+                    android:id="@+id/year1"
+                    android:layout_width="70dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="250dp"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="2023" />
+
+                <ImageView
+                    android:id="@+id/vector3"
+                    android:layout_width="17dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="324dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/vector">
+
+                </ImageView>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_gravity="center">
+                <TextView
+                    android:id="@+id/day3"
+                    android:layout_width="340dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textSize="15dp"
+                    android:text="Дата від'їзду" />
+                <ImageView
+                    android:id="@+id/vector4"
+                    android:layout_width="17dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="46dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/vector">
+                </ImageView>
+                <TextView
+                    android:background="@drawable/rectangle_little"
+                    android:id="@+id/day2"
+                    android:layout_width="40dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:text="0" />
+                <TextView
+                    android:background="@drawable/rectangle_big"
+                    android:id="@+id/month2"
+                    android:layout_width="130dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="76dp"
+                    android:gravity="center"
+                    android:textSize="18dp"
+
+                    android:text="Вересня" />
+                <ImageView
+                    android:id="@+id/vector5"
+                    android:layout_width="17dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="214dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/vector">
+                </ImageView>
+                <TextView
+                    android:background="@drawable/rectangle_medium"
+                    android:id="@+id/year2"
+                    android:layout_width="70dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="250dp"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:text="2023" />
+
+                <ImageView
+                    android:id="@+id/vector6"
+                    android:layout_width="17dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="324dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/vector">
+
+                </ImageView>
+
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="85dp"
+                android:layout_gravity="center">
+                <TextView
+                    android:layout_width="340dp"
+                    android:layout_height="33dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textSize="15dp"
+                    android:text="Кількість гостей" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="55dp"
+                    android:text="Дорослих"
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="#000000"
+                    />
+
+                <TextView
+                    android:background="@drawable/rectangle_little"
+                    android:id="@+id/count1"
+                    android:layout_width="40dp"
+                    android:layout_height="33dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="82dp"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:text="0" />
+
+                <ImageView
+                    android:id="@+id/vector7"
+                    android:layout_width="17dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="130dp"
+                    android:layout_marginTop="57dp"
+                    android:background="@drawable/vector">
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="55dp"
+                    android:text="Дітей"
+                    android:gravity="center"
+                    android:layout_marginLeft="210dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="#000000"
+                    />
+                <TextView
+                    android:background="@drawable/rectangle_little"
+                    android:id="@+id/count2"
+                    android:layout_width="40dp"
+                    android:layout_height="33dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="262dp"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:text="0" />
+                <ImageView
+                    android:id="@+id/vector8"
+                    android:layout_width="17dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="310dp"
+                    android:layout_marginTop="57dp"
+                    android:background="@drawable/vector">
+                </ImageView>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_gravity="center">
+                <TextView
+                    android:layout_width="340dp"
+                    android:layout_height="33dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textSize="15dp"
+                    android:text="Кількість номерів" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="55dp"
+                    android:text="Загалом"
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="#000000"
+                    />
+
+                <TextView
+                    android:background="@drawable/rectangle_little"
+                    android:id="@+id/count3"
+                    android:layout_width="40dp"
+                    android:layout_height="33dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="82dp"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:text="0" />
+
+                <ImageView
+                    android:id="@+id/vector9"
+                    android:layout_width="17dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="130dp"
+                    android:layout_marginTop="57dp"
+                    android:background="@drawable/vector">
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    android:text="З них\nодномісних"
+                    android:gravity="start"
+                    android:layout_marginLeft="160dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="#000000"
+                    />
+                <TextView
+                    android:background="@drawable/rectangle_little"
+                    android:id="@+id/count4"
+                    android:layout_width="40dp"
+                    android:layout_height="33dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="262dp"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:text="0" />
+                <ImageView
+                    android:id="@+id/vector10"
+                    android:layout_width="17dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="310dp"
+                    android:layout_marginTop="57dp"
+                    android:background="@drawable/vector">
+                </ImageView>
+            </FrameLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>
