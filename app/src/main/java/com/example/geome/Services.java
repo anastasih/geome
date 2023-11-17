@@ -52,6 +52,7 @@ public class Services extends AppCompatActivity {
     DatabaseHelper dbHelper;
     User user;
     public ListView listView_services;
+    public EditText search_news;
     ImageButton ImageButtonProfile;
     ImageView buttonBack;
     ImageButton ButtonAll;
@@ -74,6 +75,7 @@ public class Services extends AppCompatActivity {
         listView_services.setFocusable(true);
 
         buttonBack = findViewById(R.id.buttonBack_services);
+        search_news = findViewById(R.id.search_news);
 
         ButtonAll = findViewById(R.id.ButtonAll);
         ButtonBarbershop = findViewById(R.id.ButtonBarbershop);
@@ -112,6 +114,44 @@ public class Services extends AppCompatActivity {
                 Intent intent = new Intent(Services.this, Business_services_page.class);
                 intent.putExtra("selectedCompanyJson", jobOfferJson);
                 startActivity(intent);
+            }
+        });
+
+        search_news.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String keywords = search_news.getText().toString();
+                DatabaseHelper dbHelper = new DatabaseHelper(Services.this);
+                User user1 = AppData.getInstance().getUser();
+                int IdCity = dbHelper.getCityForUser(user1.getUserPhone());
+                List<Company> companies = dbHelper.getCompaniesByCityId(idCity);
+                List<Company> sortedCompanies = new ArrayList<>();
+                for (Company item: companies) {
+                    if(Integer.parseInt(item.getIdCategory())  == 1 ||
+                            Integer.parseInt(item.getIdCategory()) == 2 ||
+                            Integer.parseInt(item.getIdCategory()) == 3 ||
+                            Integer.parseInt(item.getIdCategory()) == 10 ||
+                            Integer.parseInt(item.getIdCategory()) == 11){
+                        sortedCompanies.add(item);
+                    }
+                }
+
+                List<Company> filteredCompanyNames = new ArrayList<>();
+
+                for (Company company : sortedCompanies) {
+                    String companyName = company.getCompanyName().toLowerCase();
+                    if (companyName.contains(keywords.toLowerCase())) {
+                        filteredCompanyNames.add(company);
+                    }
+                }
+                CompanyListAdapter searchAdapter = new CompanyListAdapter(Services.this, R.layout.delivery_card, filteredCompanyNames);
+                listView_services.setAdapter(searchAdapter);
             }
         });
 

@@ -100,9 +100,17 @@ public class HostelActivity extends AppCompatActivity implements AdapterView.OnI
                 DatabaseHelper dbHelper = new DatabaseHelper(HostelActivity.this);
                 User user1 = AppData.getInstance().getUser();
                 int IdCity = dbHelper.getCityForUser(user1.getUserPhone());
-                List<Company> searchResults = dbHelper.getCompanyByKeywordsAndCity(IdCity, keywords);
-                Toast.makeText(HostelActivity.this, "Result = " + searchResults.size(), Toast.LENGTH_SHORT).show();
-                CompanyListAdapter searchAdapter = new CompanyListAdapter(HostelActivity.this, R.layout.news_card, searchResults);
+                List<Company> searchResultsByCity = getCompaniesByCategoryAndCity(IdCity, 7);;
+
+                List<Company> filteredCompanyNames = new ArrayList<>();
+
+                for (Company company : searchResultsByCity) {
+                    String companyName = company.getCompanyName().toLowerCase();
+                    if (companyName.contains(keywords.toLowerCase())) {
+                        filteredCompanyNames.add(company);
+                    }
+                }
+                CompanyListAdapter searchAdapter = new CompanyListAdapter(HostelActivity.this, R.layout.delivery_card, filteredCompanyNames);
                 listView_hostel.setAdapter(searchAdapter);
             }
         });

@@ -21,6 +21,8 @@ public class Feeds extends Fragment {
     public Feeds(int Id){
         this.Id = Id;
     }
+
+    public Feeds(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

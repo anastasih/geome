@@ -117,6 +117,34 @@ public class DeliveryActivity extends AppCompatActivity   {
             }
         });
 
+        search_delivery.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String keywords = search_delivery.getText().toString();
+                DatabaseHelper dbHelper = new DatabaseHelper(DeliveryActivity.this);
+                User user1 = AppData.getInstance().getUser();
+                int IdCity = dbHelper.getCityForUser(user1.getUserPhone());
+                List<Company> searchResultsByCity = getCompaniesByCategoryAndCity(IdCity, 5);;
+
+                List<Company> filteredCompanyNames = new ArrayList<>();
+
+                for (Company company : searchResultsByCity) {
+                    String companyName = company.getCompanyName().toLowerCase();
+                    if (companyName.contains(keywords.toLowerCase())) {
+                        filteredCompanyNames.add(company);
+                    }
+                }
+                CompanyListAdapter searchAdapter = new CompanyListAdapter(DeliveryActivity.this, R.layout.delivery_card, filteredCompanyNames);
+                listView_delivery.setAdapter(searchAdapter);
+            }
+        });
+
        // listView_delivery.setOnItemClickListener(this);
         initView();
     }

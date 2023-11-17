@@ -2,6 +2,7 @@ package com.example.geome.Models;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,10 +42,15 @@ public class CompanyListAdapter extends ArrayAdapter<Company> {
 //            LayoutInflater inflater = LayoutInflater.from(context);
 //            view = inflater.inflate(R.layout.delivery_card, null);
 //        }
-        View view = inflater.inflate(resource, parent, false);
+        //View view = inflater.inflate(resource, parent, false);
+
+        View view = convertView;
+        if (view == null) {
+            view = inflater.inflate(resource, parent, false);
+        }
 
         ImageView photo_card = view.findViewById(R.id.photo_card);
-        ImageButton ImageButtonCompanyphoto = view.findViewById(R.id.ImageButtonCompanyphoto);
+        ImageButton Companyphoto = view.findViewById(R.id.ImageButtonCompanyphoto);
         TextView company_name = view.findViewById(R.id.company_name);
         TextView company_address = view.findViewById(R.id.company_address);
         TextView company_description = view.findViewById(R.id.company_description);
@@ -55,19 +61,30 @@ public class CompanyListAdapter extends ArrayAdapter<Company> {
 
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
         CompanyDetails companyDetails = databaseHelper.getCompanyDetailsById(company.getCompanyId());
+        Log.d("Тег", "companyDetails.getCompanyPhoto() = " + companyDetails.getCompanyPhoto());
         String photo = companyDetails.getCompanyPhoto();
 
         if (photo != null) {
-            Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(companyDetails.getCompanyPhoto(), "drawable", context.getPackageName()));
+            Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(photo, "drawable", context.getPackageName()));
             if (drawable != null) {
+                Log.d("Тег", "drawable = " + drawable);
                 photo_card.setImageDrawable(drawable);
             }
         }
 
-        if (ImageButtonCompanyphoto != null) {
+//        if (ImageButtonCompanyphoto != null) {
+//            int drawableId = context.getResources().getIdentifier(company.getCompanyPhoto(), "drawable", context.getPackageName());
+//            if (drawableId != 0) { // Перевірте, чи ідентифікатор знайдено (не дорівнює 0)
+//                ImageButtonCompanyphoto.setImageResource(drawableId);
+//            }
+//        }
+
+        Log.d("Тег", "company.getCompanyPhoto() = " + company.getCompanyPhoto());
+
+        if (Companyphoto != null) {
             Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(company.getCompanyPhoto(), "drawable", context.getPackageName()));
             if (drawable != null) {
-                ImageButtonCompanyphoto.setImageDrawable(drawable);
+                Companyphoto.setImageDrawable(drawable);
             }
         }
         company_name.setText(company.getCompanyName());
