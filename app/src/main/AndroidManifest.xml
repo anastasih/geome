@@ -70,7 +70,7 @@
             android:name=".IntroductionActivity"
             android:exported="false" />
         <activity
-            android:name=".DownloadPage"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".HomePage"
@@ -98,7 +98,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".DownloadPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
