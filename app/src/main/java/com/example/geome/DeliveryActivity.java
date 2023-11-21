@@ -219,7 +219,7 @@ public class DeliveryActivity extends AppCompatActivity   {
         ImageButtonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DeliveryActivity.this, HomePage.class);
+                Intent intent = new Intent(DeliveryActivity.this, ProfileFragment.class);
                 startActivity(intent);
             }
         });

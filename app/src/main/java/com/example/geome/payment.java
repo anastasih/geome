@@ -1,5 +1,6 @@
 package com.example.geome;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -24,6 +25,7 @@ public class payment extends Fragment {
     private TextView count2;
     private TextView count3;
     private TextView count4;
+    private TextView button_accommodation_options;
     private String[] months = {"Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень",
             "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"};
     private int selectedMonthIndex = 0; // Значення за замовчуванням
@@ -60,6 +62,10 @@ public class payment extends Fragment {
         count2 = rootView.findViewById(R.id.count2);
         count3 = rootView.findViewById(R.id.count3);
         count4 = rootView.findViewById(R.id.count4);
+
+
+        button_accommodation_options = rootView.findViewById(R.id.button_accommodation_options);
+        button_accommodation_options.setOnClickListener(this::Accommodation_optionsButtonClick);
 
         vector1 = rootView.findViewById(R.id.vector1);
         vector2 = rootView.findViewById(R.id.vector2);
@@ -152,7 +158,14 @@ public class payment extends Fragment {
             }
         });
 
+
+
         return rootView;
+    }
+
+    public void Accommodation_optionsButtonClick(View view){
+        Intent intent = new Intent(getContext(), Accommodation_options.class);
+        startActivity(intent);
     }
     // Функція для відображення діалогового вікна для вибору числа
 
