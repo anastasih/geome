@@ -73,9 +73,6 @@
             android:text="Доставка"
             android:textColor="#323232"
             android:textSize="21dp" />
-
-
-
     </LinearLayout>
 
     <LinearLayout

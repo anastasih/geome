@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Reservation">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="0dp"
+            app:srcCompat="@drawable/logo" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonMap"
+            android:layout_width="43dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="140dp"
+            android:background="#00000000"
+            android:contentDescription="Кнопка Мапа"
+            android:src="@drawable/map_icon" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonProfile"
+            android:layout_width="43dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:background="#00000000"
+            android:contentDescription="Кнопка профіль"
+            android:src="@drawable/background_user_icon" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_options"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:ignore="MissingConstraints">
+
+
+        <ImageView
+            android:id="@+id/buttonBack_options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            app:srcCompat="@drawable/next" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginBottom="0dp"
+            android:text="Варіанти розміщення"
+            android:textColor="#323232"
+            android:textSize="21dp" />
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_marginLeft="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_options"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="330dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Дати проживання"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/data1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="55dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="center"
+            android:text="пн, 18 вересня"
+            android:textColor="#000000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="115dp"
+            android:layout_marginTop="55dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="center"
+            android:text="-"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/data2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="55dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="center"
+            android:text="сб, 23 вересня"
+            android:textColor="#000000" />
+
+        <ImageView
+            android:id="@+id/vector1"
+            android:layout_width="14dp"
+            android:layout_height="12dp"
+            android:layout_marginLeft="240dp"
+            android:layout_marginTop="59dp"
+            android:background="@drawable/vector"></ImageView>
+
+        <ImageView
+            android:id="@+id/vector2"
+            android:layout_width="14dp"
+            android:layout_height="12dp"
+            android:layout_marginLeft="240dp"
+            android:layout_marginTop="110dp"
+            android:background="@drawable/vector"></ImageView>
+
+        <ImageView
+            android:id="@+id/vector3"
+            android:layout_width="14dp"
+            android:layout_height="12dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="110dp"
+            android:background="@drawable/vector"></ImageView>
+
+        <TextView
+            android:layout_width="330dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Кількість гостей"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="180dp"
+            android:layout_height="33dp"
+            android:layout_marginLeft="177dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Кількість гостей"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/adults"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="105dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="2 дорослих"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/children"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="125dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="2 дітей"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="177dp"
+            android:layout_marginTop="105dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="1 номер"
+            android:textColor="#000000" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="Ви обрали номер"
+        android:textColor="#000000"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
+
+    <TextView
+        android:id="@+id/name_room"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="182dp"
+        android:layout_marginTop="-20dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Покращений люкс"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout3"
+        android:layout_width="390dp"
+        android:layout_height="250dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_room"
+        tools:ignore="MissingConstraints">
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:layout_marginRight="230dp"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="Куріння заборонено"
+            android:textColor="#000000"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="67dp"
+            android:layout_marginRight="230dp"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="Оплата не повертається"
+            android:textColor="#000000"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="101dp"
+            android:layout_marginRight="230dp"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="Є можливість перенести бронювання, не пізніше ніж за 2 тижні до дати заїзду"
+            android:textColor="#000000"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Інформація"
+            android:textSize="15dp"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="start"
+            app:srcCompat="@drawable/sad_emotion"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="65dp"
+            android:layout_gravity="start"
+            app:srcCompat="@drawable/sad_emotion"/>
+
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="100dp"
+            android:layout_gravity="start"
+            app:srcCompat="@drawable/happy_emotion"/>
+
+
+        <TextView
+            android:layout_width="390dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="160dp"
+            android:layout_marginLeft="-1dp"
+            android:gravity="center"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="Ваш номер буде готовий до бронювання 0 14:00. Вкажіть, будь ласка, орієнтовий час заїзду"
+            android:textColor="#000000"
+            android:textSize="15dp" />
+        <ImageView
+            android:id="@+id/vector4"
+            android:layout_width="14dp"
+            android:layout_height="12dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="216dp"
+            android:background="@drawable/vector"></ImageView>
+
+        <TextView
+            android:background="@drawable/rectangle_little"
+            android:id="@+id/tome_min"
+            android:layout_width="40dp"
+            android:layout_height="33dp"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:background="@drawable/rectangle_little"
+            android:id="@+id/time_hour"
+            android:layout_marginLeft="50dp"
+            android:layout_width="40dp"
+            android:layout_height="33dp"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:layout_marginBottom="10dp"/>
+
+    </FrameLayout>
+
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Правила проживання"
+                android:textSize="15dp"/>
+
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="230dp"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="-  Заборонено шум з 22:00 до 7:00"
+                android:textColor="#000000"
+                android:textSize="15dp" />
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="230dp"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="-  Заборонено проводити вечірки"
+                android:textColor="#000000"
+                android:textSize="15dp" />
+            <TextView
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:layout_marginRight="230dp"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="-  Заборонено проживання більшою кількістю осіб, ніж кількість спальних мість у номері"
+                android:textColor="#000000"
+                android:textSize="15dp" />
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="130dp"
+                android:layout_marginRight="230dp"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="-  Прибирання проводиться щодня між 12 та 14 годинами"
+                android:textColor="#000000"
+                android:textSize="15dp" />
+            <TextView
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="170dp"
+                android:layout_marginRight="230dp"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="-  Можна користуватися спільною кухнею"
+                android:textColor="#000000"
+                android:textSize="15dp" />
+            <TextView
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="190dp"
+                android:layout_marginRight="230dp"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="-  На 0 поверсі можна користуватися паркінгом для велосипедів у спеціально відведеному місці"
+                android:textColor="#000000"
+                android:textSize="15dp" />
+
+        </FrameLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/line"
+            android:layout_marginTop="10dp"
+            app:tint="@color/black">
+        </ImageView>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Підсумування"
+                android:textSize="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="Проживання"
+                android:textColor="#000000"
+                android:textSize="15dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="60dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="Додаткові послуги"
+                android:textColor="#000000"
+                android:textSize="15dp"/>
+            <TextView
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="90dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="Можливість перенесення бронювання"
+                android:textColor="#000000"
+                android:textSize="15dp"/>
+
+            <TextView
+                android:layout_width="58dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="335dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="4750 ₴"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:gravity="end"/>
+            <TextView
+                android:layout_width="58dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="335dp"
+                android:layout_marginTop="60dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="0 ₴"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:gravity="end"/>
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="280dp"
+                android:layout_marginTop="90dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:background="@drawable/free"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:gravity="end"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="150dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Усього"
+                android:textColor="#000000"
+                android:textSize="26dp"/>
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="298dp"
+                android:layout_marginTop="150dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="4750 ₴"
+                android:textColor="#000000"
+                android:textSize="26dp"
+                android:gravity="end"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="200dp"
+                android:gravity="center"
+                android:layout_marginLeft="4dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="Geome виступає посередником між вами та закладом."
+                android:textColor="#000000"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="240dp"
+                android:gravity="center"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="Підтверджуючи, ви приймаєте правила й умови та даєте нам дозвіл на обробку замовлення за вказаними даними"
+                android:textSize="15dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="340dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rectangle_2" />
+
+            <TextView
+                android:id="@+id/buttonLogIn"
+                android:layout_width="340dp"
+                android:layout_height="45dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Сплатити"
+                android:textAppearance="@style/button" />
+        </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <ImageButton
+            android:id="@+id/ImageButtonMain"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="35dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка головна"
+            android:scaleType="fitCenter"
+            android:src="@drawable/main" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonRibbon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="35dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка стрічка"
+            android:scaleType="fitCenter"
+            android:src="@drawable/strichka" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonCity"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="25dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка місто"
+            android:scaleType="fitCenter"
+            android:src="@drawable/city" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonChat"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:contentDescription="Кнопка чат"
+            android:scaleType="fitCenter"
+            android:src="@drawable/chat" />
+
+    </LinearLayout>
+    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
