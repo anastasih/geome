@@ -31,7 +31,7 @@ import java.io.File;
 public class ProfileFragment extends Fragment {
 
     private User user, userInfo;
-    private TextView user_name, settingsProfileButton, user_city, workButton;
+    private TextView user_name, settingsProfileButton, user_city, workButton, serviceHistory;
     private ImageView userPhoto;
 
     @Override
@@ -84,16 +84,21 @@ public class ProfileFragment extends Fragment {
         userPhoto = rootView.findViewById(R.id.userPhoto);
         settingsProfileButton = rootView.findViewById(R.id.settingsProfileButton);
         workButton = rootView.findViewById(R.id.workButton);
+        serviceHistory = rootView.findViewById(R.id.serviceHistory);
 
         settingsProfileButton.setOnClickListener(this::settingsProfileButtonClick);
         workButton.setOnClickListener(this::workButtonClick);
+        serviceHistory.setOnClickListener(this::serviceHistoryClick);
     }
 
-    public void workButtonClick(View view){
+    public void serviceHistoryClick(View view){
         Intent intent = new Intent(getContext(), WorkActivity.class);
         startActivity(intent);
     }
-
+    public void workButtonClick(View view){
+        Intent intent = new Intent(getContext(), ServiceHistoryActivity.class);
+        startActivity(intent);
+    }
     public void settingsProfileButtonClick(View view){
         Intent intent = new Intent(getContext(), MainBottomMenuActivity.class);
         intent.putExtra("fragmentName", ProfileSettingsFragment.class.getName());

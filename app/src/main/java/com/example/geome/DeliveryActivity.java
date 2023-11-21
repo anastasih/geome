@@ -97,7 +97,7 @@ public class DeliveryActivity extends AppCompatActivity   {
         dbHelper = new DatabaseHelper(DeliveryActivity.this);
         user = AppData.getInstance().getUser();
         int idCity = dbHelper.getCityForUser(user.getUserPhone());
-        Toast.makeText(this, "UserPhone = " + user.getUserPhone(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "UserPhone = " + user.getUserPhone(), Toast.LENGTH_SHORT).show();
         List<Company> companies = getCompaniesByCategoryAndCity(idCity, 5);
 
         CompanyListAdapter adapter = new CompanyListAdapter(this, R.layout.delivery_card, companies);

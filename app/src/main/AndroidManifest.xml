@@ -37,6 +37,9 @@
             android:name=".Accommodation_options"
             android:exported="false" />
         <activity
+            android:name=".ServiceHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".Services"
             android:exported="false" />
         <activity

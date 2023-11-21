@@ -178,6 +178,7 @@
                 android:src="@drawable/service_history_icon"/>
 
             <TextView
+                android:id="@+id/serviceHistory"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_medium"

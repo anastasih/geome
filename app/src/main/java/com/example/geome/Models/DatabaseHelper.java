@@ -157,6 +157,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_COMPANY_REVIEWS_AVAILABILITY = "availability";
     public static final String COLUMN_COMPANY_REVIEWS_COMFORT = "comfort";
     public static final String COLUMN_COMPANY_REVIEWS_ID_USER = "user_id";
+    public static final String COLUMN_COMPANY_REVIEWS_USER_COMMENT = "comment";
 
     // відгукнутися на вакансію
     public static final String TABLE_APPLIED_VACANCY = "applied_vacancy";
@@ -178,6 +179,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_USER_REVIEWS_CITY_COMMENT = "comment";
     public static final String COLUMN_USER_REVIEWS_CITY_RATING = "rating";
     public static final String COLUMN_USER_REVIEWS_CITY_PHOTO = "photo";
+
+    //rooms в готелях та апартаментах
+    public static final String TABLE_ROOMS = "rooms";
+    public static final String COLUMN_ROOMS_ID = "id";
+    public static final String COLUMN_HOTEL_ID = "hotel_id";
+    public static final String COLUMN_ROOM_NUMBER = "room_number";
+    public static final String COLUMN_SHORT_DESCRIPTION = "description";
+    public static final String COLUMN_PRICE = "price";
+    public static final String COLUMN_NAME_ROOM = "name_room";
+    public static final String COLUMN_CAPACITY = "capacity";
+
+    //booking
+    public static final String TABLE_BOOKINGS = "booking";
+    public static final String COLUMN_BOOKING_ID = "id";
+    public static final String COLUMN_BOOKING_ROOM_ID = "room_is";
+    public static final String COLUMN_BOOKING_GUEST_NAME = "guest_name";
+    public static final String COLUMN_BOOKING_CHECKIN_DATE = "checkin_date";
+    public static final String COLUMN_BOOKING_CHECKOUT_DATE = "pcheckout_daterice";
+    public static final String COLUMN_BOOKING_NUM_GUESTS = "num_guests";
+    public static final String COLUMN_BOOKING_HAS_CHILDREN = "children";
+    public static final String COLUMN_BOOKING_CHILD_AGE = "child_age";
+    public static final String COLUMN_BOOKING_NUM_ROOMS = "num_rooms";
+    public static final String COLUMN_BOOKING_TOTAL_PRICE  = "total_price";
+
+    //payment
+    public static final String TABLE_PAYMENT = "payment";
+    public static final String COLUMN_PAYMENT_ID = "id";
+    public static final String COLUMN_PAYMENT_ID_COMPANY = "id_company";
+    public static final String COLUMN_PAYMENT_USER_ID = "user_id";
+    public static final String COLUMN_PAYMENT_DATE = "payment_date";
+    public static final String COLUMN_PAYMENT_TYPE_PAYMENT = "type_payment";
+    public static final String COLUMN_AMOUNT = "amount";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -701,6 +734,124 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String.valueOf(5), "");
         insertCityReviews(db, 1, 1, String.valueOf(currentDateNow), "Подорож до Житомира залишила змішані враження. Визначні місця були цікавими, але декотрі архітектурні пам'ятки потребують більшої уваги до реставрації. Однак, смачні страви в місцевих ресторанах і тепла атмосфера міста роблять Житомир приємним місцем для короткої відпустки.",
                 String.valueOf(4.2), "");
+
+
+        String roomsQuery = "CREATE TABLE " + TABLE_ROOMS + " (" +
+                COLUMN_ROOMS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_HOTEL_ID + " TEXT, " +
+                COLUMN_ROOM_NUMBER + " TEXT, " +
+                COLUMN_SHORT_DESCRIPTION + " TEXT, " +
+                COLUMN_PRICE + " TEXT, " +
+                COLUMN_NAME_ROOM + " TEXT, " +
+                COLUMN_CAPACITY + " TEXT);";
+        db.execSQL(roomsQuery);
+
+        insertRooms(db, 17, "11", "2 дивани-ліжка\n" +
+                "1 ширкое двоспальне ліжко", 1100, "Стандартний 2+1 номер", 3);
+        insertRooms(db, 17, "12A", "1 диван-ліжко\n" +
+                "1 широке двоспальне ліжко", 700, "Люкс", 2);
+        insertRooms(db, 17, "12B", "1 диван-ліжко\n" +
+                "1 широке двоспальне ліжко", 950, "Покращений люкс", 2);
+
+        String bookingQuery = "CREATE TABLE " + TABLE_BOOKINGS + " (" +
+                COLUMN_BOOKING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_BOOKING_ROOM_ID + " TEXT, " +
+                COLUMN_BOOKING_GUEST_NAME + " TEXT, " +
+                COLUMN_BOOKING_CHECKIN_DATE + " TEXT, " +
+                COLUMN_BOOKING_CHECKOUT_DATE + " TEXT, " +
+                COLUMN_BOOKING_NUM_GUESTS + " TEXT, " +
+                COLUMN_BOOKING_HAS_CHILDREN + " TEXT, " +
+                COLUMN_BOOKING_CHILD_AGE + " TEXT, " +
+                COLUMN_BOOKING_NUM_ROOMS + " TEXT, " +
+                COLUMN_BOOKING_TOTAL_PRICE + " TEXT);";
+        db.execSQL(bookingQuery);
+
+        String paymentQuery = "CREATE TABLE " + TABLE_PAYMENT + " (" +
+                COLUMN_PAYMENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_PAYMENT_ID_COMPANY + " TEXT, " +
+                COLUMN_PAYMENT_USER_ID + " TEXT, " +
+                COLUMN_PAYMENT_DATE + " TEXT, " +
+                COLUMN_PAYMENT_TYPE_PAYMENT + " TEXT, " +
+                COLUMN_AMOUNT + " TEXT);";
+        db.execSQL(paymentQuery);
+    }
+
+    public long insertRooms(SQLiteDatabase db, int idHotel, String roomNumber,
+                                  String description, double price, String nameRoom, int capacity) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_HOTEL_ID, idHotel);
+        values.put(COLUMN_ROOM_NUMBER, roomNumber);
+        values.put(COLUMN_SHORT_DESCRIPTION, description);
+        values.put(COLUMN_PRICE, price);
+        values.put(COLUMN_NAME_ROOM, nameRoom);
+        values.put(COLUMN_CAPACITY, capacity);
+
+        return db.insert(TABLE_ROOMS, null, values);
+    }
+
+    public List<Room> getRoomsByIdCompany(int idCompany){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Room> rooms = new ArrayList<>();
+
+        String query = "SELECT * FROM " + TABLE_ROOMS +
+                " WHERE " + COLUMN_HOTEL_ID + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(idCompany)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                int idRoom = cursor.getInt(cursor.getColumnIndex(COLUMN_ROOMS_ID));
+                int hotelId = cursor.getInt(cursor.getColumnIndex(COLUMN_HOTEL_ID));
+                String roomNumber = cursor.getString(cursor.getColumnIndex(COLUMN_ROOM_NUMBER));
+                String description = cursor.getString(cursor.getColumnIndex(COLUMN_SHORT_DESCRIPTION));
+                double price = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_PRICE)));
+                String nameRoom = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_ROOM));
+                int capacity = cursor.getInt(cursor.getColumnIndex(COLUMN_CAPACITY));
+
+                Room room = new Room(idRoom, hotelId,roomNumber, description, price, nameRoom, capacity);
+
+                rooms.add(room);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return rooms;
+    }
+
+    public long addPayment(String idCompany, String idUser, String date, String typePayment,
+                           double amount) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_PAYMENT_ID_COMPANY, idCompany);
+        cv.put(COLUMN_PAYMENT_USER_ID, idUser);
+        cv.put(COLUMN_PAYMENT_DATE, date);
+        cv.put(COLUMN_PAYMENT_TYPE_PAYMENT, typePayment);
+        cv.put(COLUMN_AMOUNT, amount);
+
+        long result = db.insert(TABLE_BOOKINGS, null, cv);
+
+        return result;
+    }
+    public long addBooking(String roomID, String guestName, String checkInDate, String checkOutDate,
+                           int numGuests, int children, String childAge,
+                        int numRooms, double totalPrice) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_BOOKING_ROOM_ID, roomID);
+        cv.put(COLUMN_BOOKING_GUEST_NAME, guestName);
+        cv.put(COLUMN_BOOKING_CHECKIN_DATE, checkInDate);
+        cv.put(COLUMN_BOOKING_CHECKOUT_DATE, checkOutDate);
+        cv.put(COLUMN_BOOKING_NUM_GUESTS, numGuests);
+        cv.put(COLUMN_BOOKING_HAS_CHILDREN, children);
+        cv.put(COLUMN_BOOKING_CHILD_AGE, childAge);
+        cv.put(COLUMN_BOOKING_NUM_ROOMS, numRooms);
+        cv.put(COLUMN_BOOKING_TOTAL_PRICE, totalPrice);
+
+        long result = db.insert(TABLE_BOOKINGS, null, cv);
+
+        return result;
     }
     public long insertCityReviews(SQLiteDatabase db, int idUser, int idCity,
                                      String date, String comment, String rating, String photo) {
@@ -1599,7 +1750,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             double serviceRating = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_SERVICE)));
             double availabilityRating = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_AVAILABILITY)));
             double comfortRating = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_COMFORT)));
-            reviews = new Reviews(companyId, locationRating, serviceRating, availabilityRating, comfortRating);
+            String comment = cursor.getString(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_USER_COMMENT));
+            reviews = new Reviews(companyId, locationRating, serviceRating, availabilityRating, comfortRating, comment);
 
             double weightLocation = 0.25;
             double weightService = 0.25;

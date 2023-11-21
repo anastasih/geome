@@ -6,16 +6,16 @@ public class Reviews {
     public double Service;
     public double Availability;
     public double Comfort;
+    public String userComment;
+    public Reviews(){}
 
-    public Reviews(){
-
-    }
-    public Reviews(int idCompany, double location, double service, double availability, double comfort) {
+    public Reviews(int idCompany, double location, double service, double availability, double comfort, String userComment) {
         IdCompany = idCompany;
         Location = location;
         Service = service;
         Availability = availability;
         Comfort = comfort;
+        this.userComment = userComment;
     }
 
     public int getIdCompany() {
@@ -56,5 +56,11 @@ public class Reviews {
 
     public void setComfort(double comfort) {
         Comfort = comfort;
+    }
+    public String getUserComment() {
+        return userComment;
+    }
+    public void setUserComment(String userComment) {
+        this.userComment = userComment;
     }
 }
