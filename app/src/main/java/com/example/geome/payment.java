@@ -12,6 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+
+import com.example.geome.Models.AppData;
+import com.example.geome.Models.Booking;
+import com.example.geome.Models.DatabaseHelper;
+import com.example.geome.Models.User;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -21,6 +27,7 @@ public class payment extends Fragment {
     public static final String KEY_OUT_DATE = "androidx.appcompat.app.AppCompatActivity.payment.outdata";
     public static final String KEY_NUMBER = "androidx.appcompat.app.AppCompatActivity.payment.number";
     public static final String KEY_ID_COMPANY = "androidx.appcompat.app.AppCompatActivity.payment.idcompany";
+    public static final String KEY_BOOKING = "androidx.appcompat.app.AppCompatActivity.payment.booking";
     private TextView day1;
     private TextView day2;
     private TextView month1;
@@ -168,6 +175,11 @@ public class payment extends Fragment {
     }
 
     public void Accommodation_optionsButtonClick(View view){
+        User user = AppData.getInstance().getUser();
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        int userId = databaseHelper.getUserId(user.getUserPhone());
+        String name = databaseHelper.getUserNameById(userId);
+
         Calendar calendar = Calendar.getInstance();
         calendar.set(checkInYear1, checkInMonth1, checkInDay1);
         Date date1 = calendar.getTime();
@@ -176,10 +188,25 @@ public class payment extends Fragment {
         Date date2 = calendar.getTime();
 
         Intent intent = new Intent(getContext(), Accommodation_options.class);
-        intent.putExtra(KEY_IN_DATE, date1);
-        intent.putExtra(KEY_OUT_DATE, date2);
-        intent.putExtra(KEY_NUMBER, Adults);
+        Booking booking = new Booking();
+        booking.setCheckInDate(date1);
+        booking.setCheckOutDate(date2);
+        booking.setNumGuests(Adults);
+        booking.setChildren(Child);
+        booking.setNumRooms(Rooms);
+        booking.setSingleRoom(SoloRoom);
+        if(name != null || name.length() > 0){
+            booking.setGuestName(name);
+        }
+
+
+
+
+//        intent.putExtra(KEY_IN_DATE, date1);
+//        intent.putExtra(KEY_OUT_DATE, date2);
+//        intent.putExtra(KEY_NUMBER, Adults);
         intent.putExtra(KEY_ID_COMPANY, Id);
+        intent.putExtra(KEY_BOOKING, booking);
         startActivity(intent);
     }
 
@@ -501,11 +528,11 @@ public class payment extends Fragment {
 
     private void setMonthText1() {
         month1.setText("" + months[selectedMonthIndex]);
-        checkInMonth1 = selectedDay;
+        checkInMonth1 = selectedMonthIndex;
     }
     private void setMonthText2() {
         month2.setText("" + months[selectedMonthIndex]);
-        checkInMonth2 = selectedDay;
+        checkInMonth2 = selectedMonthIndex;
     }
     private void setDayText1() {
         day1.setText(String.valueOf(selectedDay));

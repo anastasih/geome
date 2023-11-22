@@ -1,7 +1,8 @@
 package com.example.geome.Models;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Booking {
+public class Booking implements Serializable {
     public int id;
     public int roomId;
     public String guestName;
