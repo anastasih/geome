@@ -12,12 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.widget.Toast;
 
 import com.example.geome.Models.AppData;
 import com.example.geome.Models.Booking;
 import com.example.geome.Models.DatabaseHelper;
 import com.example.geome.Models.User;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -187,7 +189,6 @@ public class payment extends Fragment {
         calendar.set(checkInYear2, checkInMonth2, checkInDay2);
         Date date2 = calendar.getTime();
 
-        Intent intent = new Intent(getContext(), Accommodation_options.class);
         Booking booking = new Booking();
         booking.setCheckInDate(date1);
         booking.setCheckOutDate(date2);
@@ -199,15 +200,27 @@ public class payment extends Fragment {
             booking.setGuestName(name);
         }
 
-
-
-
 //        intent.putExtra(KEY_IN_DATE, date1);
 //        intent.putExtra(KEY_OUT_DATE, date2);
 //        intent.putExtra(KEY_NUMBER, Adults);
-        intent.putExtra(KEY_ID_COMPANY, Id);
-        intent.putExtra(KEY_BOOKING, booking);
-        startActivity(intent);
+        Date currentDate = new Date();
+        if(booking.getCheckInDate() != null && booking.getCheckOutDate() != null &&
+                booking.getNumGuests() != 0 &&  booking.getNumRooms() != 0){
+            if(!date1.before(currentDate) && !date2.before(currentDate)){
+                Intent intent = new Intent(getContext(), Accommodation_options.class);
+                intent.putExtra(KEY_ID_COMPANY, Id);
+                intent.putExtra(KEY_BOOKING, booking);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(getContext(), "Дати вже минули, не можна забронювати готель", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        else{
+            Toast.makeText(getContext(), "Заповніть всі поля!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     // Функція для відображення діалогового вікна для вибору числа

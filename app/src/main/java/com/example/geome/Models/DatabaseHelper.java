@@ -674,7 +674,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_COMPANY_REVIEWS_SERVICE + " TEXT, " +
                 COLUMN_COMPANY_REVIEWS_USER_COMMENT + " TEXT, " +
                 COLUMN_COMPANY_REVIEWS_AVAILABILITY + " TEXT, " +
-                COLUMN_COMPANY_REVIEWS_USER_COMMENT + " TEXT, " +
                 COLUMN_COMPANY_REVIEWS_COMFORT + " TEXT);";
         db.execSQL(companyReviewsQuery);
 
@@ -795,20 +794,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Room> availableRooms = new ArrayList<>();
 
-        // SQL query to get available rooms for the given date range
         String query = "SELECT * FROM " + TABLE_ROOMS +
                 " WHERE " + COLUMN_HOTEL_ID + " = ? AND " +
                 COLUMN_ROOMS_ID + " NOT IN (SELECT " + COLUMN_BOOKING_ROOM_ID + " FROM " + TABLE_BOOKINGS +
                 " WHERE (" +
+                "(" + COLUMN_BOOKING_CHECKIN_DATE + " < ? AND " + COLUMN_BOOKING_CHECKOUT_DATE + " > ?) OR " +
                 "(" + COLUMN_BOOKING_CHECKIN_DATE + " >= ? AND " + COLUMN_BOOKING_CHECKIN_DATE + " < ?) OR " +
-                "(" + COLUMN_BOOKING_CHECKOUT_DATE + " > ? AND " + COLUMN_BOOKING_CHECKOUT_DATE + " <= ?) OR " +
-                "(" + COLUMN_BOOKING_CHECKIN_DATE + " <= ? AND " + COLUMN_BOOKING_CHECKOUT_DATE + " >= ?)" +
+                "(" + COLUMN_BOOKING_CHECKOUT_DATE + " > ? AND " + COLUMN_BOOKING_CHECKOUT_DATE + " <= ?)" +
                 "))";
 
-        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(idCompany),
+        Cursor cursor = db.rawQuery(query, new String[]{
+                String.valueOf(idCompany),
+                String.valueOf(checkoutDate.getTime()), String.valueOf(checkinDate.getTime()),
                 String.valueOf(checkinDate.getTime()), String.valueOf(checkoutDate.getTime()),
-                String.valueOf(checkinDate.getTime()), String.valueOf(checkoutDate.getTime()),
-                String.valueOf(checkinDate.getTime()), String.valueOf(checkoutDate.getTime())});
+                String.valueOf(checkinDate.getTime()), String.valueOf(checkoutDate.getTime())
+        });
 
         if (cursor.moveToFirst()) {
             do {
@@ -829,6 +829,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return availableRooms;
     }
+
 
 
 //    public List<Room> getRoomsByIdCompany(int idCompany){

@@ -28,15 +28,17 @@ public class RoomsAdapter extends ArrayAdapter<Room> {
     private int resource;
     private Context context;
     private List<Room> rooms;
-
+    public Booking booking;
+    public static final String KEY_BOOKING = "androidx.appcompat.app.AppCompatActivity.RoomsAdapter.booking";
     private LayoutInflater inflater;
 
-    public RoomsAdapter(@NonNull Context context, int resource, @NonNull List<Room> rooms) {
+    public RoomsAdapter(@NonNull Context context, int resource, @NonNull List<Room> rooms, Booking booking) {
         super(context, resource, rooms);
         this.context = context;
         this.resource = resource;
         this.rooms = rooms;
         inflater = LayoutInflater.from(context);
+        this.booking = booking;
     }
 
     @Override
@@ -77,6 +79,7 @@ public class RoomsAdapter extends ArrayAdapter<Room> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, Reservation.class);
+                intent.putExtra(KEY_BOOKING, booking);
                 context.startActivity(intent);
             }
         });

@@ -53,11 +53,11 @@ public class Accommodation_options extends AppCompatActivity {
         room.setText(String.valueOf(booking.getNumRooms()));
 
 
-//        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-//        List<Room> rooms = databaseHelper.getAvailableRoomsByIdCompany(IdCompany, booking.getCheckInDate(), booking.getCheckOutDate());
-//
-//        RoomsAdapter adapter = new RoomsAdapter(this, R.layout.hotel_card, rooms);
-//        listView_options.setAdapter(adapter);
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        List<Room> rooms = databaseHelper.getAvailableRoomsByIdCompany(IdCompany, booking.getCheckInDate(), booking.getCheckOutDate());
+
+        RoomsAdapter adapter = new RoomsAdapter(this, R.layout.hotel_card, rooms, booking);
+        listView_options.setAdapter(adapter);
 
     }
 }
