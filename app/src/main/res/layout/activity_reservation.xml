@@ -208,7 +208,6 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -565,7 +564,7 @@
                 android:background="@drawable/rectangle_2" />
 
             <TextView
-                android:id="@+id/buttonLogIn"
+                android:id="@+id/buttonPay"
                 android:layout_width="340dp"
                 android:layout_height="45dp"
                 android:layout_alignParentLeft="true"

@@ -12,9 +12,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class payment extends Fragment {
+    public static final String KEY_IN_DATE = "androidx.appcompat.app.AppCompatActivity.payment.indata";
+    public static final String KEY_OUT_DATE = "androidx.appcompat.app.AppCompatActivity.payment.outdata";
+    public static final String KEY_NUMBER = "androidx.appcompat.app.AppCompatActivity.payment.number";
+    public static final String KEY_ID_COMPANY = "androidx.appcompat.app.AppCompatActivity.payment.idcompany";
     private TextView day1;
     private TextView day2;
     private TextView month1;
@@ -40,6 +46,7 @@ public class payment extends Fragment {
     ImageView vector9;
     ImageView vector10;
     private int selectedDay = 1;
+
     public int Id;
     public payment(int Id){
         this.Id = Id;
@@ -157,18 +164,26 @@ public class payment extends Fragment {
                 showNumberPickerDialog6();
             }
         });
-
-
-
         return rootView;
     }
 
     public void Accommodation_optionsButtonClick(View view){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(checkInYear1, checkInMonth1, checkInDay1);
+        Date date1 = calendar.getTime();
+
+        calendar.set(checkInYear2, checkInMonth2, checkInDay2);
+        Date date2 = calendar.getTime();
+
         Intent intent = new Intent(getContext(), Accommodation_options.class);
+        intent.putExtra(KEY_IN_DATE, date1);
+        intent.putExtra(KEY_OUT_DATE, date2);
+        intent.putExtra(KEY_NUMBER, Adults);
+        intent.putExtra(KEY_ID_COMPANY, Id);
         startActivity(intent);
     }
-    // Функція для відображення діалогового вікна для вибору числа
 
+    // Функція для відображення діалогового вікна для вибору числа
     private void showMonthPickerDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Виберіть місяць");
@@ -372,7 +387,7 @@ public class payment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 // Викликати функцію встановлення тексту у TextView
-                setDayText3();
+                setAdultsText3();
             }
         });
 
@@ -403,7 +418,7 @@ public class payment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 // Викликати функцію встановлення тексту у TextView
-                setDayText4();
+                setChildText4();
             }
         });
 
@@ -434,7 +449,7 @@ public class payment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 // Викликати функцію встановлення тексту у TextView
-                setDayText5();
+                setRoomsText5();
             }
         });
 
@@ -465,7 +480,7 @@ public class payment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 // Викликати функцію встановлення тексту у TextView
-                setDayText6();
+                setSoloRoomText6();
             }
         });
 
@@ -473,35 +488,57 @@ public class payment extends Fragment {
 
         builder.create().show();
     }
+    public int checkInDay1;
+    public int checkInDay2;
+    public int checkInMonth1;
+    public int checkInMonth2;
+    public int checkInYear1;
+    public int checkInYear2;
+    public int Adults;
+    public int Child;
+    public int Rooms;
+    public int SoloRoom;
+
     private void setMonthText1() {
         month1.setText("" + months[selectedMonthIndex]);
+        checkInMonth1 = selectedDay;
     }
     private void setMonthText2() {
         month2.setText("" + months[selectedMonthIndex]);
+        checkInMonth2 = selectedDay;
     }
     private void setDayText1() {
         day1.setText(String.valueOf(selectedDay));
+        checkInDay1 = selectedDay;
     }
     private void setDayText2() {
         day2.setText(String.valueOf(selectedDay));
-    }
-    private void setDayText3() {
-        count1.setText(String.valueOf(selectedDay));
-    }
-    private void setDayText4() {
-        count2.setText(String.valueOf(selectedDay));
-    }
-    private void setDayText5() {
-        count3.setText(String.valueOf(selectedDay));
-    }
-    private void setDayText6() {
-        count4.setText(String.valueOf(selectedDay));
+        checkInDay2 = selectedDay;
     }
     private void setYearText1() {
         year1.setText(String.valueOf(selectedDay));
+        checkInYear1 = selectedDay;
     }
     private void setYearText2() {
         year2.setText(String.valueOf(selectedDay));
+        checkInYear2 = selectedDay;
+    }
+
+    private void setAdultsText3() {
+        count1.setText(String.valueOf(selectedDay));
+        Adults = selectedDay;
+    }
+    private void setChildText4() {
+        count2.setText(String.valueOf(selectedDay));
+        Child = selectedDay;
+    }
+    private void setRoomsText5() {
+        count3.setText(String.valueOf(selectedDay));
+        Rooms = selectedDay;
+    }
+    private void setSoloRoomText6() {
+        count4.setText(String.valueOf(selectedDay));
+        SoloRoom = selectedDay;
     }
 
 

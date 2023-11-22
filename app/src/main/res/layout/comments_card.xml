@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,7 +12,7 @@
         android:layout_marginTop="23dp">
 
         <ImageView
-            android:id="@+id/icon_news"
+            android:id="@+id/Logo_user"
             android:layout_width="31dp"
             android:layout_height="31dp"/>
 
@@ -30,33 +29,28 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:textSize="15dp"
                 android:text="hello world"/>
-            <TextView
-                android:id="@+id/time_publication"
-                android:layout_width="150dp"
-                android:fontFamily="@font/montserrat_medium"
-                android:layout_marginTop="18dp"
-                android:textSize="11dp"
+            <RatingBar
+                android:id="@+id/rating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="hello world"/>
+                android:layout_marginTop="20dp"
+                android:numStars="5"
+                android:progressBackgroundTint="@color/black"
+                android:rating="4.3"
+                android:stepSize="0.1"
+                android:theme="@style/MyRatingBar" />
 
             <TextView
-                android:id="@+id/Price"
+                android:id="@+id/date"
                 android:layout_width="100dp"
-                android:fontFamily="@font/montserrat_bold"
+                android:fontFamily="@font/montserrat_medium"
                 android:layout_marginLeft="223dp"
                 android:layout_marginBottom="13dp"
                 android:gravity="end"
                 android:textSize="15dp"
                 android:layout_height="wrap_content"
-                android:text="4750 ₴"/>
-            <ImageButton
-                android:id="@+id/reservation"
-                android:layout_width="100dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginLeft="223dp"
-                android:background="@drawable/button_reservation">
-            </ImageButton>
+                android:text="11 вересня"/>
         </FrameLayout>
     </LinearLayout>
 </LinearLayout>

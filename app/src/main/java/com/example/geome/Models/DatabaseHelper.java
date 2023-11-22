@@ -672,6 +672,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_COMPANY_REVIEWS_ID_USER + " TEXT, " +
                 COLUMN_COMPANY_REVIEWS_LOCATION + " TEXT, " +
                 COLUMN_COMPANY_REVIEWS_SERVICE + " TEXT, " +
+                COLUMN_COMPANY_REVIEWS_USER_COMMENT + " TEXT, " +
                 COLUMN_COMPANY_REVIEWS_AVAILABILITY + " TEXT, " +
                 COLUMN_COMPANY_REVIEWS_COMFORT + " TEXT);";
         db.execSQL(companyReviewsQuery);
