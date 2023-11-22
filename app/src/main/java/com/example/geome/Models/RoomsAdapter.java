@@ -73,8 +73,11 @@ public class RoomsAdapter extends ArrayAdapter<Room> {
             }
         }
         time_publication.setText(room.getDescription());
-        company_name.setText(company.getCompanyName());
+        company_name.setText(room.getNameRoom());
         Price.setText(String.valueOf(room.getPrice()));
+        double price = Double.parseDouble(String.valueOf(Price.getText()));
+        booking.setTotalPrice(price);
+        booking.setRoomId(room.getId());
         reservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
