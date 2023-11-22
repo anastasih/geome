@@ -193,7 +193,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //booking
     public static final String TABLE_BOOKINGS = "booking";
     public static final String COLUMN_BOOKING_ID = "id";
-    public static final String COLUMN_BOOKING_ROOM_ID = "room_is";
+    public static final String COLUMN_BOOKING_ROOM_ID = "room_id";
     public static final String COLUMN_BOOKING_GUEST_NAME = "guest_name";
     public static final String COLUMN_BOOKING_CHECKIN_DATE = "checkin_date";
     public static final String COLUMN_BOOKING_CHECKOUT_DATE = "pcheckout_daterice";
@@ -674,40 +674,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_COMPANY_REVIEWS_SERVICE + " TEXT, " +
                 COLUMN_COMPANY_REVIEWS_USER_COMMENT + " TEXT, " +
                 COLUMN_COMPANY_REVIEWS_AVAILABILITY + " TEXT, " +
+                COLUMN_COMPANY_REVIEWS_USER_COMMENT + " TEXT, " +
                 COLUMN_COMPANY_REVIEWS_COMFORT + " TEXT);";
         db.execSQL(companyReviewsQuery);
 
-        insertCompanyReviews(db, 1, 3, 4.5, 4, 5, 1);
-        insertCompanyReviews(db,2, 4, 4, 5, 4.5, 1);
-        insertCompanyReviews(db,3, 4.2, 4, 5, 4.1, 1);
-        insertCompanyReviews(db,4, 5, 4, 4, 4, 1);
-        insertCompanyReviews(db,5, 4, 4, 3, 4, 1);
-        insertCompanyReviews(db,6, 4, 4.3, 4, 5, 1);
-        insertCompanyReviews(db,7, 4.2, 4.7, 4, 4.2, 1);
-        insertCompanyReviews(db,8, 3, 4.5, 4, 5, 1);
-        insertCompanyReviews(db,9, 4, 4, 5, 4.5, 1);
-        insertCompanyReviews(db,10, 4.2, 4, 5, 4.1, 1);
-        insertCompanyReviews(db,11, 5, 4, 4, 4, 1);
-        insertCompanyReviews(db,12, 4, 4, 3, 4, 1);
-        insertCompanyReviews(db,13, 4, 4.3, 4, 5, 1);
-        insertCompanyReviews(db,14, 4.2, 4.7, 4, 4.2, 1);
-        insertCompanyReviews(db,15, 3, 4.5, 4, 5, 1);
-        insertCompanyReviews(db,16, 4, 4, 5, 4.5, 1);
-        insertCompanyReviews(db,17, 4.2, 4, 5, 4.1, 1);
-        insertCompanyReviews(db,18, 5, 4, 4, 4, 1);
-        insertCompanyReviews(db,19, 4, 4, 3, 4, 1);
-        insertCompanyReviews(db,20, 3, 4.5, 4, 5, 1);
-        insertCompanyReviews(db,21, 4, 4, 5, 4.5, 1);
-        insertCompanyReviews(db,22, 4.2, 4, 5, 4.1, 1);
-        insertCompanyReviews(db,23, 5, 4, 4, 4, 1);
-        insertCompanyReviews(db,24, 4, 4, 3, 4, 1);
-        insertCompanyReviews(db,25, 4.2, 4.7, 4, 4.2, 1);
-        insertCompanyReviews(db,26, 3, 4.5, 4, 5, 1);
-        insertCompanyReviews(db,27, 4, 4, 5, 4.5, 1);
-        insertCompanyReviews(db,28, 5, 4, 4, 4, 1);
-        insertCompanyReviews(db,29, 3, 4.5, 4, 5, 1);
-        insertCompanyReviews(db,30, 4.2, 4, 5, 4.1, 1);
-        insertCompanyReviews(db,31, 4.2, 4, 5, 4.1, 1);
+        insertCompanyReviews(db, 1, 3, 4.5, 4, 5, 1, "");
+        insertCompanyReviews(db,2, 4, 4, 5, 4.5, 1, "");
+        insertCompanyReviews(db,3, 4.2, 4, 5, 4.1, 1, "");
+        insertCompanyReviews(db,4, 5, 4, 4, 4, 1, "Провели відпустку в цьому готелі і взагалі залишились задоволені. Номер, в якому ми жили, був дуже просторий та комфортний. А особливо вражені були соляною кімнатою. Такий рідкісний бонус! Рекомендую!");
+        insertCompanyReviews(db,5, 4, 4, 3, 4, 1, "");
+        insertCompanyReviews(db,6, 4, 4.3, 4, 5, 1, "");
+        insertCompanyReviews(db,7, 4.2, 4.7, 4, 4.2, 1, "");
+        insertCompanyReviews(db,8, 3, 4.5, 4, 5, 1, "");
+        insertCompanyReviews(db,9, 4, 4, 5, 4.5, 1, "");
+        insertCompanyReviews(db,10, 4.2, 4, 5, 4.1, 1, "");
+        insertCompanyReviews(db,11, 5, 4, 4, 4, 1, "");
+        insertCompanyReviews(db,12, 4, 4, 3, 4, 1, "");
+        insertCompanyReviews(db,13, 4, 4.3, 4, 5, 1, "");
+        insertCompanyReviews(db,14, 4.2, 4.7, 4, 4.2, 1, "Ми обрали цей готель для відпустки та не пошкодували про це. Відчувається, що власники дбають про ваш комфорт. Рекомендуємо ресторан готелю, він також залишив хороше враження. Їжа була смачною та різноманітною. Оцінку знизив за відсутність паркінгу.");
+        insertCompanyReviews(db,15, 3, 4.5, 4, 5, 1, "");
+        insertCompanyReviews(db,16, 4, 4, 5, 4.5, 1, "");
+        insertCompanyReviews(db,17, 4.2, 4, 5, 4.1, 1, "");
+        insertCompanyReviews(db,18, 5, 4, 4, 4, 1, "");
+        insertCompanyReviews(db,19, 4, 4, 3, 4, 1, "");
+        insertCompanyReviews(db,20, 3, 4.5, 4, 5, 1, "");
+        insertCompanyReviews(db,21, 4, 4, 5, 4.5, 1, "");
+        insertCompanyReviews(db,22, 4.2, 4, 5, 4.1, 1, "");
+        insertCompanyReviews(db,23, 5, 4, 4, 4, 1, "");
+        insertCompanyReviews(db,24, 4, 4, 3, 4, 1, "");
+        insertCompanyReviews(db,25, 4.2, 4.7, 4, 4.2, 1, "");
+        insertCompanyReviews(db,26, 3, 4.5, 4, 5, 1, "");
+        insertCompanyReviews(db,27, 4, 4, 5, 4.5, 1, "");
+        insertCompanyReviews(db,28, 5, 4, 4, 4, 1, "");
+        insertCompanyReviews(db,29, 3, 4.5, 4, 5, 1, "");
+        insertCompanyReviews(db,30, 4.2, 4, 5, 4.1, 1, "");
+        insertCompanyReviews(db,31, 4.2, 4, 5, 4.1, 1, "");
 
         String appliedVacanciesQuery = "CREATE TABLE " + TABLE_APPLIED_VACANCY + " (" +
                 COLUMN_APPLIED_VACANCY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -790,14 +791,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.insert(TABLE_ROOMS, null, values);
     }
 
-    public List<Room> getRoomsByIdCompany(int idCompany){
+    public List<Room> getAvailableRoomsByIdCompany(int idCompany, Date checkinDate, Date checkoutDate) {
         SQLiteDatabase db = this.getReadableDatabase();
-        List<Room> rooms = new ArrayList<>();
+        List<Room> availableRooms = new ArrayList<>();
 
+        // SQL query to get available rooms for the given date range
         String query = "SELECT * FROM " + TABLE_ROOMS +
-                " WHERE " + COLUMN_HOTEL_ID + " = ?";
+                " WHERE " + COLUMN_HOTEL_ID + " = ? AND " +
+                COLUMN_ROOMS_ID + " NOT IN (SELECT " + COLUMN_BOOKING_ROOM_ID + " FROM " + TABLE_BOOKINGS +
+                " WHERE (" +
+                "(" + COLUMN_BOOKING_CHECKIN_DATE + " >= ? AND " + COLUMN_BOOKING_CHECKIN_DATE + " < ?) OR " +
+                "(" + COLUMN_BOOKING_CHECKOUT_DATE + " > ? AND " + COLUMN_BOOKING_CHECKOUT_DATE + " <= ?) OR " +
+                "(" + COLUMN_BOOKING_CHECKIN_DATE + " <= ? AND " + COLUMN_BOOKING_CHECKOUT_DATE + " >= ?)" +
+                "))";
 
-        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(idCompany)});
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(idCompany),
+                String.valueOf(checkinDate.getTime()), String.valueOf(checkoutDate.getTime()),
+                String.valueOf(checkinDate.getTime()), String.valueOf(checkoutDate.getTime()),
+                String.valueOf(checkinDate.getTime()), String.valueOf(checkoutDate.getTime())});
 
         if (cursor.moveToFirst()) {
             do {
@@ -809,15 +820,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String nameRoom = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_ROOM));
                 int capacity = cursor.getInt(cursor.getColumnIndex(COLUMN_CAPACITY));
 
-                Room room = new Room(idRoom, hotelId,roomNumber, description, price, nameRoom, capacity);
+                Room room = new Room(idRoom, hotelId, roomNumber, description, price, nameRoom, capacity);
 
-                rooms.add(room);
+                availableRooms.add(room);
             } while (cursor.moveToNext());
         }
 
         cursor.close();
-        return rooms;
+        return availableRooms;
     }
+
+
+//    public List<Room> getRoomsByIdCompany(int idCompany){
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        List<Room> rooms = new ArrayList<>();
+//
+//        String query = "SELECT * FROM " + TABLE_ROOMS +
+//                " WHERE " + COLUMN_HOTEL_ID + " = ?";
+//
+//        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(idCompany)});
+//
+//        if (cursor.moveToFirst()) {
+//            do {
+//                int idRoom = cursor.getInt(cursor.getColumnIndex(COLUMN_ROOMS_ID));
+//                int hotelId = cursor.getInt(cursor.getColumnIndex(COLUMN_HOTEL_ID));
+//                String roomNumber = cursor.getString(cursor.getColumnIndex(COLUMN_ROOM_NUMBER));
+//                String description = cursor.getString(cursor.getColumnIndex(COLUMN_SHORT_DESCRIPTION));
+//                double price = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_PRICE)));
+//                String nameRoom = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_ROOM));
+//                int capacity = cursor.getInt(cursor.getColumnIndex(COLUMN_CAPACITY));
+//
+//                Room room = new Room(idRoom, hotelId,roomNumber, description, price, nameRoom, capacity);
+//
+//                rooms.add(room);
+//            } while (cursor.moveToNext());
+//        }
+//
+//        cursor.close();
+//        return rooms;
+//    }
 
     public long addPayment(String idCompany, String idUser, String date, String typePayment,
                            double amount) {
@@ -899,7 +940,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public long insertCompanyReviews(SQLiteDatabase db, int companyId, double location,
-                                     double service, double availability, double comfort, int userId) {
+                                     double service, double availability, double comfort, int userId, String comment) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_COMPANY_REVIEWS_ID_COMPANY, companyId);
         values.put(COLUMN_COMPANY_REVIEWS_LOCATION, location);
@@ -907,6 +948,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_COMPANY_REVIEWS_AVAILABILITY, availability);
         values.put(COLUMN_COMPANY_REVIEWS_COMFORT, comfort);
         values.put(COLUMN_COMPANY_REVIEWS_ID_USER, userId);
+        values.put(COLUMN_COMPANY_REVIEWS_USER_COMMENT, comment);
 
         return db.insert(TABLE_COMPANY_REVIEWS, null, values);
     }
