@@ -30,6 +30,7 @@ public class RoomsAdapter extends ArrayAdapter<Room> {
     private List<Room> rooms;
     public Booking booking;
     public static final String KEY_BOOKING = "androidx.appcompat.app.AppCompatActivity.RoomsAdapter.booking";
+    public static final String KEY_ID_COMPANY = "androidx.appcompat.app.AppCompatActivity.RoomsAdapter.idCompany";
     private LayoutInflater inflater;
 
     public RoomsAdapter(@NonNull Context context, int resource, @NonNull List<Room> rooms, Booking booking) {
@@ -75,14 +76,29 @@ public class RoomsAdapter extends ArrayAdapter<Room> {
         time_publication.setText(room.getDescription());
         company_name.setText(room.getNameRoom());
         Price.setText(String.valueOf(room.getPrice()));
-        double price = Double.parseDouble(String.valueOf(Price.getText()));
-        booking.setTotalPrice(price);
-        booking.setRoomId(room.getId());
+        //Price.setText(String.valueOf(booking.getTotalPrice()));
+        //double price = Double.parseDouble(String.valueOf(Price.getText()));
+        //Log.d("Тег", "price " + price);
+        //Log.d("Тег", "price booking " + booking.getTotalPrice());
+        //booking.setTotalPrice(price);
+        //booking.setRoomId(room.getId());
+
+        //double price = Double.parseDouble(String.valueOf(Price.getText()));
+        //room.se(price);
+        int idRoom = position + 1;
         reservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Room room = getItem(position);
+                booking.setRoomId(idRoom); // Використовуйте ідентифікатор кімнати з об'єкта кімнати
+                Log.d("hello ", "idrroom = " + idRoom);
+                booking.setTotalPrice(room.getPrice());
+//                booking.setRoomId(idRoom);
+//                Log.d("hello ", "idrroom = " + idRoom);
+
                 Intent intent = new Intent(context, Reservation.class);
                 intent.putExtra(KEY_BOOKING, booking);
+                intent.putExtra(KEY_ID_COMPANY, room.getIdHotel());
                 context.startActivity(intent);
             }
         });

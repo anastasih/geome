@@ -31,7 +31,8 @@ import java.io.File;
 public class ProfileFragment extends Fragment {
 
     private User user, userInfo;
-    private TextView user_name, settingsProfileButton, user_city, workButton, serviceHistory;
+    private TextView user_name, settingsProfileButton, user_city, workButton, serviceHistory,
+            paymentButton, reservations;
     private ImageView userPhoto;
 
     @Override
@@ -85,18 +86,30 @@ public class ProfileFragment extends Fragment {
         settingsProfileButton = rootView.findViewById(R.id.settingsProfileButton);
         workButton = rootView.findViewById(R.id.workButton);
         serviceHistory = rootView.findViewById(R.id.serviceHistory);
+        paymentButton = rootView.findViewById(R.id.paymentButton);
+        reservations = rootView.findViewById(R.id.reservations);
 
         settingsProfileButton.setOnClickListener(this::settingsProfileButtonClick);
         workButton.setOnClickListener(this::workButtonClick);
         serviceHistory.setOnClickListener(this::serviceHistoryClick);
+        paymentButton.setOnClickListener(this::paymentButtonClick);
+        reservations.setOnClickListener(this::reservationsClick);
     }
 
+    public void reservationsClick(View view){
+        Intent intent = new Intent(getContext(), MyBookingActivity.class);
+        startActivity(intent);
+    }
+    public void paymentButtonClick(View view){
+        Intent intent = new Intent(getContext(), PaymentHistoryActivity.class);
+        startActivity(intent);
+    }
     public void serviceHistoryClick(View view){
-        Intent intent = new Intent(getContext(), WorkActivity.class);
+        Intent intent = new Intent(getContext(), ServiceHistoryActivity.class);
         startActivity(intent);
     }
     public void workButtonClick(View view){
-        Intent intent = new Intent(getContext(), ServiceHistoryActivity.class);
+        Intent intent = new Intent(getContext(), WorkActivity.class);
         startActivity(intent);
     }
     public void settingsProfileButtonClick(View view){

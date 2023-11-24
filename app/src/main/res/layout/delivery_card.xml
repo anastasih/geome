@@ -44,16 +44,15 @@
 
             <RatingBar
                 android:id="@+id/company_rating"
+                style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="?android:attr/ratingBarStyleSmall"
-                android:theme="@style/MyRatingBar"
-                android:layout_marginTop="3dp"
                 android:layout_marginLeft="20dp"
-                android:progressBackgroundTint="@color/black"
+                android:layout_marginTop="3dp"
                 android:numStars="5"
+                android:progressBackgroundTint="@color/black"
                 android:stepSize="0.1"
-                />
+                android:theme="@style/MyRatingBar" />
 
         </FrameLayout>
     </LinearLayout>

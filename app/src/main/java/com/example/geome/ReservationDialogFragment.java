@@ -77,7 +77,7 @@ public class ReservationDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 // Відкриття нової activity для історії сервісів
-                Intent intent = new Intent(requireContext(), ServiceHistoryActivity.class);
+                Intent intent = new Intent(requireContext(), MyBookingActivity.class);
                 startActivity(intent);
                 // Закриття діалогового вікна
                 dialog.dismiss();

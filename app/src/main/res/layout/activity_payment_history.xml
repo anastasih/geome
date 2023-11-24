@@ -69,27 +69,13 @@
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/montserrat_medium"
             android:lineHeight="22sp"
-            android:text="Історія послуг"
+            android:text="Історія платежів"
             android:textAlignment="center"
             android:textColor="#323232"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            />
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="@font/montserrat_medium"
-        android:lineHeight="16sp"
-        android:text="Тут ви можете переглянути заклади, послугами яких користувались та за бажання залишити відгук"
-        android:textColor="#323232"
-        android:textSize="11dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
     <ListView
         android:id="@+id/lvHistory"
@@ -97,8 +83,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"

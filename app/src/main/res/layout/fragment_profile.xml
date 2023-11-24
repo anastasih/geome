@@ -106,6 +106,17 @@
             android:textSize="11dp" />
 
         <TextView
+            android:id="@+id/reservations"
+            android:layout_width="340dp"
+            android:layout_height="33dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Мої бронювання"
+            android:textColor="#323232"
+            android:textSize="17dp"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
             android:layout_width="340dp"
             android:layout_height="33dp"
             android:layout_gravity="center"
@@ -155,6 +166,7 @@
                 android:src="@drawable/payment_icon"/>
 
             <TextView
+                android:id="@+id/paymentButton"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_medium"

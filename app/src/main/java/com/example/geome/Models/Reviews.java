@@ -7,15 +7,21 @@ public class Reviews {
     public double Availability;
     public double Comfort;
     public String userComment;
+
+    public int userId;
+    public int bookingId;
     public Reviews(){}
 
-    public Reviews(int idCompany, double location, double service, double availability, double comfort, String userComment) {
+    public Reviews(int idCompany, double location, double service, double availability,
+                   double comfort, String userComment, int userId, int bookingId) {
         IdCompany = idCompany;
         Location = location;
         Service = service;
         Availability = availability;
         Comfort = comfort;
         this.userComment = userComment;
+        this.userId = userId;
+        this.bookingId = bookingId;
     }
 
     public int getIdCompany() {
@@ -62,5 +68,21 @@ public class Reviews {
     }
     public void setUserComment(String userComment) {
         this.userComment = userComment;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getBookingId() {
+        return bookingId;
+    }
+
+    public void setBookingId(int bookingId) {
+        this.bookingId = bookingId;
     }
 }

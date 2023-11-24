@@ -14,7 +14,25 @@ public class Booking implements Serializable {
     public String childAge;
     public int numRooms;
     public int singleRoom;
+    public int userId;
     public Booking(){}
+
+    public Booking(int id, int roomId, String guestName, Date checkInDate, Date checkOutDate,
+                   double totalPrice, int numGuests, int children, String childAge, int numRooms,
+                   int singleRoom, int userId) {
+        this.id = id;
+        this.roomId = roomId;
+        this.guestName = guestName;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.totalPrice = totalPrice;
+        this.numGuests = numGuests;
+        this.children = children;
+        this.childAge = childAge;
+        this.numRooms = numRooms;
+        this.singleRoom = singleRoom;
+        this.userId = userId;
+    }
     public Booking(int roomId, String guestName, Date checkInDate, Date checkOutDate,
                    double totalPrice, int numGuests, int children, String childAge, int numRooms, int singleRoom) {
         this.roomId = roomId;
@@ -115,5 +133,12 @@ public class Booking implements Serializable {
 
     public void setSingleRoom(int singleRoom) {
         this.singleRoom = singleRoom;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

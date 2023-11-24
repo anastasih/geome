@@ -206,15 +206,15 @@ public class payment extends Fragment {
         Date currentDate = new Date();
         if(booking.getCheckInDate() != null && booking.getCheckOutDate() != null &&
                 booking.getNumGuests() != 0 &&  booking.getNumRooms() != 0){
-            if(!date1.before(currentDate) && !date2.before(currentDate)){
+            //if(!date1.before(currentDate) && !date2.before(currentDate)){
                 Intent intent = new Intent(getContext(), Accommodation_options.class);
                 intent.putExtra(KEY_ID_COMPANY, Id);
                 intent.putExtra(KEY_BOOKING, booking);
                 startActivity(intent);
-            }
-            else {
-                Toast.makeText(getContext(), "Дати вже минули, не можна забронювати готель", Toast.LENGTH_SHORT).show();
-            }
+            //}
+            //else {
+                //Toast.makeText(getContext(), "Дати вже минули, не можна забронювати готель", Toast.LENGTH_SHORT).show();
+            //}
 
         }
         else{

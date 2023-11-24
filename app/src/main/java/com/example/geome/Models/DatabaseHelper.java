@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.icu.util.TimeZone;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -157,6 +158,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_COMPANY_REVIEWS_AVAILABILITY = "availability";
     public static final String COLUMN_COMPANY_REVIEWS_COMFORT = "comfort";
     public static final String COLUMN_COMPANY_REVIEWS_ID_USER = "user_id";
+    public static final String COLUMN_COMPANY_REVIEWS_ID_BOOKING = "booking_id";
     public static final String COLUMN_COMPANY_REVIEWS_USER_COMMENT = "comment";
 
     // відгукнутися на вакансію
@@ -201,6 +203,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_BOOKING_HAS_CHILDREN = "children";
     public static final String COLUMN_BOOKING_CHILD_AGE = "child_age";
     public static final String COLUMN_BOOKING_NUM_ROOMS = "num_rooms";
+    public static final String COLUMN_BOOKING_USER_ID = "id_user";
     public static final String COLUMN_BOOKING_TOTAL_PRICE  = "total_price";
 
     //payment
@@ -670,6 +673,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_COMPANY_REVIEWS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_COMPANY_REVIEWS_ID_COMPANY + " TEXT, " +
                 COLUMN_COMPANY_REVIEWS_ID_USER + " TEXT, " +
+                COLUMN_COMPANY_REVIEWS_ID_BOOKING + " TEXT, " +
                 COLUMN_COMPANY_REVIEWS_LOCATION + " TEXT, " +
                 COLUMN_COMPANY_REVIEWS_SERVICE + " TEXT, " +
                 COLUMN_COMPANY_REVIEWS_USER_COMMENT + " TEXT, " +
@@ -763,6 +767,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_BOOKING_NUM_GUESTS + " TEXT, " +
                 COLUMN_BOOKING_HAS_CHILDREN + " TEXT, " +
                 COLUMN_BOOKING_CHILD_AGE + " TEXT, " +
+                COLUMN_BOOKING_USER_ID + " TEXT, " +
                 COLUMN_BOOKING_NUM_ROOMS + " TEXT, " +
                 COLUMN_BOOKING_TOTAL_PRICE + " TEXT);";
         db.execSQL(bookingQuery);
@@ -790,56 +795,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.insert(TABLE_ROOMS, null, values);
     }
 
-    public List<Room> getAvailableRoomsByIdCompany(int idCompany, Date checkinDate, Date checkoutDate) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        List<Room> availableRooms = new ArrayList<>();
-
-        String query = "SELECT * FROM " + TABLE_ROOMS +
-                " WHERE " + COLUMN_HOTEL_ID + " = ? AND " +
-                COLUMN_ROOMS_ID + " NOT IN (SELECT " + COLUMN_BOOKING_ROOM_ID + " FROM " + TABLE_BOOKINGS +
-                " WHERE (" +
-                "(" + COLUMN_BOOKING_CHECKIN_DATE + " < ? AND " + COLUMN_BOOKING_CHECKOUT_DATE + " > ?) OR " +
-                "(" + COLUMN_BOOKING_CHECKIN_DATE + " >= ? AND " + COLUMN_BOOKING_CHECKIN_DATE + " < ?) OR " +
-                "(" + COLUMN_BOOKING_CHECKOUT_DATE + " > ? AND " + COLUMN_BOOKING_CHECKOUT_DATE + " <= ?)" +
-                "))";
-
-        Cursor cursor = db.rawQuery(query, new String[]{
-                String.valueOf(idCompany),
-                String.valueOf(checkoutDate.getTime()), String.valueOf(checkinDate.getTime()),
-                String.valueOf(checkinDate.getTime()), String.valueOf(checkoutDate.getTime()),
-                String.valueOf(checkinDate.getTime()), String.valueOf(checkoutDate.getTime())
-        });
-
-        if (cursor.moveToFirst()) {
-            do {
-                int idRoom = cursor.getInt(cursor.getColumnIndex(COLUMN_ROOMS_ID));
-                int hotelId = cursor.getInt(cursor.getColumnIndex(COLUMN_HOTEL_ID));
-                String roomNumber = cursor.getString(cursor.getColumnIndex(COLUMN_ROOM_NUMBER));
-                String description = cursor.getString(cursor.getColumnIndex(COLUMN_SHORT_DESCRIPTION));
-                double price = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_PRICE)));
-                String nameRoom = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_ROOM));
-                int capacity = cursor.getInt(cursor.getColumnIndex(COLUMN_CAPACITY));
-
-                Room room = new Room(idRoom, hotelId, roomNumber, description, price, nameRoom, capacity);
-
-                availableRooms.add(room);
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        return availableRooms;
-    }
-
-
-
-//    public List<Room> getRoomsByIdCompany(int idCompany){
+//    public List<Room> getAvailableRoomsByIdCompany(int idCompany, Date checkinDate, Date checkoutDate) {
 //        SQLiteDatabase db = this.getReadableDatabase();
-//        List<Room> rooms = new ArrayList<>();
+//        List<Room> availableRooms = new ArrayList<>();
 //
 //        String query = "SELECT * FROM " + TABLE_ROOMS +
-//                " WHERE " + COLUMN_HOTEL_ID + " = ?";
+//                " WHERE " + COLUMN_HOTEL_ID + " = ? AND " +
+//                COLUMN_ROOMS_ID + " NOT IN (SELECT " + COLUMN_BOOKING_ROOM_ID + " FROM " + TABLE_BOOKINGS +
+//                " WHERE (" +
+//                "(" + COLUMN_BOOKING_CHECKIN_DATE + " < ? AND " + COLUMN_BOOKING_CHECKOUT_DATE + " > ?) OR " +
+//                "(" + COLUMN_BOOKING_CHECKIN_DATE + " >= ? AND " + COLUMN_BOOKING_CHECKIN_DATE + " < ?) OR " +
+//                "(" + COLUMN_BOOKING_CHECKOUT_DATE + " > ? AND " + COLUMN_BOOKING_CHECKOUT_DATE + " <= ?)" +
+//                "))";
 //
-//        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(idCompany)});
+//        Cursor cursor = db.rawQuery(query, new String[]{
+//                String.valueOf(idCompany),
+//                String.valueOf(checkoutDate.getTime()), String.valueOf(checkinDate.getTime()),
+//                String.valueOf(checkinDate.getTime()), String.valueOf(checkoutDate.getTime()),
+//                String.valueOf(checkinDate.getTime()), String.valueOf(checkoutDate.getTime())
+//        });
 //
 //        if (cursor.moveToFirst()) {
 //            do {
@@ -851,16 +825,299 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //                String nameRoom = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_ROOM));
 //                int capacity = cursor.getInt(cursor.getColumnIndex(COLUMN_CAPACITY));
 //
-//                Room room = new Room(idRoom, hotelId,roomNumber, description, price, nameRoom, capacity);
+//                Room room = new Room(idRoom, hotelId, roomNumber, description, price, nameRoom, capacity);
 //
-//                rooms.add(room);
+//                availableRooms.add(room);
 //            } while (cursor.moveToNext());
 //        }
 //
 //        cursor.close();
-//        return rooms;
+//        return availableRooms;
+//    }
+    public List<Room> getAvailableRoomsByIdCompany(int idCompany, Date date1, Date date2, int numGuests) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Room> availableRooms = new ArrayList<>();
+
+        String formattedDate1 = formatDateForDatabase(date1);
+        String formattedDate2 = formatDateForDatabase(date2);
+
+        String query = "SELECT * FROM " + TABLE_ROOMS + " r " +
+                "LEFT JOIN " + TABLE_BOOKINGS + " b ON r." + COLUMN_ROOMS_ID + " = b." + COLUMN_BOOKING_ROOM_ID +
+                " WHERE r." + COLUMN_HOTEL_ID + " = ? " +
+                "AND (b." + COLUMN_BOOKING_CHECKIN_DATE + " > ? OR b." + COLUMN_BOOKING_CHECKOUT_DATE + " < ? " +
+                "OR b." + COLUMN_BOOKING_ID + " IS NULL)";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(idCompany), formattedDate2, formattedDate1});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                // Перевіряємо, чи номер не зайнятий
+                if (cursor.isNull(cursor.getColumnIndex(COLUMN_BOOKING_ID))) {
+                    if(cursor.getInt(cursor.getColumnIndex(COLUMN_CAPACITY)) >= numGuests){
+                        Room room = new Room(
+                                cursor.getInt(cursor.getColumnIndex(COLUMN_ROOMS_ID)),
+                                cursor.getInt(cursor.getColumnIndex(COLUMN_HOTEL_ID)),
+                                cursor.getString(cursor.getColumnIndex(COLUMN_ROOM_NUMBER)),
+                                cursor.getString(cursor.getColumnIndex(COLUMN_SHORT_DESCRIPTION)),
+                                Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_PRICE))),
+                                cursor.getString(cursor.getColumnIndex(COLUMN_NAME_ROOM)),
+                                cursor.getInt(cursor.getColumnIndex(COLUMN_CAPACITY))
+                        );
+                        availableRooms.add(room);
+                    }
+//                    Room room = new Room(
+//                        cursor.getInt(cursor.getColumnIndex(COLUMN_ROOMS_ID)),
+//                        cursor.getInt(cursor.getColumnIndex(COLUMN_HOTEL_ID)),
+//                        cursor.getString(cursor.getColumnIndex(COLUMN_ROOM_NUMBER)),
+//                        cursor.getString(cursor.getColumnIndex(COLUMN_SHORT_DESCRIPTION)),
+//                        Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_PRICE))),
+//                        cursor.getString(cursor.getColumnIndex(COLUMN_NAME_ROOM)),
+//                        cursor.getInt(cursor.getColumnIndex(COLUMN_CAPACITY))
+//                );
+//                    availableRooms.add(room);
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+
+        return availableRooms;
+    }
+
+    private String formatDateForDatabase(Date date) {
+        // Форматуємо дату в строку за допомогою SimpleDateFormat
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            // Перетворюємо об'єкт Date у строку за зазначеним форматом
+            return dateFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Обробка помилок форматування дати
+            return null;
+        }
+    }
+
+//    public List<Booking> getCompletedBookingsForUser(int userId) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        List<Booking> completedBookings = new ArrayList<>();
+//
+//        String currentDate = formatDateForDatabase(new Date());
+//
+////        String query = "SELECT * FROM " + TABLE_BOOKINGS +
+////                " WHERE " + COLUMN_BOOKING_USER_ID + " = ?" +
+////                " AND " + COLUMN_BOOKING_CHECKOUT_DATE + " < ?";
+//
+//        String query = "SELECT * FROM " + TABLE_BOOKINGS +
+//                " WHERE " + COLUMN_BOOKING_USER_ID + " = ?" +
+//                " AND " + COLUMN_BOOKING_CHECKOUT_DATE + " < datetime(?, 'localtime')";
+//
+//
+//        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId), currentDate});
+//
+//        if (cursor != null && cursor.moveToFirst()) {
+//            do {
+//                int id = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_ID));
+//                int roomId = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_ROOM_ID));
+//                String guestName = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_GUEST_NAME));
+//                String checkInDateStr = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_CHECKIN_DATE));
+//                String checkOutDateStr = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_CHECKOUT_DATE));
+//                double totalPrice = cursor.getDouble(cursor.getColumnIndex(COLUMN_BOOKING_TOTAL_PRICE));
+//                int numGuests = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_NUM_GUESTS));
+//                int children = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_HAS_CHILDREN));
+//                String childAge = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_CHILD_AGE));
+//                int numRooms = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_NUM_ROOMS));
+//
+//                Date checkInDate = convertStringToDate(checkInDateStr);
+//                Date checkOutDate = convertStringToDate(checkOutDateStr);
+//
+//                Booking booking = new Booking(id, roomId, guestName, checkInDate, checkOutDate,
+//                        totalPrice, numGuests, children, childAge, numRooms, 0, userId);
+//
+//                completedBookings.add(booking);
+//            } while (cursor.moveToNext());
+//            cursor.close();
+//        }
+//
+//        return completedBookings;
+//    }
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static Date convertStringToDate(String dateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        try {
+            return dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+//    public List<Booking> getCompletedBookingsForUser(int userId) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        List<Booking> completedBookings = new ArrayList<>();
+//
+//        // Отримання поточної дати у правильному форматі для порівняння в базі даних SQLite
+//        //String currentDate = formatDateForDatabase(new Date());
+//        Date currentDateDate = new Date();
+//        String currentDate = String.valueOf(currentDateDate);
+//
+//        // SQL-запит із використанням функції datetime для порівняння дат в SQLite
+//        String query = "SELECT * FROM " + TABLE_BOOKINGS +
+//                " WHERE " + COLUMN_BOOKING_USER_ID + " = ?" +
+//                " AND strftime('%Y-%m-%d %H:%M:%S', " + COLUMN_BOOKING_CHECKOUT_DATE + ") < datetime(?, 'localtime')";
+//
+//        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId), currentDate});
+//
+//        if (cursor != null && cursor.moveToFirst()) {
+//            do {
+//                int id = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_ID));
+//                int roomId = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_ROOM_ID));
+//                String guestName = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_GUEST_NAME));
+//                String checkInDateStr = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_CHECKIN_DATE));
+//                String checkOutDateStr = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_CHECKOUT_DATE));
+//                double totalPrice = cursor.getDouble(cursor.getColumnIndex(COLUMN_BOOKING_TOTAL_PRICE));
+//                int numGuests = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_NUM_GUESTS));
+//                int children = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_HAS_CHILDREN));
+//                String childAge = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_CHILD_AGE));
+//                int numRooms = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_NUM_ROOMS));
+//
+//                Date checkInDate = convertStringToDate(checkInDateStr);
+//                Date checkOutDate = convertStringToDate(checkOutDateStr);
+//
+//                Booking booking = new Booking(id, roomId, guestName, checkInDate, checkOutDate,
+//                        totalPrice, numGuests, children, childAge, numRooms, 0, userId);
+//
+//                completedBookings.add(booking);
+//            } while (cursor.moveToNext());
+//            cursor.close();
+//        }
+//
+//        return completedBookings;
 //    }
 
+    private Date convertStringToDate2(String dateString) {
+        // Форматуємо дату в строку за допомогою SimpleDateFormat
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US);
+
+        try {
+            // Перетворюємо об'єкт Date у строку за зазначеним форматом
+            return dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // Обробка помилок форматування дати
+            return null;
+        }
+    }
+
+
+    public List<Booking> getCompletedBookingsForUser(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Booking> completedBookings = new ArrayList<>();
+
+        // Отримання поточної дати для порівняння
+        Date currentDate = new Date();
+
+        // SQL-запит для вибору завершених бронювань
+        String query = "SELECT * FROM " + TABLE_BOOKINGS +
+                " WHERE " + COLUMN_BOOKING_USER_ID + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_ID));
+                int roomId = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_ROOM_ID));
+                String guestName = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_GUEST_NAME));
+                String checkInDateStr = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_CHECKIN_DATE));
+                String checkOutDateStr = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_CHECKOUT_DATE));
+                double totalPrice = cursor.getDouble(cursor.getColumnIndex(COLUMN_BOOKING_TOTAL_PRICE));
+                int numGuests = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_NUM_GUESTS));
+                int children = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_HAS_CHILDREN));
+                String childAge = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_CHILD_AGE));
+                int numRooms = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_NUM_ROOMS));
+
+                Date checkInDate = convertStringToDate2(checkInDateStr);
+                Date checkOutDate = convertStringToDate2(checkOutDateStr);
+
+                // Порівняння дат
+                if (checkOutDate != null && checkOutDate.before(currentDate)) {
+                    // Створення об'єкта Booking
+                    Booking booking = new Booking(id, roomId, guestName, checkInDate, checkOutDate,
+                            totalPrice, numGuests, children, childAge, numRooms, 0, userId);
+
+                    completedBookings.add(booking);
+                }
+
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+
+        return completedBookings;
+    }
+
+
+    public int getCompanyByIdBooking(int id_booking) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + TABLE_ROOMS + "." + COLUMN_HOTEL_ID +
+                " FROM " + TABLE_ROOMS +
+                " JOIN " + TABLE_BOOKINGS + " ON " + TABLE_ROOMS + "." + COLUMN_ROOMS_ID +
+                " = " + TABLE_BOOKINGS + "." + COLUMN_BOOKING_ROOM_ID +
+                " WHERE " + TABLE_BOOKINGS + "." + COLUMN_BOOKING_ID + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id_booking)});
+
+        int companyId = 0;
+
+        if (cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndex(COLUMN_HOTEL_ID);
+            if (columnIndex != -1) {
+                companyId = cursor.getInt(columnIndex);
+            }
+        }
+
+        cursor.close();
+        return companyId;
+    }
+
+
+
+    public List<Booking> getPaymentsForUser(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Booking> completedBookings = new ArrayList<>();
+
+        String currentDate = formatDateForDatabase(new Date());
+
+        String query = "SELECT * FROM " + TABLE_BOOKINGS +
+                " WHERE " + COLUMN_BOOKING_USER_ID + " = ?" +
+                " AND " + COLUMN_BOOKING_CHECKOUT_DATE + " < ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId), currentDate});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+
+                int roomId = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_ROOM_ID));
+                String guestName = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_GUEST_NAME));
+                String checkInDateStr = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_CHECKIN_DATE));
+                String checkOutDateStr = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_CHECKOUT_DATE));
+                double totalPrice = cursor.getDouble(cursor.getColumnIndex(COLUMN_BOOKING_TOTAL_PRICE));
+                int numGuests = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_NUM_GUESTS));
+                int children = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_HAS_CHILDREN));
+                String childAge = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_CHILD_AGE));
+                int numRooms = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_NUM_ROOMS));
+
+                Date checkInDate = convertStringToDate(checkInDateStr);
+                Date checkOutDate = convertStringToDate(checkOutDateStr);
+
+                Booking booking = new Booking(roomId, guestName, checkInDate, checkOutDate,
+                        totalPrice, numGuests, children, childAge, numRooms, 0);
+
+                completedBookings.add(booking);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+
+        return completedBookings;
+    }
     public long addPayment(String idCompany, String idUser, String date, String typePayment,
                            double amount) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -872,13 +1129,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_PAYMENT_TYPE_PAYMENT, typePayment);
         cv.put(COLUMN_AMOUNT, amount);
 
-        long result = db.insert(TABLE_BOOKINGS, null, cv);
+        long result = db.insert(TABLE_PAYMENT, null, cv);
 
         return result;
     }
     public long addBooking(String roomID, String guestName, String checkInDate, String checkOutDate,
                            int numGuests, int children, String childAge,
-                        int numRooms, double totalPrice) {
+                        int numRooms, double totalPrice, int userId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -891,6 +1148,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_BOOKING_CHILD_AGE, childAge);
         cv.put(COLUMN_BOOKING_NUM_ROOMS, numRooms);
         cv.put(COLUMN_BOOKING_TOTAL_PRICE, totalPrice);
+        cv.put(COLUMN_BOOKING_USER_ID, userId);
 
         long result = db.insert(TABLE_BOOKINGS, null, cv);
 
@@ -1787,7 +2045,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(companyId)});
-        double totalRating = 0;
         Reviews reviews = null;
         if (cursor.moveToFirst()) {
             double locationRating = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_LOCATION)));
@@ -1795,16 +2052,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             double availabilityRating = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_AVAILABILITY)));
             double comfortRating = Double.parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_COMFORT)));
             String comment = cursor.getString(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_USER_COMMENT));
-            reviews = new Reviews(companyId, locationRating, serviceRating, availabilityRating, comfortRating, comment);
-
-            double weightLocation = 0.25;
-            double weightService = 0.25;
-            double weightAvailability = 0.25;
-            double weightComfort = 0.25;
-
-            // Обчислення загального рейтингу
-            totalRating = (locationRating * weightLocation) + (serviceRating * weightService) + (availabilityRating * weightAvailability) + (comfortRating * weightComfort);
-        }
+            int userId = cursor.getInt(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_ID_USER));
+            int bookingId = cursor.getInt(cursor.getColumnIndex(COLUMN_COMPANY_REVIEWS_ID_BOOKING));
+            reviews = new Reviews(companyId, locationRating, serviceRating, availabilityRating,
+                    comfortRating, comment, userId, bookingId);
+           }
 
         cursor.close();
         db.close();
@@ -1898,4 +2150,99 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return sortedList;
     }
+
+    public List<Payment> getPaymentsByUserId(int userId) {
+        List<Payment> payments = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_PAYMENT +
+                " WHERE " + COLUMN_PAYMENT_USER_ID + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int paymentId = cursor.getInt(cursor.getColumnIndex(COLUMN_PAYMENT_ID));
+                int companyId = cursor.getInt(cursor.getColumnIndex(COLUMN_PAYMENT_ID_COMPANY));
+                Log.d("hello", "payment Company = " + companyId);
+                String paymentDateString = cursor.getString(cursor.getColumnIndex(COLUMN_PAYMENT_DATE));
+                Date paymentDate = convertStringToDate2(paymentDateString);
+                Log.d("hello", "payment Date = " + paymentDate);
+                String typePayment = cursor.getString(cursor.getColumnIndex(COLUMN_PAYMENT_TYPE_PAYMENT));
+                double amount = cursor.getDouble(cursor.getColumnIndex(COLUMN_AMOUNT));
+
+                Payment payment = new Payment(paymentId, userId, companyId, paymentDate, typePayment, amount);
+                payments.add(payment);
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+
+        db.close();
+        return payments;
+    }
+
+    public List<Booking> getUpcomingBookingsForUser(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Booking> upcomingBookings = new ArrayList<>();
+
+        // Отримання поточної дати для порівняння
+        Date currentDate = new Date();
+
+        // SQL-запит для вибору майбутніх бронювань
+        String query = "SELECT * FROM " + TABLE_BOOKINGS +
+                " WHERE " + COLUMN_BOOKING_USER_ID + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_ID));
+                int roomId = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_ROOM_ID));
+                String guestName = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_GUEST_NAME));
+                String checkInDateStr = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_CHECKIN_DATE));
+                String checkOutDateStr = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_CHECKOUT_DATE));
+                double totalPrice = cursor.getDouble(cursor.getColumnIndex(COLUMN_BOOKING_TOTAL_PRICE));
+                int numGuests = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_NUM_GUESTS));
+                int children = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_HAS_CHILDREN));
+                String childAge = cursor.getString(cursor.getColumnIndex(COLUMN_BOOKING_CHILD_AGE));
+                int numRooms = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_NUM_ROOMS));
+
+                Date checkInDate = convertStringToDate2(checkInDateStr);
+                Date checkOutDate = convertStringToDate2(checkOutDateStr);
+
+                // Порівняння дат
+                if (checkOutDate != null && checkInDate.after(currentDate)) {
+                    // Створення об'єкта Booking
+                    Booking booking = new Booking(id, roomId, guestName, checkInDate, checkOutDate,
+                            totalPrice, numGuests, children, childAge, numRooms, 0, userId);
+
+                    upcomingBookings.add(booking);
+                }
+
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+
+        return upcomingBookings;
+    }
+    public long addReview(int idCompany, double location, double service, double availability,
+                          double comfort, String userComment, int userId, int bookingId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_COMPANY_REVIEWS_ID_COMPANY, idCompany);
+        cv.put(COLUMN_COMPANY_REVIEWS_ID_USER, userId);
+        cv.put(COLUMN_COMPANY_REVIEWS_LOCATION, location);
+        cv.put(COLUMN_COMPANY_REVIEWS_SERVICE, service);
+        cv.put(COLUMN_COMPANY_REVIEWS_AVAILABILITY, availability);
+        cv.put(COLUMN_COMPANY_REVIEWS_COMFORT, comfort);
+        cv.put(COLUMN_COMPANY_REVIEWS_USER_COMMENT, userComment);
+        cv.put(COLUMN_COMPANY_REVIEWS_ID_BOOKING, bookingId);
+
+        long result = db.insert(TABLE_COMPANY_REVIEWS, null, cv);
+
+        return result;
+    }
+
 }

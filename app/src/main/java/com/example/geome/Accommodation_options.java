@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -52,9 +53,16 @@ public class Accommodation_options extends AppCompatActivity {
         children.setText(String.valueOf(booking.getChildren()));
         room.setText(String.valueOf(booking.getNumRooms()));
 
+//        String date1 = String.valueOf(booking.getCheckInDate());
+//        String date2 = String.valueOf(booking.getCheckOutDate());
+
 
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        List<Room> rooms = databaseHelper.getAvailableRoomsByIdCompany(IdCompany, booking.getCheckInDate(), booking.getCheckOutDate());
+        List<Room> rooms = databaseHelper.getAvailableRoomsByIdCompany(IdCompany,
+                booking.getCheckInDate(), booking.getCheckOutDate(), booking.getNumGuests());
+        //List<Room> rooms = databaseHelper.getAvailableRoomsByIdCompany(IdCompany, date1, date2);
+
+//        Log.d("hello ", "date 1 = " + date1);
 
         RoomsAdapter adapter = new RoomsAdapter(this, R.layout.hotel_card, rooms, booking);
         listView_options.setAdapter(adapter);
