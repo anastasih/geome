@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,6 +27,13 @@ public class Accommodation_options extends AppCompatActivity {
     private TextView adults;
     private TextView children;
     private TextView room;
+    ImageView buttonBack_options;
+    ImageButton ImageButtonMap;
+    ImageButton ImageButtonProfile;
+    ImageButton ImageButtonMain;
+    ImageButton ImageButtonRibbon;
+    ImageButton ImageButtonCity;
+    ImageButton ImageButtonChat;
     private ListView listView_options;
     public Booking booking;
     @Override
@@ -38,6 +48,25 @@ public class Accommodation_options extends AppCompatActivity {
         room = findViewById(R.id.room);
         listView_options = findViewById(R.id.listView_options);
 
+        buttonBack_options = findViewById(R.id.buttonBack_options);
+
+        ImageButtonMap = findViewById(R.id.ImageButtonMap);
+        ImageButtonProfile = findViewById(R.id.ImageButtonProfile);
+
+        ImageButtonMain = findViewById(R.id.ImageButtonMain);
+        ImageButtonRibbon = findViewById(R.id.ImageButtonRibbon);
+        ImageButtonCity = findViewById(R.id.ImageButtonCity);
+        ImageButtonChat = findViewById(R.id.ImageButtonChat);
+
+        buttonBack_options.setOnClickListener(this::buttonBackClick);
+        ImageButtonMap.setOnClickListener(this::ImageButtonMapClick);
+        ImageButtonProfile.setOnClickListener(this::ImageButtonProfileClick);
+
+        ImageButtonMain.setOnClickListener(this::ImageButtonMainClick);
+        ImageButtonRibbon.setOnClickListener(this::ImageButtonRibbonClick);
+        ImageButtonCity.setOnClickListener(this::ImageButtonCityClick);
+        ImageButtonChat.setOnClickListener(this::ImageButtonChatClick);
+
         Intent intent = getIntent();
         booking = (Booking) intent.getSerializableExtra(payment.KEY_BOOKING);
 //        Date date1 = (Date) intent.getSerializableExtra(payment.KEY_IN_DATE);
@@ -49,9 +78,9 @@ public class Accommodation_options extends AppCompatActivity {
         data1.setText(formattedDate);
         formattedDate = sdf.format(booking.getCheckOutDate());
         data2.setText(formattedDate);
-        adults.setText(String.valueOf(booking.getNumGuests()));
-        children.setText(String.valueOf(booking.getChildren()));
-        room.setText(String.valueOf(booking.getNumRooms()));
+        adults.setText(String.valueOf(booking.getNumGuests()) + " дорослих");
+        children.setText(String.valueOf(booking.getChildren())+ " дітей");
+        room.setText(String.valueOf(booking.getNumRooms()) + " номер");
 
 //        String date1 = String.valueOf(booking.getCheckInDate());
 //        String date2 = String.valueOf(booking.getCheckOutDate());
@@ -68,4 +97,38 @@ public class Accommodation_options extends AppCompatActivity {
         listView_options.setAdapter(adapter);
 
     }
+
+    private void buttonBackClick(View view) {
+        Intent intent = new Intent(Accommodation_options.this, HostelActivity.class);
+        startActivity(intent);
+    } private void ImageButtonMapClick(View view) {
+        Intent intent = new Intent(Accommodation_options.this, HomePage.class);
+        startActivity(intent);
+    }
+    private void ImageButtonProfileClick(View view) {
+        Intent intent = new Intent(Accommodation_options.this, MainBottomMenuActivity.class);
+        intent.putExtra("fragmentName", ProfileFragment.class.getName());
+        startActivity(intent);
+    }
+
+    private void ImageButtonChatClick(View view) {
+        Intent intent = new Intent(Accommodation_options.this, MainBottomMenuActivity.class);
+        intent.putExtra("fragmentName", ChatFragment.class.getName());
+        startActivity(intent);
+    }
+    private void ImageButtonCityClick(View view) {
+        Intent intent = new Intent(Accommodation_options.this, MainBottomMenuActivity.class);
+        intent.putExtra("fragmentName", CityFragment.class.getName());
+        startActivity(intent);
+    }
+    private void ImageButtonRibbonClick(View view) {
+        Intent intent = new Intent(Accommodation_options.this, MainBottomMenuActivity.class);
+        intent.putExtra("fragmentName", NewsFeedFragment.class.getName());
+        startActivity(intent);
+    }
+    private void ImageButtonMainClick(View view) {
+        Intent intent = new Intent(Accommodation_options.this, HomePage.class);
+        startActivity(intent);
+    }
+
 }

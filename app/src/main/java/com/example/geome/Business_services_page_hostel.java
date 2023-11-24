@@ -110,7 +110,19 @@ public class Business_services_page_hostel extends AppCompatActivity {
             company_rating.setRating(0.0f); // Можливо, ви хочете задати значення за замовчуванням
         }
         rating.setText(String.valueOf(totalRating));
-        replaceFragment(new Feeds(IdCompany));
+        String fragmentName = getIntent().getStringExtra("fragmentName");
+
+//        if (fragmentName != null) {
+//            try {
+//                Class<?> fragmentClass = Class.forName(fragmentName);
+//                Fragment fragment = (Fragment) fragmentClass.newInstance();
+//                replaceFragment(new payment(IdCompany));
+//            } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+//                e.printStackTrace();
+//            }
+       // }else{
+            replaceFragment(new Feeds(IdCompany));
+       // }
 
         initView();
     }

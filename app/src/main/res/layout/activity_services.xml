@@ -208,7 +208,7 @@
             android:background="#00000000"
             android:contentDescription="Кнопка головна"
             android:scaleType="fitCenter"
-            android:src="@drawable/not_main" />
+            android:src="@drawable/home_not_main" />
 
         <ImageButton
             android:id="@+id/ImageButtonRibbon_services"

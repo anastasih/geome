@@ -20,14 +20,6 @@
             android:background="@android:color/transparent"
             android:scaleType="centerCrop"/>
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="30dp"
-            android:src="@drawable/save"
-            android:layout_marginTop="-160dp"
-            android:layout_marginLeft="340dp">
-
-        </ImageView>
         <FrameLayout
             android:layout_width="130dp"
             android:layout_height="20dp"

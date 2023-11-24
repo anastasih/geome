@@ -11,6 +11,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +51,14 @@ public class Reservation extends AppCompatActivity {
     private TextView room;
     private TextView value;
     private TextView TotalValue;
+
+    ImageView buttonBack_options;
+    ImageButton ImageButtonMap;
+    ImageButton ImageButtonProfile;
+    ImageButton ImageButtonMain;
+    ImageButton ImageButtonRibbon;
+    ImageButton ImageButtonCity;
+    ImageButton ImageButtonChat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +79,25 @@ public class Reservation extends AppCompatActivity {
         value = findViewById(R.id.value);
         TotalValue = findViewById(R.id.TotalValue);
 
+        buttonBack_options = findViewById(R.id.buttonBack_options);
+
+        ImageButtonMap = findViewById(R.id.ImageButtonMap);
+        ImageButtonProfile = findViewById(R.id.ImageButtonProfile);
+
+        ImageButtonMain = findViewById(R.id.ImageButtonMain);
+        ImageButtonRibbon = findViewById(R.id.ImageButtonRibbon);
+        ImageButtonCity = findViewById(R.id.ImageButtonCity);
+        ImageButtonChat = findViewById(R.id.ImageButtonChat);
+
+        buttonBack_options.setOnClickListener(this::buttonBackClick);
+        ImageButtonMap.setOnClickListener(this::ImageButtonMapClick);
+        ImageButtonProfile.setOnClickListener(this::ImageButtonProfileClick);
+
+        ImageButtonMain.setOnClickListener(this::ImageButtonMainClick);
+        ImageButtonRibbon.setOnClickListener(this::ImageButtonRibbonClick);
+        ImageButtonCity.setOnClickListener(this::ImageButtonCityClick);
+        ImageButtonChat.setOnClickListener(this::ImageButtonChatClick);
+
         SimpleDateFormat sdf = new SimpleDateFormat("d MMMM yyyy", new Locale("uk"));
         String formattedDate = sdf.format(booking.getCheckInDate());
         data1.setText(formattedDate);
@@ -79,9 +108,9 @@ public class Reservation extends AppCompatActivity {
         // Переведення мілісекунд в дні
         int daysDifference = (int) (differenceInMillis / (1000 * 60 * 60 * 24));
 
-        adults.setText(String.valueOf(booking.getNumGuests()));
-        children.setText(String.valueOf(booking.getChildren()));
-        room.setText(String.valueOf(booking.getNumRooms()));
+        adults.setText(String.valueOf(booking.getNumGuests()) + " дорослих");
+        children.setText(String.valueOf(booking.getChildren()) + " дітей");
+        room.setText(String.valueOf(booking.getNumRooms()) + " номер");
         value.setText(String.valueOf(daysDifference * booking.getTotalPrice()));
         TotalValue.setText(String.valueOf(daysDifference * booking.getTotalPrice()));
         booking.setTotalPrice(daysDifference * booking.getTotalPrice());
@@ -135,8 +164,8 @@ public class Reservation extends AppCompatActivity {
     }
 
     public static void sendEmail(Context context, String recipientEmail, String subject, String body) {
-        final String username = "anastasi.gulko@gmail.com";
-        final String password = "zptlredtkcuigtra";
+        final String username = "@gmail.com";
+        final String password = "";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -251,5 +280,38 @@ public class Reservation extends AppCompatActivity {
     public void showReservationDialog() {
         ReservationDialogFragment dialogFragment = new ReservationDialogFragment(booking);
         dialogFragment.show(getSupportFragmentManager(), "ReservationDialog");
+    }
+
+    private void buttonBackClick(View view) {
+        Intent intent = new Intent(Reservation.this, HostelActivity.class);
+        startActivity(intent);
+    } private void ImageButtonMapClick(View view) {
+        Intent intent = new Intent(Reservation.this, HomePage.class);
+        startActivity(intent);
+    }
+    private void ImageButtonProfileClick(View view) {
+        Intent intent = new Intent(Reservation.this, MainBottomMenuActivity.class);
+        intent.putExtra("fragmentName", ProfileFragment.class.getName());
+        startActivity(intent);
+    }
+
+    private void ImageButtonChatClick(View view) {
+        Intent intent = new Intent(Reservation.this, MainBottomMenuActivity.class);
+        intent.putExtra("fragmentName", ChatFragment.class.getName());
+        startActivity(intent);
+    }
+    private void ImageButtonCityClick(View view) {
+        Intent intent = new Intent(Reservation.this, MainBottomMenuActivity.class);
+        intent.putExtra("fragmentName", CityFragment.class.getName());
+        startActivity(intent);
+    }
+    private void ImageButtonRibbonClick(View view) {
+        Intent intent = new Intent(Reservation.this, MainBottomMenuActivity.class);
+        intent.putExtra("fragmentName", NewsFeedFragment.class.getName());
+        startActivity(intent);
+    }
+    private void ImageButtonMainClick(View view) {
+        Intent intent = new Intent(Reservation.this, HomePage.class);
+        startActivity(intent);
     }
 }

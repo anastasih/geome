@@ -39,7 +39,6 @@ public class payment extends Fragment {
     private TextView count1;
     private TextView count2;
     private TextView count3;
-    private TextView count4;
     private TextView button_accommodation_options;
     private String[] months = {"Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень",
             "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"};
@@ -77,7 +76,7 @@ public class payment extends Fragment {
         count1 = rootView.findViewById(R.id.count1);
         count2 = rootView.findViewById(R.id.count2);
         count3 = rootView.findViewById(R.id.count3);
-        count4 = rootView.findViewById(R.id.count4);
+
 
 
         button_accommodation_options = rootView.findViewById(R.id.button_accommodation_options);
@@ -92,7 +91,7 @@ public class payment extends Fragment {
         vector7 = rootView.findViewById(R.id.vector7);
         vector8 = rootView.findViewById(R.id.vector8);
         vector9 = rootView.findViewById(R.id.vector9);
-        vector10 = rootView.findViewById(R.id.vector10);
+
 
         vector1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,13 +165,7 @@ public class payment extends Fragment {
             }
         });
 
-        vector10.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Відображення діалогового вікна для вибору числа
-                showNumberPickerDialog6();
-            }
-        });
+
         return rootView;
     }
 
@@ -206,15 +199,15 @@ public class payment extends Fragment {
         Date currentDate = new Date();
         if(booking.getCheckInDate() != null && booking.getCheckOutDate() != null &&
                 booking.getNumGuests() != 0 &&  booking.getNumRooms() != 0){
-            //if(!date1.before(currentDate) && !date2.before(currentDate)){
+            if(!date1.before(currentDate) && !date2.before(currentDate)){
                 Intent intent = new Intent(getContext(), Accommodation_options.class);
                 intent.putExtra(KEY_ID_COMPANY, Id);
                 intent.putExtra(KEY_BOOKING, booking);
                 startActivity(intent);
-            //}
-            //else {
-                //Toast.makeText(getContext(), "Дати вже минули, не можна забронювати готель", Toast.LENGTH_SHORT).show();
-            //}
+            }
+            else {
+                Toast.makeText(getContext(), "Дати вже минули, не можна забронювати готель", Toast.LENGTH_SHORT).show();
+            }
 
         }
         else{
@@ -407,7 +400,7 @@ public class payment extends Fragment {
 
     private void showNumberPickerDialog3() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Виберіть день");
+        builder.setTitle("Виберіть кількість дорослих");
 
         // Масив днів від 1 до 31
         final String[] days = new String[10];
@@ -438,7 +431,7 @@ public class payment extends Fragment {
 
     private void showNumberPickerDialog4() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Виберіть день");
+        builder.setTitle("Виберіть кількість дітей");
 
         // Масив днів від 1 до 31
         final String[] days = new String[10];
@@ -469,7 +462,7 @@ public class payment extends Fragment {
 
     private void showNumberPickerDialog5() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Виберіть день");
+        builder.setTitle("Виберіть кількість номерів");
 
         // Масив днів від 1 до 31
         final String[] days = new String[10];
@@ -498,36 +491,6 @@ public class payment extends Fragment {
         builder.create().show();
     }
 
-    private void showNumberPickerDialog6() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Виберіть день");
-
-        // Масив днів від 1 до 31
-        final String[] days = new String[10];
-        for (int i = 0; i < 10; i++) {
-            days[i] = String.valueOf(i + 1);
-        }
-
-        builder.setSingleChoiceItems(days, selectedDay - 1, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // Оновлення обраного дня при виборі
-                selectedDay = i + 1;
-            }
-        });
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // Викликати функцію встановлення тексту у TextView
-                setSoloRoomText6();
-            }
-        });
-
-        builder.setNegativeButton("Відміна", null);
-
-        builder.create().show();
-    }
     public int checkInDay1;
     public int checkInDay2;
     public int checkInMonth1;
@@ -576,10 +539,4 @@ public class payment extends Fragment {
         count3.setText(String.valueOf(selectedDay));
         Rooms = selectedDay;
     }
-    private void setSoloRoomText6() {
-        count4.setText(String.valueOf(selectedDay));
-        SoloRoom = selectedDay;
-    }
-
-
 }

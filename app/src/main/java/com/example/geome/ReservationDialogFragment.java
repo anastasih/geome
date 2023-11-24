@@ -58,9 +58,9 @@ public class ReservationDialogFragment extends DialogFragment {
         data1.setText(formattedDate);
         formattedDate = sdf.format(booking.getCheckOutDate());
         data2.setText(formattedDate);
-        adults.setText(String.valueOf(booking.getNumGuests()));
-        children.setText(String.valueOf(booking.getChildren()));
-        room.setText(String.valueOf(booking.getNumRooms()));
+        adults.setText(String.valueOf(booking.getNumGuests()) + " дорослих");
+        children.setText(String.valueOf(booking.getChildren()) + " дітей");
+        room.setText(String.valueOf(booking.getNumRooms()) + " номер");
         value.setText(String.valueOf(booking.getTotalPrice()));
         TotalValue.setText(String.valueOf(booking.getTotalPrice()));
 
@@ -71,7 +71,6 @@ public class ReservationDialogFragment extends DialogFragment {
                 getDialog().dismiss();
             }
         });
-
 
         buttonServiceHistory.setOnClickListener(new View.OnClickListener() {
             @Override

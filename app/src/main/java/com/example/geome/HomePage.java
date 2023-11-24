@@ -61,7 +61,7 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Перехід до іншої Activity, наприклад, FirstPage.class
-                Intent intent = new Intent(HomePage.this, FirstPage.class);
+                Intent intent = new Intent(HomePage.this, HomePage.class);
                 startActivity(intent);
             }
         });

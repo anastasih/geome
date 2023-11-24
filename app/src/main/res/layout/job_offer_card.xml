@@ -60,13 +60,6 @@
             android:text="hello world"
             android:layout_marginRight="11dp"/>
 
-        <ImageView
-            android:layout_width="14dp"
-            android:layout_height="22dp"
-            android:src="@drawable/save"
-            android:gravity="center"
-            />
-
     </LinearLayout>
 
     <LinearLayout
